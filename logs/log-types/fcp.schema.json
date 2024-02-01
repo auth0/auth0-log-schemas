@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Failed Change Password",
+  "properties": {
+    "client_id": {
+      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "client_name": {
+      "description": "Client name associated with the client_id, when available. May be empty string.",
+      "type": "string"
+    },
+    "connection": {
+      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+      "type": "string"
+    },
+    "connection_id": {
+      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "body": {
+          "properties": {
+            "_csrf": {
+              "type": "string"
+            },
+            "confirmNewPassword": {
+              "type": "string"
+            },
+            "newPassword": {
+              "type": "string"
+            },
+            "ticket": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "confirmNewPassword",
+            "newPassword",
+            "_csrf",
+            "ticket"
+          ],
+          "type": "object"
+        },
+        "description": {
+          "type": "string"
+        },
+        "query": {
+          "properties": {
+            "client_id": {
+              "type": "string"
+            },
+            "connection": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "includeEmailInRedirect": {
+              "type": "boolean"
+            },
+            "markEmailAsVerified": {
+              "type": "boolean"
+            },
+            "newPassword": {
+              "type": "string"
+            },
+            "resultUrl": {
+              "type": "string"
+            },
+            "tenant": {
+              "type": "string"
+            },
+            "user_id": {
+              "type": "string"
+            },
+            "username": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "client_id",
+            "connection",
+            "email",
+            "includeEmailInRedirect",
+            "markEmailAsVerified",
+            "newPassword",
+            "resultUrl",
+            "tenant",
+            "user_id",
+            "username"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "body",
+        "description",
+        "query"
+      ],
+      "type": "object"
+    },
+    "ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "strategy": {
+      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
+      "examples": [
+        [
+          "auth0",
+          "waad",
+          "oktawic",
+          "google-oauth2"
+        ]
+      ],
+      "type": "string"
+    },
+    "strategy_type": {
+      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
+      "examples": [
+        [
+          "database",
+          "social",
+          "enterprise"
+        ]
+      ],
+      "type": "string"
+    },
+    "type": {
+      "const": "fcp",
+      "description": "Failed Change Password",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    },
+    "user_id": {
+      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+      "type": "string"
+    },
+    "user_name": {
+      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+      "examples": [
+        [
+          "example@example.com",
+          "+14155554321"
+        ]
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_name",
+    "description",
+    "details",
+    "ip",
+    "log_id",
+    "strategy",
+    "strategy_type",
+    "type"
+  ],
+  "type": "object"
+}

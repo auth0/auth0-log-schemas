@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "client_id": {
+      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "client_name": {
+      "description": "Client name associated with the client_id, when available. May be empty string.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "initiator": {
+          "type": "string"
+        },
+        "request": {
+          "properties": {
+            "backchannel_logout_uri": {
+              "type": "string"
+            },
+            "method": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "backchannel_logout_uri"
+          ],
+          "type": "object"
+        },
+        "response": {
+          "properties": {
+            "statusCode": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "statusCode"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "request",
+        "response",
+        "initiator"
+      ],
+      "type": "object"
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "type": {
+      "const": "oidc_backchannel_logout_succeeded",
+      "description": "Successful OIDC Back-Channel Logout request",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    },
+    "user_id": {
+      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+      "type": "string"
+    },
+    "user_name": {
+      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+      "examples": [
+        [
+          "example@example.com",
+          "+14155554321"
+        ]
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_name",
+    "description",
+    "details",
+    "log_id",
+    "type"
+  ],
+  "type": "object"
+}

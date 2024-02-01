@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "A user has been prompted for multi-factor authentication (MFA). When using Adaptive MFA, Auth0 includes details about the risk assessment",
+  "properties": {
+    "auth0_client": {
+      "anyOf": [
+        {
+          "properties": {
+            "env": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        }
+      ],
+      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+    },
+    "client_id": {
+      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "client_ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+    },
+    "client_name": {
+      "description": "Client name associated with the client_id, when available. May be empty string.",
+      "type": "string"
+    },
+    "connection": {
+      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+      "type": "string"
+    },
+    "connection_id": {
+      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "assessments": {
+          "properties": {
+            "ImpossibleTravel": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "confidence": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "confidence"
+              ],
+              "type": "object"
+            },
+            "UntrustedIP": {
+              "properties": {
+                "code": {
+                  "type": "string"
+                },
+                "confidence": {
+                  "type": "string"
+                },
+                "details": {
+                  "properties": {
+                    "ip": {
+                      "type": "string"
+                    },
+                    "matches": {
+                      "type": "string"
+                    },
+                    "source": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "ip",
+                    "matches",
+                    "source"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "code",
+                "confidence",
+                "details"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "confidence": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "confidence",
+        "version"
+      ],
+      "type": "object"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+      "type": "string"
+    },
+    "ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "strategy": {
+      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
+      "examples": [
+        [
+          "auth0",
+          "waad",
+          "oktawic",
+          "google-oauth2"
+        ]
+      ],
+      "type": "string"
+    },
+    "strategy_type": {
+      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
+      "examples": [
+        [
+          "database",
+          "social",
+          "enterprise"
+        ]
+      ],
+      "type": "string"
+    },
+    "type": {
+      "const": "mfar",
+      "description": "MFA Required",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    },
+    "user_id": {
+      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+      "type": "string"
+    },
+    "user_name": {
+      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+      "examples": [
+        [
+          "example@example.com",
+          "+14155554321"
+        ]
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "auth0_client",
+    "client_name",
+    "description",
+    "hostname",
+    "ip",
+    "log_id",
+    "strategy",
+    "strategy_type",
+    "type"
+  ],
+  "type": "object"
+}
