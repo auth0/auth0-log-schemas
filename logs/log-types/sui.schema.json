@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Successful Users Import",
+  "properties": {
+    "connection": {
+      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+      "type": "string"
+    },
+    "connection_id": {
+      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "connection": {
+          "type": "string"
+        },
+        "tenant": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "type": {
+      "const": "sui",
+      "description": "Successful Users Import",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "details",
+    "log_id",
+    "type"
+  ],
+  "type": "object"
+}
