@@ -2,6 +2,22 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Successful Exchange - Native Social Login",
   "properties": {
+    "$event_schema": {
+      "description": "Event schema meta",
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ],
+          "type": "object"
+        }
+      ]
+    },
     "audience": {
       "description": "The audience in the JWT associated with the request.",
       "type": "string"

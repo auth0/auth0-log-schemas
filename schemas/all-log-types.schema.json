@@ -538,6 +538,17 @@
       ],
       "type": "object"
     },
+    "SchemaMeta": {
+      "properties": {
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "type": "object"
+    },
     "SignupDetails": {
       "properties": {
         "actions": {
@@ -1076,6 +1087,14 @@
     "api_limit": {
       "description": "The maximum number of requests to the Authentication or Management APIs in given time was reached",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -1183,6 +1202,14 @@
     "cls": {
       "description": "Passwordless Login Code/Link Sent",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -1327,6 +1354,14 @@
     "cs": {
       "description": "Passwordless Login Code Sent",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -1510,6 +1545,14 @@
     "depnote": {
       "description": "Deprecation Notice",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -1906,6 +1949,14 @@
     "fco": {
       "description": "Failed due to CORS. Is the origin in the Allowed Origins list for the specified application?",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -2058,6 +2109,14 @@
     "fcoa": {
       "description": "Failed Cross-Origin Authentication",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -2228,6 +2287,14 @@
     "fcp": {
       "description": "Failed Change Password",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -2415,6 +2482,14 @@
     "fcph": {
       "description": "Failed Post Change Password Hook",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -2529,6 +2604,14 @@
     "fcpn": {
       "description": "Failed Change Phone Number",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -2680,6 +2763,14 @@
     "fcpr": {
       "description": "Failed Change Password Request",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -2835,6 +2926,14 @@
     "fcpro": {
       "description": "Failed to provision a AD/LDAP connector",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -2929,6 +3028,14 @@
     "fcu": {
       "description": "Failed to change username",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -3076,6 +3183,14 @@
     "fd": {
       "description": "Failed to generate delegation token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -3199,6 +3314,14 @@
     "fdeac": {
       "description": "Failed Device Confirmation - Device Activation Failure",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -3351,6 +3474,14 @@
     "fdeaz": {
       "description": "Failed Device Confirmation - Request Failure",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -3453,6 +3584,14 @@
     "fdecc": {
       "description": "Failed Device Confirmation - User Canceled",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -3535,6 +3674,14 @@
     "fdu": {
       "description": "Failed User Deletion",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -3646,6 +3793,14 @@
     "feacft": {
       "description": "Failed to Exchange Authorization Code for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -3762,6 +3917,14 @@
     "feccft": {
       "description": "Failed exchange of Access Token for a Client Credentials Grant",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -3888,6 +4051,14 @@
     "fede": {
       "description": "Failed to exchange Device Code for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -3973,6 +4144,14 @@
     "fens": {
       "description": "Failed exchange for Native Social Login",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4103,6 +4282,14 @@
     "feoobft": {
       "description": "Failed exchange of Password and OOB Challenge for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4215,6 +4402,14 @@
     "feotpft": {
       "description": "Failed exchange of Password and OTP Challenge for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4343,6 +4538,14 @@
     "fepft": {
       "description": "Failed exchange of Password for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4471,6 +4674,14 @@
     "fepotpft": {
       "description": "Failed exchange of Passwordless OTP for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4599,6 +4810,14 @@
     "fercft": {
       "description": "Failed Exchange of Password and MFA Recovery Code for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4711,6 +4930,14 @@
     "ferrt": {
       "description": "Failed Exchange of Rotating Refresh Token. This could occur when reuse is detected.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4849,6 +5076,14 @@
     "fertft": {
       "description": "Failed Exchange of Refresh Token for Access Token. This could occur if the refresh token is revoked or expired.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -4976,6 +5211,14 @@
     "fi": {
       "description": "Failed to accept a user invitation. This could happen if the user accepts an invitation using a different email address than provided in the invitation, or due to a system failure while provisioning the invitation.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -5138,6 +5381,14 @@
     "flo": {
       "description": "Failed Logout",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -5265,6 +5516,14 @@
     "fn": {
       "description": "Failed Notification",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -5336,6 +5595,14 @@
     "fp": {
       "description": "Failed login due to invalid password",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -5483,6 +5750,14 @@
     "fpar": {
       "description": "Failed Push Authorization Request",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -5612,6 +5887,14 @@
     "fpurh": {
       "description": "Failed Post User Registration Hook",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -5717,6 +6000,14 @@
     "fs": {
       "description": "Failed Signup",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -5851,6 +6142,14 @@
     "fsa": {
       "description": "Failed Silent Auth",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -5971,6 +6270,14 @@
     "fu": {
       "description": "Failed login due to invalid username",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -6099,6 +6406,14 @@
     "fv": {
       "description": "Failed to send verification email",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "body": {
           "type": "object"
         },
@@ -6287,6 +6602,14 @@
     "fvr": {
       "description": "Failed to proces verification email request",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -6456,6 +6779,14 @@
     },
     "gd_auth_email_verification": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -6521,6 +6852,14 @@
     "gd_auth_failed": {
       "description": "Multi-factor authentication failed. This could happen due to a wrong code entered for SMS/Voice/Email/TOTP factors, or a system failure.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -6682,6 +7021,14 @@
     "gd_auth_rejected": {
       "description": "User rejected a multi-factor authentication request via push-notification",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -6746,6 +7093,14 @@
     },
     "gd_auth_succeed": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -6811,6 +7166,14 @@
     "gd_enrollment_complete": {
       "description": "A first time MFA user has successfully enrolled using one of the factors",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -6876,6 +7239,14 @@
     "gd_otp_rate_limit_exceed": {
       "description": "A user, during enrollment or authentication, enters an incorrect code more than the maximum allowed number of times. Ex: A user enrolling in SMS enters the 6-digit code wrong more than 10 times in a row.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -6941,6 +7312,14 @@
     "gd_recovery_failed": {
       "description": "A user entered a wrong Recovery Code when attempting to authenticate",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7005,6 +7384,14 @@
     },
     "gd_recovery_succeed": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7069,6 +7456,14 @@
     },
     "gd_send_email": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7133,6 +7528,14 @@
     },
     "gd_send_email_failure": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7198,6 +7601,14 @@
     "gd_send_pn": {
       "description": "Push notification for MFA sent successfully sent",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7263,6 +7674,14 @@
     "gd_send_pn_failure": {
       "description": "Push notification for MFA failed",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7327,6 +7746,14 @@
     },
     "gd_send_sms": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7391,6 +7818,14 @@
     },
     "gd_send_sms_failure": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7455,6 +7890,14 @@
     },
     "gd_send_voice": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7519,6 +7962,14 @@
     },
     "gd_send_voice_failure": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7583,6 +8034,14 @@
     },
     "gd_start_auth": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -7655,6 +8114,14 @@
     },
     "gd_start_enroll": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7719,6 +8186,14 @@
     },
     "gd_start_enroll_failed": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7783,6 +8258,14 @@
     },
     "gd_tenant_update": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7847,6 +8330,14 @@
     },
     "gd_unenroll": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7911,6 +8402,14 @@
     },
     "gd_update_device_account": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -7975,6 +8474,14 @@
     },
     "gd_webauthn_challenge_failed": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -8047,6 +8554,14 @@
     },
     "gd_webauthn_enrollment_failed": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -8120,6 +8635,14 @@
     "limit_delegation": {
       "description": "A user is temporarily prevented from logging in because of too many delegation requests",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -8193,6 +8716,14 @@
     "limit_mu": {
       "description": "An IP address is blocked because it attempted too many failed logins without a successful login. Or an IP address is blocked because it attempted too many sign-ups, whether successful or failed.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -8278,6 +8809,14 @@
     "limit_sul": {
       "description": "A user is temporarily prevented from logging in because they  reached the maximum logins per time period from the same IP address",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -8363,6 +8902,14 @@
     "limit_wc": {
       "description": "An IP address is blocked because it reached the maximum failed login attempts into a single account.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -8448,6 +8995,14 @@
     "mfar": {
       "description": "A user has been prompted for multi-factor authentication (MFA). When using Adaptive MFA, Auth0 includes details about the risk assessment",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -8653,6 +9208,14 @@
     "mgmt_api_read": {
       "description": "Successful GET request on the management API. This event will only be emitted if a secret is returned.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -8879,6 +9442,14 @@
     },
     "oidc_backchannel_logout_failed": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -8982,6 +9553,14 @@
     },
     "oidc_backchannel_logout_succeeded": {
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -9086,6 +9665,14 @@
     "pla": {
       "description": "Generated before a login and helps in monitoring the behavior of bot detection without having to enable it.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -9205,6 +9792,14 @@
     "pwd_leak": {
       "description": "Someone behind the IP address ip attempted to login with a leaked password",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -9290,6 +9885,14 @@
     "resource_cleanup": {
       "description": "Emitted when resources exceeding defined limits were removed. Normally related to refresh tokens",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -9371,6 +9974,14 @@
     "s": {
       "description": "Successful Login",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -9511,6 +10122,14 @@
     "sapi": {
       "description": "Successful API Operation Only emitted by the Management API on POST, DELETE, PATCH, and PUT",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -9632,6 +10251,14 @@
     "sce": {
       "description": "Successful Change Email",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -9783,6 +10410,14 @@
     "scoa": {
       "description": "Successful Cross-Origin Authentication",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -9940,6 +10575,14 @@
     "scp": {
       "description": "Successful Change Password",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -10064,6 +10707,14 @@
     "scph": {
       "description": "Successful Post Change Password Hook",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -10209,6 +10860,14 @@
     "scpn": {
       "description": "Successful Change Phone Number",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -10350,6 +11009,14 @@
     "scpr": {
       "description": "Successful Change Password Request",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -10509,6 +11176,14 @@
     "scu": {
       "description": "Successful Change Username",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -10651,6 +11326,14 @@
     "sd": {
       "description": "Successful Delegation",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -10774,6 +11457,14 @@
     "sdu": {
       "description": "Successful User Deletion",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -10885,6 +11576,14 @@
     "seacft": {
       "description": "Successful Exchange of Authorization Code for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -11010,6 +11709,14 @@
     "seccft": {
       "description": "Successful Exchange of Access Token for a Client Credentials Grant",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -11151,6 +11858,14 @@
     "sede": {
       "description": "Successful Exchange of Device Code for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -11259,6 +11974,14 @@
     "sens": {
       "description": "Successful Exchange - Native Social Login",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -11381,6 +12104,14 @@
     "seoobft": {
       "description": "Successful Exchange of Password and OOB Challenge for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -11626,6 +12357,14 @@
     "sepft": {
       "description": "Successful Exchange of Password for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -11763,6 +12502,14 @@
     "sercft": {
       "description": "Successful Exchange of Password and MFA Recovery Codeode for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -11878,6 +12625,14 @@
     "sertft": {
       "description": "Successful Exchange of Refresh Token for Access Token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -12018,6 +12773,14 @@
     "si": {
       "description": "Successfully accepted a user invitation",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -12166,6 +12929,14 @@
     "slo": {
       "description": "Successful Logout",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -12289,6 +13060,14 @@
     "srrt": {
       "description": "Successfully revoked a refresh token",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -12427,6 +13206,14 @@
     "ss": {
       "description": "Successful Signup",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -12567,6 +13354,14 @@
     "ssa": {
       "description": "Successful Silent Auth",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -12677,6 +13472,14 @@
     "sui": {
       "description": "Successful Users Import",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -12729,6 +13532,14 @@
     "sv": {
       "description": "Successfully consumed email verification link",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -12898,6 +13709,14 @@
     "svr": {
       "description": "Successfully called verification email endpoint. Verification email has been queued for sending.",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -13068,6 +13887,14 @@
     "ublkdu": {
       "description": "User block setup by anomaly detection has been released",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
@@ -13192,6 +14019,14 @@
     "w": {
       "description": "A warning has happened during a login flow",
       "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"

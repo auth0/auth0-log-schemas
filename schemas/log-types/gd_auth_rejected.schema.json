@@ -2,6 +2,22 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "User rejected a multi-factor authentication request via push-notification",
   "properties": {
+    "$event_schema": {
+      "description": "Event schema meta",
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ],
+          "type": "object"
+        }
+      ]
+    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
