@@ -157,7 +157,6 @@
     }
   },
   "required": [
-    "auth0_client",
     "client_name",
     "description",
     "details",
