@@ -1189,7 +1189,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -1820,7 +1819,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "details",
         "hostname",
@@ -2094,7 +2092,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -2271,7 +2268,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -3299,7 +3295,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -3902,7 +3897,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -4037,7 +4031,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -4267,7 +4260,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -4524,7 +4516,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -4660,7 +4651,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -4796,7 +4786,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -5061,7 +5050,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -5196,7 +5184,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -5501,7 +5488,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -6256,7 +6242,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -9192,7 +9177,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -9429,7 +9413,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -9777,7 +9760,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -10105,7 +10087,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -10237,7 +10218,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -10558,7 +10538,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -11442,7 +11421,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -11694,7 +11672,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -11844,7 +11821,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -12090,7 +12066,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -12238,7 +12213,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "hostname",
@@ -12346,7 +12320,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "hostname",
         "ip"
@@ -12488,7 +12461,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -12759,7 +12731,6 @@
       },
       "required": [
         "audience",
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -13045,7 +13016,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -13191,7 +13161,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -13337,7 +13306,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
@@ -13457,7 +13425,6 @@
         }
       },
       "required": [
-        "auth0_client",
         "client_name",
         "description",
         "details",
