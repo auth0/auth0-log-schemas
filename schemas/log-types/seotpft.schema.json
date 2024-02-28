@@ -116,7 +116,6 @@
   },
   "required": [
     "audience",
-    "auth0_client",
     "client_name",
     "hostname",
     "ip"
