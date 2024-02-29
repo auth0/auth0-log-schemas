@@ -2812,6 +2812,9 @@
                 "newPassword": {
                   "type": "string"
                 },
+                "requiredCaptcha": {
+                  "type": "boolean"
+                },
                 "tenant": {
                   "type": "string"
                 },
@@ -11046,6 +11049,9 @@
                 },
                 "newPassword": {
                   "type": "string"
+                },
+                "requiredCaptcha": {
+                  "type": "boolean"
                 },
                 "resultUrl": {
                   "type": "string"

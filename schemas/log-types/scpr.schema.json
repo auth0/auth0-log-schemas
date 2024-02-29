@@ -70,6 +70,9 @@
             "newPassword": {
               "type": "string"
             },
+            "requiredCaptcha": {
+              "type": "boolean"
+            },
             "resultUrl": {
               "type": "string"
             },

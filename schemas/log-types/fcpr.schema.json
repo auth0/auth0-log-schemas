@@ -64,6 +64,9 @@
             "newPassword": {
               "type": "string"
             },
+            "requiredCaptcha": {
+              "type": "boolean"
+            },
             "tenant": {
               "type": "string"
             },
