@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "A warning has happened during user management related tasks",
+  "properties": {
+    "$event_schema": {
+      "description": "Event schema meta",
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "tenant": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "type": {
+      "const": "wum",
+      "description": "Warning User Management",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    },
+    "user_id": {
+      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+      "type": "string"
+    },
+    "user_name": {
+      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+      "examples": [
+        [
+          "example@example.com",
+          "+14155554321"
+        ]
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "details",
+    "log_id",
+    "type"
+  ],
+  "type": "object"
+}
