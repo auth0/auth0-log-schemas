@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "The maximum number of requests to the Authentication or Management APIs in given time was reached",
+  "description": "API Peak Performance Rate is initiated",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -114,8 +114,8 @@
       "type": "string"
     },
     "type": {
-      "const": "elevated_rate_limit",
-      "description": "Elevated Rate Limit notice on Authentication or Management API",
+      "const": "appi",
+      "description": "Notice for API Peak Performance Initiated",
       "type": "string"
     },
     "user_agent": {
