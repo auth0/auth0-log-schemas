@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successfully revoked a refresh token",
+  "description": "Successfully revoked a session",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -74,42 +74,12 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "audience": {
-          "type": "string"
-        },
-        "credential_id": {
-          "type": "string"
-        },
-        "grant_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "host": {
-          "type": "string"
-        },
-        "method": {
-          "type": "string"
-        },
-        "origin": {
-          "type": "string"
-        },
-        "originUrl": {
-          "type": "string"
-        },
-        "originalUrl": {
-          "type": "string"
-        },
         "session_id": {
-          "type": "string"
-        },
-        "xhr": {
           "type": "string"
         }
       },
       "required": [
-        "credential_id"
+        "session_id"
       ],
       "type": "object"
     },
@@ -135,8 +105,8 @@
       "type": "string"
     },
     "type": {
-      "const": "srrt",
-      "description": "Successful Refresh Token Revocation",
+      "const": "session_revoked",
+      "description": "Sucessful session revocation",
       "type": "string"
     },
     "user_agent": {

@@ -74,42 +74,12 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "audience": {
-          "type": "string"
-        },
-        "credential_id": {
-          "type": "string"
-        },
-        "grant_id": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "host": {
-          "type": "string"
-        },
-        "method": {
-          "type": "string"
-        },
-        "origin": {
-          "type": "string"
-        },
-        "originUrl": {
-          "type": "string"
-        },
-        "originalUrl": {
-          "type": "string"
-        },
         "session_id": {
-          "type": "string"
-        },
-        "xhr": {
           "type": "string"
         }
       },
       "required": [
-        "credential_id"
+        "session_id"
       ],
       "type": "object"
     },
