@@ -78,6 +78,9 @@
     "details": {
       "description": "Log details",
       "properties": {
+        "access_token_jti": {
+          "type": "string"
+        },
         "actions": {
           "properties": {
             "executions": {

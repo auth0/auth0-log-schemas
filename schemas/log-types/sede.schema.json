@@ -46,7 +46,13 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
+      "description": "Log details",
+      "properties": {
+        "access_token_jti": {
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
