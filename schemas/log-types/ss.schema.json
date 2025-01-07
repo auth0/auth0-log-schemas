@@ -542,6 +542,10 @@
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -590,6 +594,10 @@
       ],
       "type": "string"
     },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
     "type": {
       "const": "ss",
       "description": "Successful Signup",
@@ -626,6 +634,7 @@
     "log_id",
     "strategy",
     "strategy_type",
+    "tenant_name",
     "type"
   ],
   "type": "object"

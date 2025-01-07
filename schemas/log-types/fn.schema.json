@@ -50,18 +50,26 @@
         "error": {
           "type": "string"
         },
+        "notification_type": {
+          "type": "string"
+        },
         "to": {
           "type": "string"
         }
       },
       "required": [
         "email_type",
+        "notification_type",
         "to"
       ],
       "type": "object"
     },
     "log_id": {
       "description": "Log id",
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
       "type": "string"
     },
     "type": {
@@ -82,6 +90,7 @@
     "description",
     "details",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

@@ -68,6 +68,10 @@
       ],
       "type": "object"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "strategy": {
       "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
       "examples": [

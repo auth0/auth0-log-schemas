@@ -1,0 +1,120 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "$event_schema": {
+      "description": "Event schema meta",
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "end_time": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "start_time": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "stats": {
+          "items": {
+            "properties": {
+              "acl_id": {
+                "type": "string"
+              },
+              "action": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "match": {
+                "properties": {
+                  "successes": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "successes"
+                ],
+                "type": "object"
+              },
+              "not_match": {
+                "properties": {
+                  "successes": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "successes"
+                ],
+                "type": "object"
+              },
+              "priority": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "acl_id",
+              "description",
+              "priority",
+              "action"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "start_time",
+        "end_time",
+        "stats"
+      ],
+      "type": "object"
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
+    "type": {
+      "const": "acls_summary",
+      "description": "Network ACLs summary",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "description",
+    "details",
+    "log_id",
+    "tenant_name",
+    "type"
+  ],
+  "type": "object"
+}
