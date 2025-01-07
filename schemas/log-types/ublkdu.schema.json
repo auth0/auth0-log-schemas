@@ -62,6 +62,10 @@
       },
       "type": "object"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -102,6 +106,10 @@
       ],
       "type": "string"
     },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
     "type": {
       "const": "ublkdu",
       "description": "User login block released",
@@ -137,6 +145,7 @@
     "log_id",
     "strategy",
     "strategy_type",
+    "tenant_name",
     "type"
   ],
   "type": "object"

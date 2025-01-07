@@ -102,6 +102,10 @@
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -125,6 +129,10 @@
     },
     "organization_name": {
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
       "type": "string"
     },
     "type": {
@@ -161,6 +169,7 @@
     "hostname",
     "ip",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

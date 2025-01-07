@@ -85,6 +85,10 @@
       ],
       "type": "object"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -114,6 +118,10 @@
         "correlation_id"
       ],
       "type": "object"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
     },
     "type": {
       "const": "sapi",
@@ -148,6 +156,7 @@
     "details",
     "ip",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

@@ -116,6 +116,10 @@
     "email": {
       "type": "string"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -159,6 +163,10 @@
       ],
       "type": "string"
     },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
     "title": {
       "type": "string"
     },
@@ -200,6 +208,7 @@
     "query",
     "strategy",
     "strategy_type",
+    "tenant_name",
     "title",
     "type"
   ],

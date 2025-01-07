@@ -65,6 +65,10 @@
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -95,6 +99,10 @@
         }
       ],
       "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
     },
     "type": {
       "const": "sercft",
@@ -130,6 +138,7 @@
     "hostname",
     "ip",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

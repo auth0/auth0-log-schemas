@@ -152,6 +152,10 @@
       "description": "Log id",
       "type": "string"
     },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
     "type": {
       "const": "fdeaz",
       "description": "Failed Device Confirmation - Request Failure",
@@ -172,6 +176,7 @@
     "hostname",
     "ip",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

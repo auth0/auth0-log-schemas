@@ -59,6 +59,19 @@
         "null"
       ]
     },
+    "client_ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+    },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
@@ -78,6 +91,10 @@
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+      "type": "string"
+    },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
       "type": "string"
     },
     "ip": {
@@ -119,6 +136,10 @@
       ],
       "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
     },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
     "type": {
       "const": "feccft",
       "description": "Failed Exchange of Access Token for a Client Credentials Grant",
@@ -153,6 +174,7 @@
     "hostname",
     "ip",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

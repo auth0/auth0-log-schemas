@@ -33,6 +33,12 @@
                 "null"
               ]
             },
+            "phone_number": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "type": {
               "type": "string"
             }
@@ -181,6 +187,10 @@
       ],
       "type": "object"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "ip": {
       "anyOf": [
         {
@@ -196,6 +206,10 @@
     },
     "log_id": {
       "description": "Log id",
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
       "type": "string"
     },
     "type": {
@@ -229,6 +243,7 @@
     "details",
     "ip",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

@@ -109,8 +109,16 @@
       ],
       "type": "object"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "log_id": {
       "description": "Log id",
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
       "type": "string"
     },
     "type": {
@@ -145,6 +153,7 @@
     "description",
     "details",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"

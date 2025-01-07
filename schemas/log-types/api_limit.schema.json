@@ -74,6 +74,25 @@
     "details": {
       "description": "Log details",
       "properties": {
+        "limit": {
+          "properties": {
+            "bucket": {
+              "type": "string"
+            },
+            "global": {
+              "type": "boolean"
+            },
+            "size": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "size",
+            "bucket",
+            "global"
+          ],
+          "type": "object"
+        },
         "request": {
           "properties": {
             "method": {
@@ -89,14 +108,25 @@
           "type": "string"
         }
       },
+      "required": [
+        "limit"
+      ],
       "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
     "log_id": {
       "description": "Log id",
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
       "type": "string"
     },
     "type": {
@@ -132,6 +162,7 @@
     "details",
     "hostname",
     "log_id",
+    "tenant_name",
     "type"
   ],
   "type": "object"
