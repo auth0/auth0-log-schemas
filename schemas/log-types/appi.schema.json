@@ -94,16 +94,16 @@
         "total_hours_allocated": {
           "type": "number"
         },
-        "total_hours_remaining": {
+        "total_hours_consumed": {
           "type": "number"
         },
-        "total_hours_used": {
+        "total_hours_remaining": {
           "type": "number"
         }
       },
       "required": [
         "total_hours_allocated",
-        "total_hours_used",
+        "total_hours_consumed",
         "total_hours_remaining",
         "docs"
       ],
