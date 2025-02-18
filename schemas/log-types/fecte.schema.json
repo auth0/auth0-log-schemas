@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Exchange of Passkey and OOB Challenge for Access Token",
+  "description": "Failed Exchange via Custom Token Exchange",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -59,29 +59,8 @@
         "null"
       ]
     },
-    "client_ip": {
-      "anyOf": [
-        {
-          "format": "ipv4",
-          "type": "string"
-        },
-        {
-          "format": "ipv6",
-          "type": "string"
-        }
-      ],
-      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
-    },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
-    "connection": {
-      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-      "type": "string"
-    },
-    "connection_id": {
-      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
     "description": {
@@ -89,14 +68,19 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
+      "description": "Log details",
+      "properties": {
+        "subject_token_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_token_type"
+      ],
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-      "type": "string"
-    },
-    "identity_user_id": {
-      "description": "ID for the user as reported by the IdP.",
       "type": "string"
     },
     "ip": {
@@ -114,14 +98,6 @@
     },
     "log_id": {
       "description": "Log id",
-      "type": "string"
-    },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
     "scope": {
@@ -143,8 +119,8 @@
       "type": "string"
     },
     "type": {
-      "const": "sepkoobft",
-      "description": "Successful Exchange of Passkey and OOB Challenge for Access Token",
+      "const": "fecte",
+      "description": "Failed Exchange via Custom Token Exchange",
       "type": "string"
     },
     "user_agent": {
@@ -153,26 +129,13 @@
         "Chrome 120.0.0 / Mac OS X 10.15.7"
       ],
       "type": "string"
-    },
-    "user_id": {
-      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
-      "type": "string"
-    },
-    "user_name": {
-      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
-      "examples": [
-        [
-          "example@example.com",
-          "+14155554321"
-        ]
-      ],
-      "type": "string"
     }
   },
   "required": [
     "audience",
     "client_name",
     "description",
+    "details",
     "hostname",
     "ip",
     "log_id",

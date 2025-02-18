@@ -108,7 +108,106 @@
           "type": "object"
         },
         "riskAssessment": {
-          "type": "string"
+          "properties": {
+            "assessments": {
+              "properties": {
+                "ImpossibleTravel": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "NewDevice": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "device": {
+                          "type": "string"
+                        },
+                        "useragent": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "device"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "UntrustedIP": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "ip": {
+                          "type": "string"
+                        },
+                        "matches": {
+                          "type": "string"
+                        },
+                        "source": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ip",
+                        "matches",
+                        "source"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "UntrustedIP"
+              ],
+              "type": "object"
+            },
+            "confidence": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "assessments",
+            "confidence",
+            "version"
+          ],
+          "type": "object"
         },
         "session_id": {
           "type": "string"

@@ -2,6 +2,22 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "Failed to change user email",
   "properties": {
+    "$event_schema": {
+      "description": "Event schema meta",
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ],
+          "type": "object"
+        }
+      ]
+    },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
       "type": [
@@ -21,7 +37,12 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
     "details": {
+      "description": "Log details",
       "properties": {
         "body": {
           "properties": {
@@ -72,6 +93,10 @@
       "description": "ID for the user as reported by the IdP.",
       "type": "string"
     },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
     "strategy": {
       "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
       "examples": [
@@ -95,6 +120,22 @@
       ],
       "type": "string"
     },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
+    "type": {
+      "const": "fce",
+      "description": "Failed Change Email",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    },
     "user_id": {
       "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
       "type": "string"
@@ -112,9 +153,13 @@
   },
   "required": [
     "client_name",
+    "description",
     "details",
+    "log_id",
     "strategy",
-    "strategy_type"
+    "strategy_type",
+    "tenant_name",
+    "type"
   ],
   "type": "object"
 }

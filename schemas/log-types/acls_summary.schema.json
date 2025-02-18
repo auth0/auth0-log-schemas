@@ -55,7 +55,10 @@
                 ],
                 "type": "object"
               },
-              "not_match": {
+              "priority": {
+                "type": "number"
+              },
+              "total_request_count": {
                 "properties": {
                   "successes": {
                     "type": "number"
@@ -65,9 +68,6 @@
                   "successes"
                 ],
                 "type": "object"
-              },
-              "priority": {
-                "type": "number"
               }
             },
             "required": [
