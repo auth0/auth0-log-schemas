@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed Exchange of Password and MFA Recovery Code for Access Token",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,34 +17,6 @@
         }
       ]
     },
-    "audience": {
-      "description": "The audience in the JWT associated with the request.",
-      "type": "string"
-    },
-    "client_id": {
-      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "client_ip": {
-      "anyOf": [
-        {
-          "format": "ipv4",
-          "type": "string"
-        },
-        {
-          "format": "ipv6",
-          "type": "string"
-        }
-      ],
-      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
-    },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
     "connection": {
       "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
       "type": "string"
@@ -58,9 +29,20 @@
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
     },
-    "hostname": {
-      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-      "type": "string"
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "errors": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
@@ -83,35 +65,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-      "type": "string"
-    },
-    "scope": {
-      "anyOf": [
-        {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        {
-          "type": "string"
-        }
-      ],
-      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "fepotpft",
-      "description": "Failed Exchange of Passwordless OTP for Access Token",
+      "const": "federated_logout_failed",
+      "description": "Failed Federated Logout request",
       "type": "string"
     },
     "user_agent": {
@@ -137,10 +97,8 @@
     }
   },
   "required": [
-    "audience",
-    "client_name",
     "description",
-    "hostname",
+    "details",
     "ip",
     "log_id",
     "tenant_name",

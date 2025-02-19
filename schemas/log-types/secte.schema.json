@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Exchange of Passkey and OOB Challenge for Access Token",
+  "description": "Successful Exchange via Custom Token Exchange",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -59,19 +59,6 @@
         "null"
       ]
     },
-    "client_ip": {
-      "anyOf": [
-        {
-          "format": "ipv4",
-          "type": "string"
-        },
-        {
-          "format": "ipv6",
-          "type": "string"
-        }
-      ],
-      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
-    },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
@@ -89,11 +76,19 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
-    },
-    "hostname": {
-      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-      "type": "string"
+      "description": "Log details",
+      "properties": {
+        "access_token_jti": {
+          "type": "string"
+        },
+        "subject_token_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "subject_token_type"
+      ],
+      "type": "object"
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
@@ -116,14 +111,6 @@
       "description": "Log id",
       "type": "string"
     },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-      "type": "string"
-    },
     "scope": {
       "anyOf": [
         {
@@ -143,8 +130,8 @@
       "type": "string"
     },
     "type": {
-      "const": "sepkoobft",
-      "description": "Successful Exchange of Passkey and OOB Challenge for Access Token",
+      "const": "secte",
+      "description": "Successful Exchange via Custom Token Exchange",
       "type": "string"
     },
     "user_agent": {
@@ -173,7 +160,7 @@
     "audience",
     "client_name",
     "description",
-    "hostname",
+    "details",
     "ip",
     "log_id",
     "tenant_name",

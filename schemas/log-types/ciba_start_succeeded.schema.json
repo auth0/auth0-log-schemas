@@ -81,6 +81,8 @@
           "type": "object"
         },
         "transaction_linking_id": {
+          "description": "Reflects the ID of the consent record linked to this CIBA flow. Can be used at the /rich-consents/:id endpoint to retrieve the consent record.",
+          "pattern": "^cns_[A-Za-z0-9-_]{22}$",
           "type": "string"
         }
       },

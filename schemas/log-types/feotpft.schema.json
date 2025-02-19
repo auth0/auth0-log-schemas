@@ -113,6 +113,14 @@
       "description": "Log id",
       "type": "string"
     },
+    "organization_id": {
+      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+      "type": "string"
+    },
+    "organization_name": {
+      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+      "type": "string"
+    },
     "scope": {
       "anyOf": [
         {
