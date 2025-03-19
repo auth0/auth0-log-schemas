@@ -41,7 +41,11 @@
             "ss_sso_ticket_consumption",
             "ss_sso_connection_creation",
             "ss_sso_connection_update",
-            "ss_sso_enable_connection"
+            "ss_sso_enable_connection",
+            "ss_sso_add_domain",
+            "ss_sso_delete_pending_domain",
+            "ss_sso_domain_verification_unsuccessful",
+            "ss_sso_domain_verification_successful"
           ],
           "type": "string"
         },
