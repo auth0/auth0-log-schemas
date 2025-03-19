@@ -38,7 +38,8 @@
         "ss_sso_event_name": {
           "enum": [
             "ss_sso_try_connection_start",
-            "ss_sso_try_connection_end"
+            "ss_sso_try_connection_end",
+            "ss_sso_flow_end"
           ],
           "type": "string"
         },
