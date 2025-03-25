@@ -1173,6 +1173,9 @@
           "$ref": "#/definitions/passkey_challenge_failed"
         },
         {
+          "$ref": "#/definitions/reset_pwd_leak"
+        },
+        {
           "$ref": "#/definitions/resource_cleanup"
         },
         {
@@ -1300,12 +1303,6 @@
         },
         {
           "$ref": "#/definitions/wn"
-        },
-        {
-          "$ref": "#/definitions/refresh_token_exchange_for_session_token_successful"
-        },
-        {
-          "$ref": "#/definitions/refresh_token_exchange_for_session_token_failed"
         }
       ]
     },
@@ -1483,6 +1480,9 @@
             "action_id": {
               "type": "string"
             },
+            "action_name": {
+              "type": "string"
+            },
             "binding_id": {
               "type": "string"
             },
@@ -1509,6 +1509,7 @@
             "trigger_id",
             "execution_id",
             "action_id",
+            "action_name",
             "version_id",
             "binding_id",
             "error_class"
@@ -3159,6 +3160,10 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "channel": {
+              "description": "Whether connection is front or back channel",
+              "type": "string"
+            },
             "error": {
               "$ref": "#/definitions/OAuthError"
             },
@@ -3173,6 +3178,18 @@
             },
             "stats": {
               "$ref": "#/definitions/LoginsCountStats"
+            },
+            "token_endpoint_auth_method": {
+              "description": "Token endpoint authentication method",
+              "type": "string"
+            },
+            "token_endpoint_auth_signing_alg": {
+              "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
+              "type": "string"
+            },
+            "token_endpoint_auth_signing_kid": {
+              "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
+              "type": "string"
             }
           },
           "required": [
@@ -13403,8 +13420,8 @@
       ],
       "type": "object"
     },
-    "refresh_token_exchange_for_session_token_failed": {
-      "description": "Failed Exchange of refresh_token for session_token.",
+    "reset_pwd_leak": {
+      "description": "Someone behind the IP address ip attempted to reset with a leaked password",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -13414,42 +13431,12 @@
             }
           ]
         },
-        "audience": {
-          "description": "The audience in the JWT associated with the request.",
-          "type": "string"
-        },
-        "auth0_client": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Auth0ClientProp"
-            },
-            {
-              "type": "object"
-            },
-            {
-              "items": {},
-              "type": "array"
-            }
-          ],
-          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
-        },
         "client_id": {
           "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
           "type": [
             "string",
             "null"
           ]
-        },
-        "client_ip": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/IPV4"
-            },
-            {
-              "$ref": "#/definitions/IPV6"
-            }
-          ],
-          "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -13468,19 +13455,11 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details",
-          "properties": {
-            "refresh_token_id": {
-              "type": "string"
-            },
-            "session_id": {
-              "type": "string"
-            },
-            "subject_token_type": {
-              "type": "string"
-            }
-          },
-          "type": "object"
+          "description": "Log details"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
         },
         "identity_user_id": {
           "description": "ID for the user as reported by the IdP.",
@@ -13501,39 +13480,13 @@
           "description": "Log id",
           "type": "string"
         },
-        "mtls_thumbprint_sha256": {
-          "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
-          "type": "string"
-        },
-        "organization_id": {
-          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-          "type": "string"
-        },
-        "organization_name": {
-          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-          "type": "string"
-        },
-        "scope": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "string"
-            }
-          ],
-          "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
-        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
         },
         "type": {
-          "const": "refresh_token_exchange_for_session_token_failed",
-          "description": "Failed Exchange of Refresh Token for Session Token",
+          "const": "reset_pwd_leak",
+          "description": "Breached Password - Reset",
           "type": "string"
         },
         "user_agent": {
@@ -13559,177 +13512,9 @@
         }
       },
       "required": [
-        "audience",
         "client_name",
         "description",
-        "details",
-        "ip",
-        "log_id",
-        "tenant_name",
-        "type"
-      ],
-      "type": "object"
-    },
-    "refresh_token_exchange_for_session_token_successful": {
-      "description": "Successful Exchange of refresh_token for session_token.",
-      "properties": {
-        "$event_schema": {
-          "description": "Event schema meta",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SchemaMeta"
-            }
-          ]
-        },
-        "audience": {
-          "description": "The audience in the JWT associated with the request.",
-          "type": "string"
-        },
-        "auth0_client": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Auth0ClientProp"
-            },
-            {
-              "type": "object"
-            },
-            {
-              "items": {},
-              "type": "array"
-            }
-          ],
-          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
-        },
-        "client_id": {
-          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "client_ip": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/IPV4"
-            },
-            {
-              "$ref": "#/definitions/IPV6"
-            }
-          ],
-          "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
-        },
-        "client_name": {
-          "description": "Client name associated with the client_id, when available. May be empty string.",
-          "type": "string"
-        },
-        "connection": {
-          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-          "type": "string"
-        },
-        "connection_id": {
-          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "description": {
-          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
-          "type": "string"
-        },
-        "details": {
-          "description": "Log details",
-          "properties": {
-            "refresh_token_id": {
-              "type": "string"
-            },
-            "session_id": {
-              "type": "string"
-            },
-            "subject_token_type": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "identity_user_id": {
-          "description": "ID for the user as reported by the IdP.",
-          "type": "string"
-        },
-        "ip": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/IPV4"
-            },
-            {
-              "$ref": "#/definitions/IPV6"
-            }
-          ],
-          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
-        },
-        "log_id": {
-          "description": "Log id",
-          "type": "string"
-        },
-        "mtls_thumbprint_sha256": {
-          "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
-          "type": "string"
-        },
-        "organization_id": {
-          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-          "type": "string"
-        },
-        "organization_name": {
-          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-          "type": "string"
-        },
-        "scope": {
-          "anyOf": [
-            {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
-            },
-            {
-              "type": "string"
-            }
-          ],
-          "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
-        },
-        "tenant_name": {
-          "description": "Tenant name",
-          "type": "string"
-        },
-        "type": {
-          "const": "refresh_token_exchange_for_session_token_successful",
-          "description": "Successful Exchange of Refresh Token for Session Token",
-          "type": "string"
-        },
-        "user_agent": {
-          "description": "The user_agent behind this log, when available",
-          "examples": [
-            "Chrome 120.0.0 / Mac OS X 10.15.7"
-          ],
-          "type": "string"
-        },
-        "user_id": {
-          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
-          "type": "string"
-        },
-        "user_name": {
-          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
-          "examples": [
-            [
-              "example@example.com",
-              "+14155554321"
-            ]
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "audience",
-        "client_name",
-        "description",
-        "details",
+        "hostname",
         "ip",
         "log_id",
         "tenant_name",
@@ -13971,11 +13756,52 @@
         },
         "details": {
           "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/AuthDetailsBase"
+          "properties": {
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            },
+            "channel": {
+              "description": "Whether connection is front or back channel",
+              "type": "string"
+            },
+            "completedAt": {
+              "type": "number"
+            },
+            "elapsedTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "initiatedAt": {
+              "type": "number"
+            },
+            "prompts": {
+              "items": {
+                "$ref": "#/definitions/AuthPrompt"
+              },
+              "type": "array"
+            },
+            "riskAssessment": {
+              "$ref": "#/definitions/RiskAssessment"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "token_endpoint_auth_method": {
+              "description": "Token endpoint authentication method",
+              "type": "string"
+            },
+            "token_endpoint_auth_signing_alg": {
+              "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
+              "type": "string"
+            },
+            "token_endpoint_auth_signing_kid": {
+              "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
+              "type": "string"
             }
-          ]
+          },
+          "type": "object"
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
