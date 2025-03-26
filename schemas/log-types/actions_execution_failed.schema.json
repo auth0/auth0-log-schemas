@@ -70,6 +70,9 @@
         "action_id": {
           "type": "string"
         },
+        "action_name": {
+          "type": "string"
+        },
         "binding_id": {
           "type": "string"
         },
@@ -96,6 +99,7 @@
         "trigger_id",
         "execution_id",
         "action_id",
+        "action_name",
         "version_id",
         "binding_id",
         "error_class"
