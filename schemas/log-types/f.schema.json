@@ -74,6 +74,10 @@
     "details": {
       "description": "Log details",
       "properties": {
+        "channel": {
+          "description": "Whether connection is front or back channel",
+          "type": "string"
+        },
         "error": {
           "properties": {
             "message": {
@@ -256,6 +260,18 @@
             "loginsCount"
           ],
           "type": "object"
+        },
+        "token_endpoint_auth_method": {
+          "description": "Token endpoint authentication method",
+          "type": "string"
+        },
+        "token_endpoint_auth_signing_alg": {
+          "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
+        },
+        "token_endpoint_auth_signing_kid": {
+          "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
         }
       },
       "required": [
