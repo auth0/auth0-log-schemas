@@ -73,289 +73,301 @@
     },
     "details": {
       "description": "Log details",
-      "allOf": [
-        {
+      "properties": {
+        "actions": {
           "properties": {
-            "actions": {
-              "properties": {
-                "executions": {
-                  "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              },
-              "required": [
-                "executions"
-              ],
-              "type": "object"
-            },
-            "completedAt": {
-              "type": "number"
-            },
-            "elapsedTime": {
-              "type": [
-                "number",
-                "null"
-              ]
-            },
-            "initiatedAt": {
-              "type": "number"
-            },
-            "prompts": {
+            "executions": {
+              "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
               "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "executions"
+          ],
+          "type": "object"
+        },
+        "channel": {
+          "description": "Whether connection is front or back channel",
+          "type": "string"
+        },
+        "completedAt": {
+          "type": "number"
+        },
+        "elapsedTime": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "initiatedAt": {
+          "type": "number"
+        },
+        "prompts": {
+          "items": {
+            "properties": {
+              "coi": {
+                "type": "string"
+              },
+              "completedAt": {
+                "type": "number"
+              },
+              "connection": {
+                "type": "string"
+              },
+              "connection_id": {
+                "type": "string"
+              },
+              "cov": {
+                "type": "string"
+              },
+              "elapsedTime": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flow": {
+                "type": "string"
+              },
+              "grantInfo": {
                 "properties": {
-                  "coi": {
+                  "audience": {
                     "type": "string"
                   },
-                  "completedAt": {
-                    "type": "number"
-                  },
-                  "connection": {
+                  "expiration": {
                     "type": "string"
                   },
-                  "connection_id": {
+                  "id": {
                     "type": "string"
                   },
-                  "cov": {
+                  "scope": {
                     "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "identity": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              },
+              "initiatedAt": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "passwordless_amr": {
+                "type": "string"
+              },
+              "performed_acr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
                   },
-                  "elapsedTime": {
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "performed_amr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "provider": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requiredCaptcha": {
+                "type": "boolean"
+              },
+              "session": {
+                "type": "boolean"
+              },
+              "session_id": {
+                "type": "string"
+              },
+              "stats": {
+                "properties": {
+                  "loginsCount": {
+                    "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
                     "type": [
                       "number",
                       "null"
                     ]
-                  },
-                  "flow": {
-                    "type": "string"
-                  },
-                  "grantInfo": {
-                    "properties": {
-                      "audience": {
-                        "type": "string"
-                      },
-                      "expiration": {
-                        "type": "string"
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "scope": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "identity": {
-                    "type": [
-                      "string",
-                      "number"
-                    ]
-                  },
-                  "initiatedAt": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "passwordless_amr": {
-                    "type": "string"
-                  },
-                  "performed_acr": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "performed_amr": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "provider": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "requiredCaptcha": {
-                    "type": "boolean"
-                  },
-                  "session": {
-                    "type": "boolean"
-                  },
-                  "session_id": {
-                    "type": "string"
-                  },
-                  "stats": {
-                    "properties": {
-                      "loginsCount": {
-                        "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
-                        "type": [
-                          "number",
-                          "null"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "loginsCount"
-                    ],
-                    "type": "object"
-                  },
-                  "strategy": {
-                    "type": "string"
-                  },
-                  "timers": {
-                    "properties": {
-                      "rules": {
-                        "type": "number"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "type": "string"
-                  },
-                  "user_name": {
-                    "type": "string"
                   }
                 },
                 "required": [
-                  "requiredCaptcha",
-                  "session_id"
+                  "loginsCount"
                 ],
                 "type": "object"
               },
-              "type": "array"
+              "strategy": {
+                "type": "string"
+              },
+              "timers": {
+                "properties": {
+                  "rules": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "type": "string"
+              },
+              "user_id": {
+                "type": "string"
+              },
+              "user_name": {
+                "type": "string"
+              }
             },
-            "riskAssessment": {
+            "required": [
+              "requiredCaptcha",
+              "session_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "riskAssessment": {
+          "properties": {
+            "assessments": {
               "properties": {
-                "assessments": {
+                "ImpossibleTravel": {
                   "properties": {
-                    "ImpossibleTravel": {
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
+                    "code": {
+                      "type": "string"
                     },
-                    "NewDevice": {
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "type": "string"
-                        },
-                        "details": {
-                          "properties": {
-                            "device": {
-                              "type": "string"
-                            },
-                            "useragent": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "device"
-                          ],
-                          "type": "object"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
+                    "confidence": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "NewDevice": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
                     },
-                    "UntrustedIP": {
+                    "confidence": {
+                      "type": "string"
+                    },
+                    "details": {
                       "properties": {
-                        "code": {
+                        "device": {
                           "type": "string"
                         },
-                        "confidence": {
+                        "useragent": {
                           "type": "string"
-                        },
-                        "details": {
-                          "properties": {
-                            "ip": {
-                              "type": "string"
-                            },
-                            "matches": {
-                              "type": "string"
-                            },
-                            "source": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "ip",
-                            "matches",
-                            "source"
-                          ],
-                          "type": "object"
                         }
                       },
                       "required": [
-                        "code",
-                        "confidence"
+                        "device"
                       ],
                       "type": "object"
                     }
                   },
                   "required": [
-                    "UntrustedIP"
+                    "code",
+                    "confidence"
                   ],
                   "type": "object"
                 },
-                "confidence": {
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
+                "UntrustedIP": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "ip": {
+                          "type": "string"
+                        },
+                        "matches": {
+                          "type": "string"
+                        },
+                        "source": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ip",
+                        "matches",
+                        "source"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
                 }
               },
               "required": [
-                "assessments",
-                "confidence",
-                "version"
+                "UntrustedIP"
               ],
               "type": "object"
             },
-            "session_id": {
+            "confidence": {
+              "type": "string"
+            },
+            "version": {
               "type": "string"
             }
           },
+          "required": [
+            "assessments",
+            "confidence",
+            "version"
+          ],
           "type": "object"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "token_endpoint_auth_method": {
+          "description": "Token endpoint authentication method",
+          "type": "string"
+        },
+        "token_endpoint_auth_signing_alg": {
+          "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
+        },
+        "token_endpoint_auth_signing_kid": {
+          "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
         }
-      ]
+      },
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
