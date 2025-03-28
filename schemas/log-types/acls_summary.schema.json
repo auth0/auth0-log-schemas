@@ -28,6 +28,9 @@
           "format": "date-time",
           "type": "string"
         },
+        "new_field": {
+          "type": "string"
+        },
         "start_time": {
           "format": "date-time",
           "type": "string"
@@ -84,6 +87,7 @@
       "required": [
         "start_time",
         "end_time",
+        "new_field",
         "stats"
       ],
       "type": "object"
