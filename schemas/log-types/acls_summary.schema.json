@@ -24,10 +24,6 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "end_time": {
-          "format": "date-time",
-          "type": "string"
-        },
         "start_time": {
           "format": "date-time",
           "type": "string"
@@ -83,7 +79,6 @@
       },
       "required": [
         "start_time",
-        "end_time",
         "stats"
       ],
       "type": "object"
