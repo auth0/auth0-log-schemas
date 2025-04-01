@@ -17334,6 +17334,9 @@
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
             },
+            "audience": {
+              "type": "string"
+            },
             "familyId": {
               "type": "string"
             },

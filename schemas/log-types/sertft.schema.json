@@ -109,6 +109,9 @@
           ],
           "type": "object"
         },
+        "audience": {
+          "type": "string"
+        },
         "familyId": {
           "type": "string"
         },
