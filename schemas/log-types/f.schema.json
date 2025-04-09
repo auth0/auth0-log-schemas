@@ -272,6 +272,10 @@
         "token_endpoint_auth_signing_kid": {
           "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
           "type": "string"
+        },
+        "triggered_by_session_transfer_token": {
+          "description": "Whether a Session Transfer Token was used for authentication",
+          "type": "boolean"
         }
       },
       "required": [
