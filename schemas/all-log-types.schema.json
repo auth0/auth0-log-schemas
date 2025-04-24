@@ -3167,6 +3167,9 @@
             "error": {
               "$ref": "#/definitions/OAuthError"
             },
+            "grant_type": {
+              "type": "string"
+            },
             "qs": {
               "type": "object"
             },
@@ -8743,6 +8746,9 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "grant_type": {
+              "type": "string"
+            },
             "phone_number": {
               "type": "string"
             },
