@@ -138,6 +138,9 @@
           ],
           "type": "object"
         },
+        "grant_type": {
+          "type": "string"
+        },
         "qs": {
           "type": "object"
         },
