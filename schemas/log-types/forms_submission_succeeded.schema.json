@@ -74,7 +74,19 @@
       "description": "Log details",
       "allOf": [
         {
-          "$ref": "#/definitions/FormsBaseDetails"
+          "properties": {
+            "form_id": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "form_id",
+            "state"
+          ],
+          "type": "object"
         }
       ]
     },

@@ -196,7 +196,7 @@
       ],
       "type": "object"
     },
-    "FlowsBaseDetails": {
+    "FlowsExecutionCompletedDetails": {
       "properties": {
         "execution_id": {
           "type": "string"
@@ -209,14 +209,11 @@
         }
       },
       "required": [
-        "state",
+        "execution_id",
         "flow_id",
-        "execution_id"
+        "state"
       ],
       "type": "object"
-    },
-    "FlowsExecutionCompletedDetails": {
-      "$ref": "#/definitions/FlowsBaseDetails"
     },
     "FlowsExecutionFailedDetails": {
       "properties": {
@@ -253,21 +250,6 @@
       ],
       "type": "object"
     },
-    "FormsBaseDetails": {
-      "properties": {
-        "form_id": {
-          "type": "string"
-        },
-        "state": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "state",
-        "form_id"
-      ],
-      "type": "object"
-    },
     "FormsSubmissionFailedDetails": {
       "properties": {
         "error": {
@@ -300,7 +282,19 @@
       "type": "object"
     },
     "FormsSubmissionSucceededDetails": {
-      "$ref": "#/definitions/FormsBaseDetails"
+      "properties": {
+        "form_id": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "form_id",
+        "state"
+      ],
+      "type": "object"
     },
     "GdDetails": {
       "properties": {
@@ -3166,6 +3160,9 @@
             },
             "error": {
               "$ref": "#/definitions/OAuthError"
+            },
+            "grant_type": {
+              "type": "string"
             },
             "qs": {
               "type": "object"
@@ -8743,6 +8740,9 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "grant_type": {
+              "type": "string"
+            },
             "phone_number": {
               "type": "string"
             },
