@@ -74,7 +74,23 @@
       "description": "Log details",
       "allOf": [
         {
-          "$ref": "#/definitions/FlowsBaseDetails"
+          "properties": {
+            "execution_id": {
+              "type": "string"
+            },
+            "flow_id": {
+              "type": "string"
+            },
+            "state": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "execution_id",
+            "flow_id",
+            "state"
+          ],
+          "type": "object"
         }
       ]
     },
