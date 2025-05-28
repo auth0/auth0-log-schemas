@@ -12361,6 +12361,9 @@
             "confidence": {
               "type": "string"
             },
+            "grant_type": {
+              "type": "string"
+            },
             "version": {
               "type": "string"
             }
