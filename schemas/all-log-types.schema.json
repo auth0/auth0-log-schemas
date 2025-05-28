@@ -3246,6 +3246,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -5522,6 +5535,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -5680,6 +5706,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -5813,6 +5852,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -5913,6 +5965,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -6155,6 +6220,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -6292,6 +6370,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -6445,6 +6536,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -6588,6 +6692,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -6733,6 +6850,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -6869,6 +6999,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -7033,6 +7176,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -8371,6 +8527,19 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -8794,6 +8963,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -9073,6 +9255,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -11994,6 +12189,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -12096,6 +12304,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -12197,6 +12418,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -13544,6 +13778,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -13645,6 +13892,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -14003,6 +14263,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -15717,6 +15990,19 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -15893,6 +16179,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -16037,6 +16336,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -16179,6 +16491,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -16319,6 +16644,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -16476,6 +16814,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -16622,6 +16973,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -16779,6 +17143,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -16933,6 +17310,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -17089,6 +17479,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -17244,6 +17647,19 @@
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
         },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -17375,6 +17791,19 @@
             }
           ],
           "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -18143,6 +18572,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
