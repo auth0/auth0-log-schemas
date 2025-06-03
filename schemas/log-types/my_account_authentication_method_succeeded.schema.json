@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Exchange of Password and MFA Recovery Codeode for Access Token",
+  "description": "Successful authentication method operation in My Account API",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,9 +18,35 @@
         }
       ]
     },
-    "audience": {
-      "description": "The audience in the JWT associated with the request.",
-      "type": "string"
+    "auth0_client": {
+      "anyOf": [
+        {
+          "properties": {
+            "env": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        }
+      ],
+      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
     },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
@@ -28,19 +54,6 @@
         "string",
         "null"
       ]
-    },
-    "client_ip": {
-      "anyOf": [
-        {
-          "format": "ipv4",
-          "type": "string"
-        },
-        {
-          "format": "ipv6",
-          "type": "string"
-        }
-      ],
-      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
     },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -59,7 +72,36 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
+      "description": "Log details",
+      "properties": {
+        "authentication_method": {
+          "type": "string"
+        },
+        "authentication_method_id": {
+          "type": "string"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "request": {
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "session_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "operation"
+      ],
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -86,40 +128,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "scope": {
-      "anyOf": [
-        {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        {
-          "type": "string"
-        }
-      ],
-      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
-    },
-    "security_context": {
-      "properties": {
-        "ja3": {
-          "description": "JA3 fingerprint. Could be undefined.",
-          "type": "string"
-        },
-        "ja4": {
-          "description": "JA4 fingerprint. Could be undefined.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "sercft",
-      "description": "Successful Exchange of Password and MFA Recovery Code for Access Token",
+      "const": "my_account_authentication_method_succeeded",
+      "description": "Successful authentication method operation in My Account API",
       "type": "string"
     },
     "user_agent": {
@@ -145,9 +160,9 @@
     }
   },
   "required": [
-    "audience",
     "client_name",
     "description",
+    "details",
     "hostname",
     "ip",
     "log_id",
