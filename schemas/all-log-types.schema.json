@@ -12988,10 +12988,6 @@
             "null"
           ]
         },
-        "client_name": {
-          "description": "Client name associated with the client_id, when available. May be empty string.",
-          "type": "string"
-        },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -13108,7 +13104,6 @@
         }
       },
       "required": [
-        "client_name",
         "description",
         "details",
         "hostname",
@@ -13151,10 +13146,6 @@
             "string",
             "null"
           ]
-        },
-        "client_name": {
-          "description": "Client name associated with the client_id, when available. May be empty string.",
-          "type": "string"
         },
         "connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
@@ -13255,7 +13246,6 @@
         }
       },
       "required": [
-        "client_name",
         "description",
         "details",
         "hostname",
