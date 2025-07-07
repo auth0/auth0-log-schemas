@@ -918,6 +918,9 @@
           "$ref": "#/definitions/cs"
         },
         {
+          "$ref": "#/definitions/custom_domains_verification_failed"
+        },
+        {
           "$ref": "#/definitions/depnote"
         },
         {
@@ -2955,6 +2958,83 @@
         "log_id",
         "strategy",
         "strategy_type",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "custom_domains_verification_failed": {
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "created_at": {
+              "type": "string"
+            },
+            "custom_domain_id": {
+              "type": "string"
+            },
+            "domain": {
+              "type": "string"
+            },
+            "error": {
+              "type": "string"
+            },
+            "errorMsg": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "custom_domain_id",
+            "domain",
+            "status",
+            "type"
+          ],
+          "type": "object"
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "custom_domains_verification_failed",
+          "description": "Custom Domains Verification Failed",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "log_id",
         "tenant_name",
         "type"
       ],
