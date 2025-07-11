@@ -246,6 +246,34 @@
           ],
           "type": "object"
         },
+        "session": {
+          "description": "Details about the session associated with the login",
+          "allOf": [
+            {
+              "properties": {
+                "cookie": {
+                  "properties": {
+                    "mode": {
+                      "enum": [
+                        "persistent",
+                        "non-persistent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "mode"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "cookie"
+              ],
+              "type": "object"
+            }
+          ]
+        },
         "session_id": {
           "type": "string"
         },

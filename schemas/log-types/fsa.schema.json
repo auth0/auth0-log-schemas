@@ -68,7 +68,38 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
+      "description": "Log details",
+      "properties": {
+        "session": {
+          "description": "Details about the session associated with the login",
+          "allOf": [
+            {
+              "properties": {
+                "cookie": {
+                  "properties": {
+                    "mode": {
+                      "enum": [
+                        "persistent",
+                        "non-persistent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "mode"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "cookie"
+              ],
+              "type": "object"
+            }
+          ]
+        }
+      },
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
