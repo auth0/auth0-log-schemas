@@ -61,6 +61,9 @@
         "riskAssessment": {
           "$ref": "#/definitions/RiskAssessment"
         },
+        "session": {
+          "$ref": "#/definitions/SessionLogData"
+        },
         "session_id": {
           "type": "string"
         }
@@ -662,6 +665,29 @@
       ],
       "type": "object"
     },
+    "SessionLogData": {
+      "properties": {
+        "cookie": {
+          "properties": {
+            "mode": {
+              "enum": [
+                "persistent",
+                "non-persistent"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "mode"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "cookie"
+      ],
+      "type": "object"
+    },
     "SignupDetails": {
       "properties": {
         "actions": {
@@ -865,6 +891,9 @@
         },
         "riskAssessment": {
           "$ref": "#/definitions/RiskAssessment"
+        },
+        "session": {
+          "$ref": "#/definitions/SessionLogData"
         },
         "session_id": {
           "type": "string"
@@ -3259,6 +3288,14 @@
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
+            "session": {
+              "description": "Details about the session associated with the login",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/SessionLogData"
+                }
+              ]
+            },
             "session_id": {
               "type": "string"
             },
@@ -3807,6 +3844,14 @@
             },
             "qs": {
               "type": "object"
+            },
+            "session": {
+              "description": "Details about the session associated with the login",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/SessionLogData"
+                }
+              ]
             },
             "session_connection": {
               "type": "string"
@@ -9026,6 +9071,14 @@
                 "is_valid"
               ],
               "type": "object"
+            },
+            "session": {
+              "description": "Details about the session associated with the login",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/SessionLogData"
+                }
+              ]
             }
           },
           "type": "object"
@@ -9174,7 +9227,18 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "properties": {
+            "session": {
+              "description": "Details about the session associated with the login",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/SessionLogData"
+                }
+              ]
+            }
+          },
+          "type": "object"
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -14598,6 +14662,9 @@
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
+            "session": {
+              "$ref": "#/definitions/SessionLogData"
+            },
             "session_id": {
               "type": "string"
             },
@@ -15088,36 +15155,11 @@
         },
         "details": {
           "description": "Log details",
-          "properties": {
-            "actions": {
-              "$ref": "#/definitions/ActionExecutions"
-            },
-            "completedAt": {
-              "type": "number"
-            },
-            "elapsedTime": {
-              "type": [
-                "number",
-                "null"
-              ]
-            },
-            "initiatedAt": {
-              "type": "number"
-            },
-            "prompts": {
-              "items": {
-                "$ref": "#/definitions/AuthPrompt"
-              },
-              "type": "array"
-            },
-            "riskAssessment": {
-              "$ref": "#/definitions/RiskAssessment"
-            },
-            "session_id": {
-              "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/definitions/AuthDetailsBase"
             }
-          },
-          "type": "object"
+          ]
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
