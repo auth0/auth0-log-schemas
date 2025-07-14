@@ -349,6 +349,29 @@
               ],
               "type": "object"
             },
+            "session": {
+              "properties": {
+                "cookie": {
+                  "properties": {
+                    "mode": {
+                      "enum": [
+                        "persistent",
+                        "non-persistent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "mode"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "cookie"
+              ],
+              "type": "object"
+            },
             "session_id": {
               "type": "string"
             }
