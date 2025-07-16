@@ -13951,11 +13951,43 @@
         },
         "details": {
           "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/AuthDetailsBase"
+          "properties": {
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            },
+            "authn_correlation_uuid": {
+              "description": "An authentication method specific session uuid",
+              "type": "string"
+            },
+            "completedAt": {
+              "type": "number"
+            },
+            "elapsedTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "initiatedAt": {
+              "type": "number"
+            },
+            "prompts": {
+              "items": {
+                "$ref": "#/definitions/AuthPrompt"
+              },
+              "type": "array"
+            },
+            "riskAssessment": {
+              "$ref": "#/definitions/RiskAssessment"
+            },
+            "session": {
+              "$ref": "#/definitions/SessionLogData"
+            },
+            "session_id": {
+              "type": "string"
             }
-          ]
+          },
+          "type": "object"
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -14636,6 +14668,10 @@
           "properties": {
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
+            },
+            "authn_correlation_uuid": {
+              "description": "An authentication method specific session uuid",
+              "type": "string"
             },
             "channel": {
               "description": "Whether connection is front or back channel",
