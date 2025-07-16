@@ -89,6 +89,10 @@
           ],
           "type": "object"
         },
+        "authn_correlation_uuid": {
+          "description": "An authentication method specific session uuid",
+          "type": "string"
+        },
         "channel": {
           "description": "Whether connection is front or back channel",
           "type": "string"
