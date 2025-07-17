@@ -18386,10 +18386,11 @@
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
             },
-            "audience": {
+            "familyId": {
               "type": "string"
             },
-            "familyId": {
+            "requested_audience": {
+              "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the original token's audience",
               "type": "string"
             },
             "tokenCounter": {
