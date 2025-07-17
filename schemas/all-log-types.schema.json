@@ -947,7 +947,7 @@
           "$ref": "#/definitions/cs"
         },
         {
-          "$ref": "#/definitions/custom_domains_verification_failed"
+          "$ref": "#/definitions/custom_domain_verification_failed"
         },
         {
           "$ref": "#/definitions/depnote"
@@ -2992,7 +2992,7 @@
       ],
       "type": "object"
     },
-    "custom_domains_verification_failed": {
+    "custom_domain_verification_failed": {
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -3048,8 +3048,8 @@
           "type": "string"
         },
         "type": {
-          "const": "custom_domains_verification_failed",
-          "description": "Custom Domains Verification Failed",
+          "const": "custom_domain_verification_failed",
+          "description": "Custom Domain Verification Failed",
           "type": "string"
         },
         "user_agent": {
