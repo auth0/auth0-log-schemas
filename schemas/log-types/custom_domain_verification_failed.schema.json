@@ -63,8 +63,8 @@
       "type": "string"
     },
     "type": {
-      "const": "custom_domains_verification_failed",
-      "description": "Custom Domains Verification Failed",
+      "const": "custom_domain_verification_failed",
+      "description": "Custom Domain Verification Failed",
       "type": "string"
     },
     "user_agent": {
