@@ -113,7 +113,11 @@
           "type": "string"
         },
         "requested_audience": {
-          "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the original token's audience",
+          "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the issued audience",
+          "type": "string"
+        },
+        "requested_scope": {
+          "description": "The scope requested during refresh token exchange, distinct from root-level scope which represents the issued scope",
           "type": "string"
         },
         "tokenCounter": {
