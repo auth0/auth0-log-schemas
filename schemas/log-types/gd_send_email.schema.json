@@ -136,6 +136,10 @@
               ],
               "type": "object"
             },
+            "remember_browser": {
+              "description": "This is a boolean value indicating whether the browser/device is remembered to bypass MFA challenges within the configured duration.",
+              "type": "boolean"
+            },
             "request": {
               "type": "object"
             },
