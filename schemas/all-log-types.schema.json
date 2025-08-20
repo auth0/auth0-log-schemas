@@ -10249,6 +10249,25 @@
             }
           ]
         },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10678,6 +10697,25 @@
             }
           ]
         },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10921,6 +10959,25 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11167,6 +11224,25 @@
             }
           ]
         },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11247,6 +11323,25 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
