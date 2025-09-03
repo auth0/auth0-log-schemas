@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Login",
+  "description": "A native passkey registration was successfully initiated",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -89,8 +89,8 @@
           ],
           "type": "object"
         },
-        "channel": {
-          "description": "Whether connection is front or back channel",
+        "authn_correlation_uuid": {
+          "description": "An authentication method specific session uuid",
           "type": "string"
         },
         "completedAt": {
@@ -376,22 +376,6 @@
         },
         "session_id": {
           "type": "string"
-        },
-        "token_endpoint_auth_method": {
-          "description": "Token endpoint authentication method",
-          "type": "string"
-        },
-        "token_endpoint_auth_signing_alg": {
-          "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
-          "type": "string"
-        },
-        "token_endpoint_auth_signing_kid": {
-          "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
-          "type": "string"
-        },
-        "triggered_by_session_transfer_token": {
-          "description": "Whether a Session Transfer Token was used for authentication",
-          "type": "boolean"
         }
       },
       "type": "object"
@@ -429,49 +413,13 @@
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
-    "security_context": {
-      "properties": {
-        "ja3": {
-          "description": "JA3 fingerprint. Could be undefined.",
-          "type": "string"
-        },
-        "ja4": {
-          "description": "JA4 fingerprint. Could be undefined.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
-      "type": "string"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "s",
-      "description": "Successful Login",
+      "const": "passkey_register_started",
+      "description": "A native passkey registration was successfully initiated",
       "type": "string"
     },
     "user_agent": {
@@ -503,8 +451,6 @@
     "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
