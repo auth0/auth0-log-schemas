@@ -3410,6 +3410,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -9181,6 +9185,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10177,6 +10185,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10276,6 +10288,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -10466,6 +10482,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10546,6 +10566,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -10628,6 +10652,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -10730,6 +10758,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10812,6 +10844,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10892,6 +10928,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -10993,6 +11033,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11075,6 +11119,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11156,6 +11204,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11255,6 +11307,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -11357,6 +11413,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11438,6 +11498,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11518,6 +11582,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11608,6 +11676,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11688,6 +11760,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11770,6 +11846,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11850,6 +11930,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11932,6 +12016,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12012,6 +12100,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -12102,6 +12194,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12189,6 +12285,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -14466,43 +14566,11 @@
         },
         "details": {
           "description": "Log details",
-          "properties": {
-            "actions": {
-              "$ref": "#/definitions/ActionExecutions"
-            },
-            "authn_correlation_uuid": {
-              "description": "An authentication method specific session uuid",
-              "type": "string"
-            },
-            "completedAt": {
-              "type": "number"
-            },
-            "elapsedTime": {
-              "type": [
-                "number",
-                "null"
-              ]
-            },
-            "initiatedAt": {
-              "type": "number"
-            },
-            "prompts": {
-              "items": {
-                "$ref": "#/definitions/AuthPrompt"
-              },
-              "type": "array"
-            },
-            "riskAssessment": {
-              "$ref": "#/definitions/RiskAssessment"
-            },
-            "session": {
-              "$ref": "#/definitions/SessionLogData"
-            },
-            "session_id": {
-              "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/definitions/AuthDetailsBase"
             }
-          },
-          "type": "object"
+          ]
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -15172,6 +15240,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -19511,6 +19583,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -19657,6 +19733,9 @@
                 "connection_name": {
                   "type": "string"
                 },
+                "custom_domain": {
+                  "type": "string"
+                },
                 "flow_type": {
                   "$ref": "#/definitions/SsSsoFlowType"
                 },
@@ -19676,6 +19755,9 @@
             {
               "properties": {
                 "connection_name": {
+                  "type": "string"
+                },
+                "custom_domain": {
                   "type": "string"
                 },
                 "flow_type": {
@@ -19775,6 +19857,9 @@
             "connection_name": {
               "type": "string"
             },
+            "custom_domain": {
+              "type": "string"
+            },
             "flow_type": {
               "$ref": "#/definitions/SsSsoFlowType"
             },
@@ -19859,6 +19944,9 @@
           "description": "Log details",
           "properties": {
             "connection_name": {
+              "type": "string"
+            },
+            "custom_domain": {
               "type": "string"
             },
             "flow_type": {
