@@ -29,6 +29,9 @@
             "connection_name": {
               "type": "string"
             },
+            "custom_domain": {
+              "type": "string"
+            },
             "flow_type": {
               "enum": [
                 "create",
@@ -52,6 +55,9 @@
         {
           "properties": {
             "connection_name": {
+              "type": "string"
+            },
+            "custom_domain": {
               "type": "string"
             },
             "flow_type": {
