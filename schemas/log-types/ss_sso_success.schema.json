@@ -28,6 +28,9 @@
         "connection_name": {
           "type": "string"
         },
+        "custom_domain": {
+          "type": "string"
+        },
         "flow_type": {
           "enum": [
             "create",

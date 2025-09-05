@@ -19657,6 +19657,9 @@
                 "connection_name": {
                   "type": "string"
                 },
+                "custom_domain": {
+                  "type": "string"
+                },
                 "flow_type": {
                   "$ref": "#/definitions/SsSsoFlowType"
                 },
@@ -19676,6 +19679,9 @@
             {
               "properties": {
                 "connection_name": {
+                  "type": "string"
+                },
+                "custom_domain": {
                   "type": "string"
                 },
                 "flow_type": {
@@ -19775,6 +19781,9 @@
             "connection_name": {
               "type": "string"
             },
+            "custom_domain": {
+              "type": "string"
+            },
             "flow_type": {
               "$ref": "#/definitions/SsSsoFlowType"
             },
@@ -19859,6 +19868,9 @@
           "description": "Log details",
           "properties": {
             "connection_name": {
+              "type": "string"
+            },
+            "custom_domain": {
               "type": "string"
             },
             "flow_type": {
