@@ -1014,6 +1014,12 @@
           "$ref": "#/definitions/fecte"
         },
         {
+          "$ref": "#/definitions/idjag_exchange_failed"
+        },
+        {
+          "$ref": "#/definitions/feta"
+        },
+        {
           "$ref": "#/definitions/fede"
         },
         {
@@ -1161,6 +1167,9 @@
           "$ref": "#/definitions/gd_webauthn_enrollment_failed"
         },
         {
+          "$ref": "#/definitions/jwt_bearer_exchange_failed"
+        },
+        {
           "$ref": "#/definitions/kms_key_management_success"
         },
         {
@@ -1270,6 +1279,12 @@
         },
         {
           "$ref": "#/definitions/secte"
+        },
+        {
+          "$ref": "#/definitions/idjag_exchange_succeeded"
+        },
+        {
+          "$ref": "#/definitions/seta"
         },
         {
           "$ref": "#/definitions/sede"
@@ -3408,6 +3423,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -7664,6 +7683,153 @@
       ],
       "type": "object"
     },
+    "feta": {
+      "description": "Failed token exchange at Token Vault",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "subject_token_type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "subject_token_type"
+          ],
+          "type": "object"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "strategy": {
+          "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
+          "examples": [
+            [
+              "auth0",
+              "waad",
+              "oktawic",
+              "google-oauth2"
+            ]
+          ],
+          "type": "string"
+        },
+        "strategy_type": {
+          "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
+          "examples": [
+            [
+              "database",
+              "social",
+              "enterprise"
+            ]
+          ],
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "feta",
+          "description": "Failed Exchange of Refresh Token for Token for 3rd party API",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_name",
+        "description",
+        "details",
+        "ip",
+        "log_id",
+        "strategy",
+        "strategy_type",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
     "fi": {
       "description": "Failed to accept a user invitation. This could happen if the user accepts an invitation using a different email address than provided in the invitation, or due to a system failure while provisioning the invitation.",
       "properties": {
@@ -9181,6 +9347,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10177,6 +10347,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10276,6 +10450,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -10466,6 +10644,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10546,6 +10728,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -10628,6 +10814,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -10730,6 +10920,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10812,6 +11006,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10892,6 +11090,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -10993,6 +11195,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11075,6 +11281,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11156,6 +11366,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11255,6 +11469,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -11357,6 +11575,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11438,6 +11660,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11518,6 +11744,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11608,6 +11838,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11688,6 +11922,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11770,6 +12008,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11850,6 +12092,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -11932,6 +12178,10 @@
             }
           ]
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12012,6 +12262,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
         },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
@@ -12100,6 +12354,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -12191,6 +12449,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12255,6 +12517,523 @@
       "required": [
         "description",
         "details",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "idjag_exchange_failed": {
+      "description": "Failed Exchange of Identity Assertion Authorization Grant JWT for Access Token",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "audience": {
+          "description": "The audience in the JWT associated with the request.",
+          "type": "string"
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "organization_id": {
+          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+          "type": "string"
+        },
+        "organization_name": {
+          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "idjag_exchange_failed",
+          "description": "Failed Exchange of Identity Assertion Authorization Grant JWT for Access Token",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "audience",
+        "client_name",
+        "description",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "idjag_exchange_succeeded": {
+      "description": "Successful Exchange of Identity Assertion Authorization Grant JWT for Access Token",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "audience": {
+          "description": "The audience in the JWT associated with the request.",
+          "type": "string"
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "access_token_jti": {
+              "type": "string"
+            },
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "mtls_thumbprint_sha256": {
+          "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
+          "type": "string"
+        },
+        "organization_id": {
+          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+          "type": "string"
+        },
+        "organization_name": {
+          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "idjag_exchange_succeeded",
+          "description": "Successful Exchange of Identity Assertion Authorization Grant JWT for Access Token",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "audience",
+        "client_name",
+        "description",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "jwt_bearer_exchange_failed": {
+      "description": "Failed exchange of JWT Bearer Assertion for Access Token",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "audience": {
+          "description": "The audience in the JWT associated with the request.",
+          "type": "string"
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "organization_id": {
+          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+          "type": "string"
+        },
+        "organization_name": {
+          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+          "type": "string"
+        },
+        "scope": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "jwt_bearer_exchange_failed",
+          "description": "Failed exchange of JWT Bearer Assertion for Access Token",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "audience",
+        "client_name",
+        "description",
+        "hostname",
         "ip",
         "log_id",
         "tenant_name",
@@ -14466,43 +15245,11 @@
         },
         "details": {
           "description": "Log details",
-          "properties": {
-            "actions": {
-              "$ref": "#/definitions/ActionExecutions"
-            },
-            "authn_correlation_uuid": {
-              "description": "An authentication method specific session uuid",
-              "type": "string"
-            },
-            "completedAt": {
-              "type": "number"
-            },
-            "elapsedTime": {
-              "type": [
-                "number",
-                "null"
-              ]
-            },
-            "initiatedAt": {
-              "type": "number"
-            },
-            "prompts": {
-              "items": {
-                "$ref": "#/definitions/AuthPrompt"
-              },
-              "type": "array"
-            },
-            "riskAssessment": {
-              "$ref": "#/definitions/RiskAssessment"
-            },
-            "session": {
-              "$ref": "#/definitions/SessionLogData"
-            },
-            "session_id": {
-              "type": "string"
+          "allOf": [
+            {
+              "$ref": "#/definitions/AuthDetailsBase"
             }
-          },
-          "type": "object"
+          ]
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -15172,6 +15919,10 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -19002,6 +19753,168 @@
       ],
       "type": "object"
     },
+    "seta": {
+      "description": "Successful token exchange at Token Vault",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "expires_at": {
+              "type": "string"
+            },
+            "issued_token_type": {
+              "type": "string"
+            },
+            "scope": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "subject_token_type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "subject_token_type",
+            "issued_token_type",
+            "scope",
+            "expires_at"
+          ],
+          "type": "object"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "strategy": {
+          "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
+          "examples": [
+            [
+              "auth0",
+              "waad",
+              "oktawic",
+              "google-oauth2"
+            ]
+          ],
+          "type": "string"
+        },
+        "strategy_type": {
+          "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
+          "examples": [
+            [
+              "database",
+              "social",
+              "enterprise"
+            ]
+          ],
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "seta",
+          "description": "Successful Exchange of Refresh Token for Token for 3rd party API",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_name",
+        "description",
+        "details",
+        "ip",
+        "log_id",
+        "strategy",
+        "strategy_type",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
     "si": {
       "description": "Successfully accepted a user invitation",
       "properties": {
@@ -19511,6 +20424,10 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "type": "string"
+        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -19657,6 +20574,9 @@
                 "connection_name": {
                   "type": "string"
                 },
+                "custom_domain": {
+                  "type": "string"
+                },
                 "flow_type": {
                   "$ref": "#/definitions/SsSsoFlowType"
                 },
@@ -19676,6 +20596,9 @@
             {
               "properties": {
                 "connection_name": {
+                  "type": "string"
+                },
+                "custom_domain": {
                   "type": "string"
                 },
                 "flow_type": {
@@ -19775,6 +20698,9 @@
             "connection_name": {
               "type": "string"
             },
+            "custom_domain": {
+              "type": "string"
+            },
             "flow_type": {
               "$ref": "#/definitions/SsSsoFlowType"
             },
@@ -19859,6 +20785,9 @@
           "description": "Log details",
           "properties": {
             "connection_name": {
+              "type": "string"
+            },
+            "custom_domain": {
               "type": "string"
             },
             "flow_type": {

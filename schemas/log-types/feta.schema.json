@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed Signup",
+  "description": "Failed token exchange at Token Vault",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -17,6 +17,36 @@
           "type": "object"
         }
       ]
+    },
+    "auth0_client": {
+      "anyOf": [
+        {
+          "properties": {
+            "env": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        }
+      ],
+      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
     },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
@@ -37,10 +67,6 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "type": "string"
-    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
@@ -48,64 +74,13 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "grant_type": {
+        "subject_token_type": {
           "type": "string"
-        },
-        "phone_number": {
-          "type": "string"
-        },
-        "phone_risk_assessment": {
-          "properties": {
-            "country_code": {
-              "type": "number"
-            },
-            "is_valid": {
-              "type": "boolean"
-            },
-            "line_type": {
-              "type": "string"
-            },
-            "risk_level": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "line_type",
-            "risk_level",
-            "country_code",
-            "is_valid"
-          ],
-          "type": "object"
-        },
-        "session": {
-          "description": "Details about the session associated with the login",
-          "allOf": [
-            {
-              "properties": {
-                "cookie": {
-                  "properties": {
-                    "mode": {
-                      "enum": [
-                        "persistent",
-                        "non-persistent"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "mode"
-                  ],
-                  "type": "object"
-                }
-              },
-              "required": [
-                "cookie"
-              ],
-              "type": "object"
-            }
-          ]
         }
       },
+      "required": [
+        "subject_token_type"
+      ],
       "type": "object"
     },
     "identity_user_id": {
@@ -128,19 +103,6 @@
     "log_id": {
       "description": "Log id",
       "type": "string"
-    },
-    "security_context": {
-      "properties": {
-        "ja3": {
-          "description": "JA3 fingerprint. Could be undefined.",
-          "type": "string"
-        },
-        "ja4": {
-          "description": "JA4 fingerprint. Could be undefined.",
-          "type": "string"
-        }
-      },
-      "type": "object"
     },
     "strategy": {
       "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -170,8 +132,8 @@
       "type": "string"
     },
     "type": {
-      "const": "fs",
-      "description": "Failed Signup",
+      "const": "feta",
+      "description": "Failed Exchange of Refresh Token for Token for 3rd party API",
       "type": "string"
     },
     "user_agent": {
@@ -199,6 +161,7 @@
   "required": [
     "client_name",
     "description",
+    "details",
     "ip",
     "log_id",
     "strategy",
