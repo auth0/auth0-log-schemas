@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed Signup",
+  "description": "Successful Exchange of Identity Assertion Authorization Grant JWT for Access Token",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,12 +18,59 @@
         }
       ]
     },
+    "audience": {
+      "description": "The audience in the JWT associated with the request.",
+      "type": "string"
+    },
+    "auth0_client": {
+      "anyOf": [
+        {
+          "properties": {
+            "env": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        }
+      ],
+      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+    },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
       "type": [
         "string",
         "null"
       ]
+    },
+    "client_ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
     },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -37,10 +84,6 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "type": "string"
-    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
@@ -48,65 +91,30 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "grant_type": {
+        "access_token_jti": {
           "type": "string"
         },
-        "phone_number": {
-          "type": "string"
-        },
-        "phone_risk_assessment": {
+        "actions": {
           "properties": {
-            "country_code": {
-              "type": "number"
-            },
-            "is_valid": {
-              "type": "boolean"
-            },
-            "line_type": {
-              "type": "string"
-            },
-            "risk_level": {
-              "type": "string"
+            "executions": {
+              "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
             }
           },
           "required": [
-            "line_type",
-            "risk_level",
-            "country_code",
-            "is_valid"
+            "executions"
           ],
           "type": "object"
-        },
-        "session": {
-          "description": "Details about the session associated with the login",
-          "allOf": [
-            {
-              "properties": {
-                "cookie": {
-                  "properties": {
-                    "mode": {
-                      "enum": [
-                        "persistent",
-                        "non-persistent"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "mode"
-                  ],
-                  "type": "object"
-                }
-              },
-              "required": [
-                "cookie"
-              ],
-              "type": "object"
-            }
-          ]
         }
       },
       "type": "object"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+      "type": "string"
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
@@ -129,6 +137,32 @@
       "description": "Log id",
       "type": "string"
     },
+    "mtls_thumbprint_sha256": {
+      "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
+      "type": "string"
+    },
+    "organization_id": {
+      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+      "type": "string"
+    },
+    "organization_name": {
+      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+      "type": "string"
+    },
+    "scope": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+    },
     "security_context": {
       "properties": {
         "ja3": {
@@ -142,36 +176,13 @@
       },
       "type": "object"
     },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
-      "type": "string"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "fs",
-      "description": "Failed Signup",
+      "const": "idjag_exchange_succeeded",
+      "description": "Successful Exchange of Identity Assertion Authorization Grant JWT for Access Token",
       "type": "string"
     },
     "user_agent": {
@@ -197,12 +208,12 @@
     }
   },
   "required": [
+    "audience",
     "client_name",
     "description",
+    "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
