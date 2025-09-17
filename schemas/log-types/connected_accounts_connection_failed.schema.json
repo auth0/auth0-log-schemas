@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed Exchange of JWT Bearer Assertion for Access Token",
+  "description": "User failed to connect a third-party account",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -17,10 +17,6 @@
           "type": "object"
         }
       ]
-    },
-    "audience": {
-      "description": "The audience in the JWT associated with the request.",
-      "type": "string"
     },
     "auth0_client": {
       "anyOf": [
@@ -59,23 +55,6 @@
         "null"
       ]
     },
-    "client_ip": {
-      "anyOf": [
-        {
-          "format": "ipv4",
-          "type": "string"
-        },
-        {
-          "format": "ipv6",
-          "type": "string"
-        }
-      ],
-      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
-    },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
     "connection": {
       "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
       "type": "string"
@@ -89,7 +68,41 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
+      "description": "Log details",
+      "properties": {
+        "error": {
+          "properties": {
+            "detail": {
+              "type": "string"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "request": {
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "required": [
+        "error"
+      ],
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -116,48 +129,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-      "type": "string"
-    },
-    "scope": {
-      "anyOf": [
-        {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        {
-          "type": "string"
-        }
-      ],
-      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
-    },
-    "security_context": {
-      "properties": {
-        "ja3": {
-          "description": "JA3 fingerprint. Could be undefined.",
-          "type": "string"
-        },
-        "ja4": {
-          "description": "JA4 fingerprint. Could be undefined.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "jwt_bearer_exchange_failed",
-      "description": "Failed Exchange of JWT Bearer Assertion for Access Token",
+      "const": "connected_accounts_connection_failed",
+      "description": "Failed connected account connection",
       "type": "string"
     },
     "user_agent": {
@@ -183,9 +161,8 @@
     }
   },
   "required": [
-    "audience",
-    "client_name",
     "description",
+    "details",
     "hostname",
     "ip",
     "log_id",
