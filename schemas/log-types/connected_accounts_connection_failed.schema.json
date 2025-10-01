@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed Silent Auth",
+  "description": "User failed to connect a third-party account",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -17,10 +17,6 @@
           "type": "object"
         }
       ]
-    },
-    "audience": {
-      "description": "The audience in the JWT associated with the request.",
-      "type": "string"
     },
     "auth0_client": {
       "anyOf": [
@@ -59,8 +55,12 @@
         "null"
       ]
     },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
+    "connection": {
+      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+      "type": "string"
+    },
+    "connection_id": {
+      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
     "description": {
@@ -70,39 +70,38 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "session": {
-          "description": "Details about the session associated with the login",
-          "allOf": [
-            {
-              "properties": {
-                "cookie": {
-                  "properties": {
-                    "mode": {
-                      "enum": [
-                        "persistent",
-                        "non-persistent"
-                      ],
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "mode"
-                  ],
-                  "type": "object"
-                }
-              },
-              "required": [
-                "cookie"
-              ],
-              "type": "object"
+        "error": {
+          "properties": {
+            "detail": {
+              "type": "string"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
             }
-          ]
+          },
+          "type": "object"
         },
-        "triggered_by_session_transfer_token": {
-          "description": "Whether a Session Transfer Token was used for authentication",
-          "type": "boolean"
+        "request": {
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
+      "required": [
+        "error"
+      ],
       "type": "object"
     },
     "hostname": {
@@ -130,35 +129,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-      "type": "string"
-    },
-    "scope": {
-      "anyOf": [
-        {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        {
-          "type": "string"
-        }
-      ],
-      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "fsa",
-      "description": "Failed Silent Auth",
+      "const": "connected_accounts_connection_failed",
+      "description": "Failed connected account connection",
       "type": "string"
     },
     "user_agent": {
@@ -184,9 +161,8 @@
     }
   },
   "required": [
-    "audience",
-    "client_name",
     "description",
+    "details",
     "hostname",
     "ip",
     "log_id",
