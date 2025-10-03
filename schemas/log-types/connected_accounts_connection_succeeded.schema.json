@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed token exchange at Token Vault",
+  "description": "User successfully connected a third-party account",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -55,10 +55,6 @@
         "null"
       ]
     },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
     "connection": {
       "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
       "type": "string"
@@ -74,25 +70,39 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "enterprise_connection": {
-          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-          "type": "string"
+        "connected_account": {
+          "properties": {
+            "id": {
+              "description": "ID of the connected account",
+              "type": "string"
+            },
+            "idp_user_id": {
+              "description": "User id in the upstream provider associated with the connected account",
+              "type": "string"
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "type": "object"
         },
-        "enterprise_connection_id": {
-          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "subject_token_type": {
-          "type": "string"
-        },
-        "token_broker": {
-          "type": "string"
+        "request": {
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
       },
-      "required": [
-        "subject_token_type"
-      ],
       "type": "object"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+      "type": "string"
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
@@ -115,36 +125,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
-      "type": "string"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "feta",
-      "description": "Failed Exchange of Refresh Token for Token for 3rd party API",
+      "const": "connected_accounts_connection_succeeded",
+      "description": "Successful connected account connection",
       "type": "string"
     },
     "user_agent": {
@@ -170,13 +157,11 @@
     }
   },
   "required": [
-    "client_name",
     "description",
     "details",
+    "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
