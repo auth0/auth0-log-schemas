@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful GET request on the management API. This event will only be emitted if a secret is returned.",
+  "description": "User successfully connected a third-party account",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -55,8 +55,12 @@
         "null"
       ]
     },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
+    "connection": {
+      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+      "type": "string"
+    },
+    "connection_id": {
+      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
     "description": {
@@ -66,130 +70,39 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "accessedSecrets": {
-          "items": {
-            "type": "string"
+        "connected_account": {
+          "properties": {
+            "id": {
+              "description": "ID of the connected account",
+              "type": "string"
+            },
+            "idp_user_id": {
+              "description": "User id in the upstream provider associated with the connected account",
+              "type": "string"
+            }
           },
-          "type": "array"
+          "required": [
+            "id"
+          ],
+          "type": "object"
         },
         "request": {
           "properties": {
-            "auth": {
-              "properties": {
-                "credentials": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "properties": {
-                        "jti": {
-                          "type": "string"
-                        }
-                      },
-                      "type": "object"
-                    }
-                  ]
-                },
-                "strategy": {
-                  "type": "string"
-                },
-                "user": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "properties": {
-                        "email": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "user_id": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "email",
-                        "name"
-                      ],
-                      "type": "object"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "credentials",
-                "strategy",
-                "user"
-              ],
-              "type": "object"
-            },
-            "channel": {
-              "type": "string"
-            },
-            "ip": {
-              "type": "string"
-            },
             "method": {
               "type": "string"
             },
             "path": {
               "type": "string"
-            },
-            "query": {
-              "type": "object"
-            },
-            "userAgent": {
-              "type": "string"
             }
           },
-          "required": [
-            "auth",
-            "channel",
-            "ip",
-            "method",
-            "path",
-            "query",
-            "userAgent"
-          ],
-          "type": "object"
-        },
-        "response": {
-          "properties": {
-            "body": {
-              "anyOf": [
-                {
-                  "type": "object"
-                },
-                {
-                  "items": {},
-                  "type": "array"
-                }
-              ]
-            },
-            "statusCode": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "statusCode",
-            "body"
-          ],
           "type": "object"
         }
       },
-      "required": [
-        "accessedSecrets",
-        "request",
-        "response"
-      ],
       "type": "object"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+      "type": "string"
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
@@ -212,26 +125,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "references": {
-      "description": "Correlation ID to trace related events across services.",
-      "properties": {
-        "correlation_id": {
-          "maxLength": 64,
-          "type": "string"
-        }
-      },
-      "required": [
-        "correlation_id"
-      ],
-      "type": "object"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "mgmt_api_read",
-      "description": "Management API Read Operation",
+      "const": "connected_accounts_connection_succeeded",
+      "description": "Successful connected account connection",
       "type": "string"
     },
     "user_agent": {
@@ -257,9 +157,9 @@
     }
   },
   "required": [
-    "client_name",
     "description",
     "details",
+    "hostname",
     "ip",
     "log_id",
     "tenant_name",

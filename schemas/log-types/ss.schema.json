@@ -598,6 +598,19 @@
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 64,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
+    },
     "security_context": {
       "properties": {
         "ja3": {
