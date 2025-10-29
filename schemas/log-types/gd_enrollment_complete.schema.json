@@ -161,6 +161,19 @@
       "description": "Log id",
       "type": "string"
     },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 64,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
+    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
