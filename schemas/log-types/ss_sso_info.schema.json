@@ -42,6 +42,7 @@
           "enum": [
             "ss_sso_try_connection_start",
             "ss_sso_try_connection_end",
+            "ss_sso_google_workspace_provisioning_consent_started",
             "ss_sso_flow_end"
           ],
           "type": "string"
