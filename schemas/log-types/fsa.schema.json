@@ -97,6 +97,10 @@
               "type": "object"
             }
           ]
+        },
+        "triggered_by_session_transfer_token": {
+          "description": "Whether a Session Transfer Token was used for authentication",
+          "type": "boolean"
         }
       },
       "type": "object"
