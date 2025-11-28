@@ -65,312 +65,338 @@
     },
     "details": {
       "description": "Log details",
-      "allOf": [
-        {
+      "properties": {
+        "actions": {
           "properties": {
-            "actions": {
-              "properties": {
-                "executions": {
-                  "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              },
-              "required": [
-                "executions"
-              ],
-              "type": "object"
-            },
-            "completedAt": {
-              "type": "number"
-            },
-            "elapsedTime": {
-              "type": [
-                "number",
-                "null"
-              ]
-            },
-            "initiatedAt": {
-              "type": "number"
-            },
-            "prompts": {
+            "executions": {
+              "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
               "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "executions"
+          ],
+          "type": "object"
+        },
+        "completedAt": {
+          "type": "number"
+        },
+        "elapsedTime": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "initiatedAt": {
+          "type": "number"
+        },
+        "prompts": {
+          "items": {
+            "properties": {
+              "coi": {
+                "type": "string"
+              },
+              "completedAt": {
+                "type": "number"
+              },
+              "connection": {
+                "type": "string"
+              },
+              "connection_id": {
+                "type": "string"
+              },
+              "cov": {
+                "type": "string"
+              },
+              "elapsedTime": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flow": {
+                "type": "string"
+              },
+              "grantInfo": {
                 "properties": {
-                  "coi": {
+                  "audience": {
                     "type": "string"
                   },
-                  "completedAt": {
-                    "type": "number"
-                  },
-                  "connection": {
+                  "expiration": {
                     "type": "string"
                   },
-                  "connection_id": {
+                  "id": {
                     "type": "string"
                   },
-                  "cov": {
+                  "scope": {
                     "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "identity": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              },
+              "initiatedAt": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "passwordless_amr": {
+                "type": "string"
+              },
+              "performed_acr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
                   },
-                  "elapsedTime": {
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "performed_amr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "provider": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requiredCaptcha": {
+                "type": "boolean"
+              },
+              "session": {
+                "type": "boolean"
+              },
+              "session_id": {
+                "type": "string"
+              },
+              "stats": {
+                "properties": {
+                  "loginsCount": {
+                    "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
                     "type": [
                       "number",
                       "null"
                     ]
-                  },
-                  "flow": {
-                    "type": "string"
-                  },
-                  "grantInfo": {
-                    "properties": {
-                      "audience": {
-                        "type": "string"
-                      },
-                      "expiration": {
-                        "type": "string"
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "scope": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "identity": {
-                    "type": [
-                      "string",
-                      "number"
-                    ]
-                  },
-                  "initiatedAt": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "passwordless_amr": {
-                    "type": "string"
-                  },
-                  "performed_acr": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "performed_amr": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "provider": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "requiredCaptcha": {
-                    "type": "boolean"
-                  },
-                  "session": {
-                    "type": "boolean"
-                  },
-                  "session_id": {
-                    "type": "string"
-                  },
-                  "stats": {
-                    "properties": {
-                      "loginsCount": {
-                        "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
-                        "type": [
-                          "number",
-                          "null"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "loginsCount"
-                    ],
-                    "type": "object"
-                  },
-                  "strategy": {
-                    "type": "string"
-                  },
-                  "timers": {
-                    "properties": {
-                      "rules": {
-                        "type": "number"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "type": "string"
-                  },
-                  "user_name": {
-                    "type": "string"
                   }
                 },
                 "required": [
-                  "requiredCaptcha",
-                  "session_id"
+                  "loginsCount"
                 ],
                 "type": "object"
               },
-              "type": "array"
-            },
-            "riskAssessment": {
-              "properties": {
-                "assessments": {
-                  "properties": {
-                    "ImpossibleTravel": {
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
-                    },
-                    "NewDevice": {
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "type": "string"
-                        },
-                        "details": {
-                          "properties": {
-                            "device": {
-                              "type": "string"
-                            },
-                            "useragent": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "device"
-                          ],
-                          "type": "object"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
-                    },
-                    "UntrustedIP": {
-                      "properties": {
-                        "code": {
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "type": "string"
-                        },
-                        "details": {
-                          "properties": {
-                            "ip": {
-                              "type": "string"
-                            },
-                            "matches": {
-                              "type": "string"
-                            },
-                            "source": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "ip",
-                            "matches",
-                            "source"
-                          ],
-                          "type": "object"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
-                    }
-                  },
-                  "required": [
-                    "UntrustedIP"
-                  ],
-                  "type": "object"
-                },
-                "confidence": {
-                  "type": "string"
-                },
-                "version": {
-                  "type": "string"
-                }
+              "strategy": {
+                "type": "string"
               },
-              "required": [
-                "assessments",
-                "confidence",
-                "version"
-              ],
-              "type": "object"
+              "timers": {
+                "properties": {
+                  "rules": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "type": "string"
+              },
+              "user_id": {
+                "type": "string"
+              },
+              "user_name": {
+                "type": "string"
+              }
             },
-            "session": {
+            "required": [
+              "requiredCaptcha",
+              "session_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "riskAssessment": {
+          "properties": {
+            "assessments": {
               "properties": {
-                "cookie": {
+                "ImpossibleTravel": {
                   "properties": {
-                    "mode": {
-                      "enum": [
-                        "persistent",
-                        "non-persistent"
-                      ],
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
                       "type": "string"
                     }
                   },
                   "required": [
-                    "mode"
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "NewDevice": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "device": {
+                          "type": "string"
+                        },
+                        "useragent": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "device"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "UntrustedIP": {
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "ip": {
+                          "type": "string"
+                        },
+                        "matches": {
+                          "type": "string"
+                        },
+                        "source": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ip",
+                        "matches",
+                        "source"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
                   ],
                   "type": "object"
                 }
               },
               "required": [
-                "cookie"
+                "UntrustedIP"
               ],
               "type": "object"
             },
-            "session_id": {
+            "confidence": {
+              "type": "string"
+            },
+            "version": {
               "type": "string"
             }
           },
+          "required": [
+            "assessments",
+            "confidence",
+            "version"
+          ],
           "type": "object"
+        },
+        "session": {
+          "properties": {
+            "cookie": {
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "persistent",
+                    "non-persistent"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "type": "object"
+            },
+            "metadata": {
+              "description": "Tracks changes made to session metadata during the request.",
+              "items": {
+                "properties": {
+                  "keys": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "operation": {
+                    "enum": [
+                      "set",
+                      "delete"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "operation",
+                  "keys"
+                ],
+                "type": "object"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "cookie"
+          ],
+          "type": "object"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "triggered_by_session_transfer_token": {
+          "description": "Whether a Session Transfer Token was used for authentication",
+          "type": "boolean"
         }
-      ]
+      },
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",

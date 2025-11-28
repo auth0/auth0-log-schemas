@@ -89,6 +89,32 @@
                     "mode"
                   ],
                   "type": "object"
+                },
+                "metadata": {
+                  "description": "Tracks changes made to session metadata during the request.",
+                  "items": {
+                    "properties": {
+                      "keys": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "operation": {
+                        "enum": [
+                          "set",
+                          "delete"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "keys"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
                 }
               },
               "required": [
@@ -97,6 +123,10 @@
               "type": "object"
             }
           ]
+        },
+        "triggered_by_session_transfer_token": {
+          "description": "Whether a Session Transfer Token was used for authentication",
+          "type": "boolean"
         }
       },
       "type": "object"

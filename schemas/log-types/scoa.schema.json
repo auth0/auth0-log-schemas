@@ -365,6 +365,32 @@
                     "mode"
                   ],
                   "type": "object"
+                },
+                "metadata": {
+                  "description": "Tracks changes made to session metadata during the request.",
+                  "items": {
+                    "properties": {
+                      "keys": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "operation": {
+                        "enum": [
+                          "set",
+                          "delete"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "keys"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
                 }
               },
               "required": [

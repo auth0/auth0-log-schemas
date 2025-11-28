@@ -365,6 +365,32 @@
                     "mode"
                   ],
                   "type": "object"
+                },
+                "metadata": {
+                  "description": "Tracks changes made to session metadata during the request.",
+                  "items": {
+                    "properties": {
+                      "keys": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "operation": {
+                        "enum": [
+                          "set",
+                          "delete"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "keys"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
                 }
               },
               "required": [
@@ -412,6 +438,19 @@
     "organization_name": {
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
+    },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 64,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
     },
     "strategy": {
       "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",

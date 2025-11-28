@@ -37,10 +37,6 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "type": "string"
-    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
@@ -96,6 +92,32 @@
                     "mode"
                   ],
                   "type": "object"
+                },
+                "metadata": {
+                  "description": "Tracks changes made to session metadata during the request.",
+                  "items": {
+                    "properties": {
+                      "keys": {
+                        "items": {
+                          "type": "string"
+                        },
+                        "type": "array"
+                      },
+                      "operation": {
+                        "enum": [
+                          "set",
+                          "delete"
+                        ],
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "operation",
+                      "keys"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
                 }
               },
               "required": [
@@ -128,6 +150,19 @@
     "log_id": {
       "description": "Log id",
       "type": "string"
+    },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 64,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
     },
     "security_context": {
       "properties": {

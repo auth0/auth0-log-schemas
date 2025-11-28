@@ -79,6 +79,7 @@
                 "ss_sso_provisioning_token_creation",
                 "ss_sso_provisioning_token_deletion",
                 "ss_sso_provisioning_attribute_update",
+                "ss_sso_google_workspace_provisioning_consent_failed",
                 "ss_sso_missing_configuration"
               ],
               "type": "string"
