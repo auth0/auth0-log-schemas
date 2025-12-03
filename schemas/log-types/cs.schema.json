@@ -142,6 +142,19 @@
       "description": "Log id",
       "type": "string"
     },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 64,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
+    },
     "strategy": {
       "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
       "examples": [
