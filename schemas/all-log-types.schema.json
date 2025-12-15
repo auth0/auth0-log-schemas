@@ -1203,6 +1203,18 @@
           "$ref": "#/definitions/my_account_authentication_method_succeeded"
         },
         {
+          "$ref": "#/definitions/connected_accounts_connection_succeeded"
+        },
+        {
+          "$ref": "#/definitions/connected_accounts_connection_failed"
+        },
+        {
+          "$ref": "#/definitions/connected_accounts_delete_succeeded"
+        },
+        {
+          "$ref": "#/definitions/connected_accounts_delete_failed"
+        },
+        {
           "$ref": "#/definitions/oidc_backchannel_logout_failed"
         },
         {
@@ -1222,12 +1234,6 @@
         },
         {
           "$ref": "#/definitions/passkey_challenge_failed"
-        },
-        {
-          "$ref": "#/definitions/passkey_register_started"
-        },
-        {
-          "$ref": "#/definitions/passkey_register_failed"
         },
         {
           "$ref": "#/definitions/reset_pwd_leak"
@@ -2425,6 +2431,9 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "notification_channel": {
+              "type": "string"
+            },
             "transaction_linking_id": {
               "description": "Reflects the ID of the consent record linked to this CIBA flow. Can be used at the /rich-consents/:id endpoint to retrieve the consent record.",
               "pattern": "^cns_[A-Za-z0-9-_]{22}$",
@@ -2710,6 +2719,9 @@
               },
               "type": "object"
             },
+            "notification_channel": {
+              "type": "string"
+            },
             "transaction_linking_id": {
               "description": "Reflects the ID of the consent record linked to this CIBA flow. Can be used at the /rich-consents/:id endpoint to retrieve the consent record.",
               "pattern": "^cns_[A-Za-z0-9-_]{22}$",
@@ -2885,6 +2897,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -2947,6 +2972,585 @@
         "log_id",
         "strategy",
         "strategy_type",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "connected_accounts_connection_failed": {
+      "description": "User failed to connect a third-party account",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "error": {
+              "properties": {
+                "detail": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "request": {
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "required": [
+            "error"
+          ],
+          "type": "object"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "connected_accounts_connection_failed",
+          "description": "Failed connected account connection",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "connected_accounts_connection_succeeded": {
+      "description": "User successfully connected a third-party account",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "connected_account": {
+              "properties": {
+                "id": {
+                  "description": "ID of the connected account",
+                  "type": "string"
+                },
+                "idp_user_id": {
+                  "description": "User id in the upstream provider associated with the connected account",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id"
+              ],
+              "type": "object"
+            },
+            "request": {
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "connected_accounts_connection_succeeded",
+          "description": "Successful connected account connection",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "connected_accounts_delete_failed": {
+      "description": "User failed to delete a connected third-party account",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "connected_account": {
+              "properties": {
+                "id": {
+                  "description": "ID of the connected account that failed to delete. Might be undefined or invalid depending on the error",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "error": {
+              "properties": {
+                "detail": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "number"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "request": {
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "connected_accounts_delete_failed",
+          "description": "Failed connected account delete",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "connected_accounts_delete_succeeded": {
+      "description": "User successfully deleted a connected third-party account",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "auth0_client": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Auth0ClientProp"
+            },
+            {
+              "type": "object"
+            },
+            {
+              "items": {},
+              "type": "array"
+            }
+          ],
+          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "connected_account": {
+              "properties": {
+                "id": {
+                  "description": "ID of the connected account deleted.",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "request": {
+              "properties": {
+                "method": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "connected_accounts_delete_succeeded",
+          "description": "Successful connected account delete",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "hostname",
+        "ip",
+        "log_id",
         "tenant_name",
         "type"
       ],
@@ -3084,6 +3688,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -3425,10 +4042,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -3444,6 +4057,17 @@
               "$ref": "#/definitions/OAuthError"
             },
             "grant_type": {
+              "type": "string"
+            },
+            "id_token_signed_response_algs": {
+              "description": "ID Token signing algorithms supported by the client. Only Example: [\"RS256\",\"ES256\"]",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "id_token_signing_alg": {
+              "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
               "type": "string"
             },
             "qs": {
@@ -3518,6 +4142,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -4269,6 +4906,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -4742,6 +5392,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -5829,6 +6492,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -7735,7 +8411,18 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "enterprise_connection": {
+              "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+              "type": "string"
+            },
+            "enterprise_connection_id": {
+              "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+              "type": "string"
+            },
             "subject_token_type": {
+              "type": "string"
+            },
+            "token_broker": {
               "type": "string"
             }
           },
@@ -8109,6 +8796,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -8238,6 +8938,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -8394,6 +9107,19 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -8534,6 +9260,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -8648,6 +9387,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -8803,6 +9555,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -8968,6 +9733,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -9251,6 +10029,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -9347,10 +10138,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -9416,6 +10203,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -9551,6 +10351,10 @@
                   "$ref": "#/definitions/SessionLogData"
                 }
               ]
+            },
+            "triggered_by_session_transfer_token": {
+              "description": "Whether a Session Transfer Token was used for authentication",
+              "type": "boolean"
             }
           },
           "type": "object"
@@ -9720,6 +10524,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -10076,6 +10893,19 @@
         "query": {
           "type": "object"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -10270,6 +11100,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -10347,10 +11190,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10381,6 +11220,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -10450,10 +11302,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
           "type": "string"
         },
         "description": {
@@ -10593,6 +11441,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -10644,10 +11505,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10678,6 +11535,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -10729,10 +11599,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10763,6 +11629,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -10815,10 +11694,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10849,6 +11724,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -10920,10 +11808,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -10954,6 +11838,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11006,10 +11903,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11040,6 +11933,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11091,10 +11997,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11125,6 +12027,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11195,10 +12110,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11229,6 +12140,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11281,10 +12205,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11315,6 +12235,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11367,10 +12300,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11401,6 +12330,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11471,10 +12413,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11505,6 +12443,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11575,10 +12526,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11609,6 +12556,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11660,10 +12620,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11694,6 +12650,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11745,10 +12714,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11779,6 +12744,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11838,10 +12816,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11872,6 +12846,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -11923,10 +12910,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -11957,6 +12940,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12008,10 +13004,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12042,6 +13034,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12093,10 +13098,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12127,6 +13128,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12178,10 +13192,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12212,6 +13222,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12263,10 +13286,6 @@
             }
           ]
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12297,6 +13316,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12356,10 +13388,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12390,6 +13418,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12449,10 +13490,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -12483,6 +13520,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -12874,7 +13924,7 @@
       "type": "object"
     },
     "jwt_bearer_exchange_failed": {
-      "description": "Failed exchange of JWT Bearer Assertion for Access Token",
+      "description": "Failed Exchange of JWT Bearer Assertion for Access Token",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -13004,7 +14054,7 @@
         },
         "type": {
           "const": "jwt_bearer_exchange_failed",
-          "description": "Failed exchange of JWT Bearer Assertion for Access Token",
+          "description": "Failed Exchange of JWT Bearer Assertion for Access Token",
           "type": "string"
         },
         "user_agent": {
@@ -13337,7 +14387,13 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "properties": {
+            "flow": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -14068,7 +15124,7 @@
           "type": "string"
         },
         "references": {
-          "description": "Content of the `x-correlation-id` header associated with the management API call, if the feature is enabled",
+          "description": "Correlation ID to trace related events across services.",
           "properties": {
             "correlation_id": {
               "maxLength": 64,
@@ -14845,6 +15901,14 @@
                 "message"
               ],
               "type": "object"
+            },
+            "purpose": {
+              "description": "Purpose of the challenge. Possible values: \"register\" or \"login\"",
+              "enum": [
+                "register",
+                "login"
+              ],
+              "type": "string"
             }
           },
           "type": "object"
@@ -14974,148 +16038,44 @@
         },
         "details": {
           "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/AuthDetailsBase"
-            }
-          ]
-        },
-        "hostname": {
-          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-          "type": "string"
-        },
-        "identity_user_id": {
-          "description": "ID for the user as reported by the IdP.",
-          "type": "string"
-        },
-        "ip": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/IPV4"
-            },
-            {
-              "$ref": "#/definitions/IPV6"
-            }
-          ],
-          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
-        },
-        "log_id": {
-          "description": "Log id",
-          "type": "string"
-        },
-        "organization_id": {
-          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-          "type": "string"
-        },
-        "organization_name": {
-          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-          "type": "string"
-        },
-        "tenant_name": {
-          "description": "Tenant name",
-          "type": "string"
-        },
-        "type": {
-          "const": "passkey_challenge_started",
-          "description": "A native passkey challenge was successfully initiated",
-          "type": "string"
-        },
-        "user_agent": {
-          "description": "The user_agent behind this log, when available",
-          "examples": [
-            "Chrome 120.0.0 / Mac OS X 10.15.7"
-          ],
-          "type": "string"
-        },
-        "user_id": {
-          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
-          "type": "string"
-        },
-        "user_name": {
-          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
-          "examples": [
-            [
-              "example@example.com",
-              "+14155554321"
-            ]
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "client_name",
-        "description",
-        "details",
-        "hostname",
-        "ip",
-        "log_id",
-        "tenant_name",
-        "type"
-      ],
-      "type": "object"
-    },
-    "passkey_register_failed": {
-      "description": "A native passkey registration failed",
-      "properties": {
-        "$event_schema": {
-          "description": "Event schema meta",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SchemaMeta"
-            }
-          ]
-        },
-        "auth0_client": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Auth0ClientProp"
-            },
-            {
-              "type": "object"
-            },
-            {
-              "items": {},
-              "type": "array"
-            }
-          ],
-          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
-        },
-        "client_id": {
-          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "client_name": {
-          "description": "Client name associated with the client_id, when available. May be empty string.",
-          "type": "string"
-        },
-        "connection": {
-          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-          "type": "string"
-        },
-        "connection_id": {
-          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "description": {
-          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
-          "type": "string"
-        },
-        "details": {
-          "description": "Log details",
           "properties": {
-            "error": {
-              "properties": {
-                "message": {
-                  "type": "string"
-                }
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            },
+            "completedAt": {
+              "type": "number"
+            },
+            "elapsedTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "initiatedAt": {
+              "type": "number"
+            },
+            "prompts": {
+              "items": {
+                "$ref": "#/definitions/AuthPrompt"
               },
-              "required": [
-                "message"
+              "type": "array"
+            },
+            "purpose": {
+              "description": "Purpose of the challenge. Possible values: \"register\" or \"login\"",
+              "enum": [
+                "register",
+                "login"
               ],
-              "type": "object"
+              "type": "string"
+            },
+            "riskAssessment": {
+              "$ref": "#/definitions/RiskAssessment"
+            },
+            "session": {
+              "$ref": "#/definitions/SessionLogData"
+            },
+            "session_id": {
+              "type": "string"
             }
           },
           "type": "object"
@@ -15156,139 +16116,8 @@
           "type": "string"
         },
         "type": {
-          "const": "passkey_register_failed",
-          "description": "A native passkey registration failed",
-          "type": "string"
-        },
-        "user_agent": {
-          "description": "The user_agent behind this log, when available",
-          "examples": [
-            "Chrome 120.0.0 / Mac OS X 10.15.7"
-          ],
-          "type": "string"
-        },
-        "user_id": {
-          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
-          "type": "string"
-        },
-        "user_name": {
-          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
-          "examples": [
-            [
-              "example@example.com",
-              "+14155554321"
-            ]
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "client_name",
-        "description",
-        "details",
-        "hostname",
-        "ip",
-        "log_id",
-        "tenant_name",
-        "type"
-      ],
-      "type": "object"
-    },
-    "passkey_register_started": {
-      "description": "A native passkey registration was successfully initiated",
-      "properties": {
-        "$event_schema": {
-          "description": "Event schema meta",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SchemaMeta"
-            }
-          ]
-        },
-        "auth0_client": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Auth0ClientProp"
-            },
-            {
-              "type": "object"
-            },
-            {
-              "items": {},
-              "type": "array"
-            }
-          ],
-          "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
-        },
-        "client_id": {
-          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "client_name": {
-          "description": "Client name associated with the client_id, when available. May be empty string.",
-          "type": "string"
-        },
-        "connection": {
-          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-          "type": "string"
-        },
-        "connection_id": {
-          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "description": {
-          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
-          "type": "string"
-        },
-        "details": {
-          "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/AuthDetailsBase"
-            }
-          ]
-        },
-        "hostname": {
-          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-          "type": "string"
-        },
-        "identity_user_id": {
-          "description": "ID for the user as reported by the IdP.",
-          "type": "string"
-        },
-        "ip": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/IPV4"
-            },
-            {
-              "$ref": "#/definitions/IPV6"
-            }
-          ],
-          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
-        },
-        "log_id": {
-          "description": "Log id",
-          "type": "string"
-        },
-        "organization_id": {
-          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-          "type": "string"
-        },
-        "organization_name": {
-          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-          "type": "string"
-        },
-        "tenant_name": {
-          "description": "Tenant name",
-          "type": "string"
-        },
-        "type": {
-          "const": "passkey_register_started",
-          "description": "A native passkey registration was successfully initiated",
+          "const": "passkey_challenge_started",
+          "description": "A native passkey challenge was successfully initiated",
           "type": "string"
         },
         "user_agent": {
@@ -15921,10 +16750,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -15948,6 +16773,10 @@
                 "null"
               ]
             },
+            "id_token_signing_alg": {
+              "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
+              "type": "string"
+            },
             "initiatedAt": {
               "type": "number"
             },
@@ -15959,6 +16788,10 @@
             },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
+            },
+            "saml_certificate_thumbprint": {
+              "description": "SHA-1 thumbprint of the certificate used to validate the SAML assertion signature from the upstream identity provider. Only present for SAML/SAMLp connections.",
+              "type": "string"
             },
             "session": {
               "$ref": "#/definitions/SessionLogData"
@@ -16015,6 +16848,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -16180,7 +17026,7 @@
           "type": "string"
         },
         "references": {
-          "description": "Content of the `x-correlation-id` header associated with the management API call, if the feature is enabled",
+          "description": "Correlation ID to trace related events across services.",
           "properties": {
             "correlation_id": {
               "maxLength": 64,
@@ -16624,6 +17470,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -16961,6 +17820,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -17274,6 +18146,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -17716,6 +18601,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -19805,6 +20703,14 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "enterprise_connection": {
+              "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+              "type": "string"
+            },
+            "enterprise_connection_id": {
+              "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+              "type": "string"
+            },
             "expires_at": {
               "type": "string"
             },
@@ -19818,6 +20724,9 @@
               "type": "array"
             },
             "subject_token_type": {
+              "type": "string"
+            },
+            "token_broker": {
               "type": "string"
             }
           },
@@ -20424,10 +21333,6 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "type": "string"
-        },
         "description": {
           "description": "Description of the event. This can also contain a description of the issue for failure logs.",
           "type": "string"
@@ -20470,6 +21375,19 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -20613,9 +21531,11 @@
                     "ss_sso_add_domain",
                     "ss_sso_delete_pending_domain",
                     "ss_sso_domain_verification",
+                    "ss_sso_associate_verified_domain",
                     "ss_sso_provisioning_token_creation",
                     "ss_sso_provisioning_token_deletion",
                     "ss_sso_provisioning_attribute_update",
+                    "ss_sso_google_workspace_provisioning_consent_failed",
                     "ss_sso_missing_configuration"
                   ],
                   "type": "string"
@@ -20708,6 +21628,8 @@
               "enum": [
                 "ss_sso_try_connection_start",
                 "ss_sso_try_connection_end",
+                "ss_sso_google_workspace_provisioning_consent_started",
+                "ss_sso_google_workspace_provisioning_groups_enabled",
                 "ss_sso_flow_end"
               ],
               "type": "string"
@@ -20804,9 +21726,11 @@
                 "ss_sso_delete_pending_domain",
                 "ss_sso_domain_verification_unsuccessful",
                 "ss_sso_domain_verification_successful",
+                "ss_sso_associate_verified_domain",
                 "ss_sso_provisioning_token_creation",
                 "ss_sso_provisioning_token_deletion",
                 "ss_sso_provisioning_attribute_update",
+                "ss_sso_google_workspace_provisioning_consent_completed",
                 "ss_sso_missing_configuration"
               ],
               "type": "string"
@@ -20908,11 +21832,43 @@
         },
         "details": {
           "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/AuthDetailsBase"
+          "properties": {
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            },
+            "completedAt": {
+              "type": "number"
+            },
+            "elapsedTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "initiatedAt": {
+              "type": "number"
+            },
+            "prompts": {
+              "items": {
+                "$ref": "#/definitions/AuthPrompt"
+              },
+              "type": "array"
+            },
+            "riskAssessment": {
+              "$ref": "#/definitions/RiskAssessment"
+            },
+            "session": {
+              "$ref": "#/definitions/SessionLogData"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "triggered_by_session_transfer_token": {
+              "description": "Whether a Session Transfer Token was used for authentication",
+              "type": "boolean"
             }
-          ]
+          },
+          "type": "object"
         },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -21175,6 +22131,19 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -21361,6 +22330,19 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "Correlation ID to trace related events across services.",
+          "properties": {
+            "correlation_id": {
+              "maxLength": 64,
+              "type": "string"
+            }
+          },
+          "required": [
+            "correlation_id"
+          ],
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",

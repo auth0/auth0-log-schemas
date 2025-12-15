@@ -84,6 +84,14 @@
             "message"
           ],
           "type": "object"
+        },
+        "purpose": {
+          "description": "Purpose of the challenge. Possible values: \"register\" or \"login\"",
+          "enum": [
+            "register",
+            "login"
+          ],
+          "type": "string"
         }
       },
       "type": "object"
