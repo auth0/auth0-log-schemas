@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "A native passkey registration failed",
+  "description": "User failed to delete a connected third-party account",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -55,10 +55,6 @@
         "null"
       ]
     },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
     "connection": {
       "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
       "type": "string"
@@ -74,15 +70,41 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "error": {
+        "connected_account": {
           "properties": {
-            "message": {
+            "id": {
+              "description": "ID of the connected account that failed to delete. Might be undefined or invalid depending on the error",
               "type": "string"
             }
           },
-          "required": [
-            "message"
-          ],
+          "type": "object"
+        },
+        "error": {
+          "properties": {
+            "detail": {
+              "type": "string"
+            },
+            "status": {
+              "type": "number"
+            },
+            "title": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "request": {
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
           "type": "object"
         }
       },
@@ -113,21 +135,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-      "type": "string"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "passkey_register_failed",
-      "description": "A native passkey registration failed",
+      "const": "connected_accounts_delete_failed",
+      "description": "Failed connected account delete",
       "type": "string"
     },
     "user_agent": {
@@ -153,7 +167,6 @@
     }
   },
   "required": [
-    "client_name",
     "description",
     "details",
     "hostname",

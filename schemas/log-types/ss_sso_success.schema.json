@@ -49,9 +49,11 @@
             "ss_sso_delete_pending_domain",
             "ss_sso_domain_verification_unsuccessful",
             "ss_sso_domain_verification_successful",
+            "ss_sso_associate_verified_domain",
             "ss_sso_provisioning_token_creation",
             "ss_sso_provisioning_token_deletion",
             "ss_sso_provisioning_attribute_update",
+            "ss_sso_google_workspace_provisioning_consent_completed",
             "ss_sso_missing_configuration"
           ],
           "type": "string"
