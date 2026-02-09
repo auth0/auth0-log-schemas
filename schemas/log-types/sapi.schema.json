@@ -107,10 +107,10 @@
       "type": "string"
     },
     "references": {
-      "description": "Content of the `x-correlation-id` header associated with the management API call, if the feature is enabled",
+      "description": "Correlation ID to trace related events across services.",
       "properties": {
         "correlation_id": {
-          "maxLength": 64,
+          "maxLength": 128,
           "type": "string"
         }
       },
