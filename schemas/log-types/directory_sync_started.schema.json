@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed Notification",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,17 +17,6 @@
         }
       ]
     },
-    "client_id": {
-      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
     "connection": {
       "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
       "type": "string"
@@ -44,63 +32,62 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "email_type": {
+        "created_at": {
+          "format": "date-time",
           "type": "string"
         },
-        "error": {
+        "scheduled": {
+          "type": "boolean"
+        },
+        "started_at": {
+          "format": "date-time",
           "type": "string"
         },
-        "notification_type": {
-          "type": "string"
-        },
-        "to": {
+        "synchronization_id": {
           "type": "string"
         }
       },
       "required": [
-        "email_type",
-        "notification_type",
-        "to"
+        "synchronization_id",
+        "scheduled",
+        "created_at",
+        "started_at"
       ],
       "type": "object"
-    },
-    "ip": {
-      "anyOf": [
-        {
-          "format": "ipv4",
-          "type": "string"
-        },
-        {
-          "format": "ipv6",
-          "type": "string"
-        }
-      ],
-      "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
     },
     "log_id": {
       "description": "Log id",
       "type": "string"
     },
-    "references": {
-      "description": "Correlation ID to trace related events across services.",
-      "properties": {
-        "correlation_id": {
-          "maxLength": 128,
-          "type": "string"
-        }
-      },
-      "required": [
-        "correlation_id"
+    "strategy": {
+      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
+      "examples": [
+        [
+          "auth0",
+          "waad",
+          "oktawic",
+          "google-oauth2"
+        ]
       ],
-      "type": "object"
+      "type": "string"
+    },
+    "strategy_type": {
+      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
+      "examples": [
+        [
+          "database",
+          "social",
+          "enterprise"
+        ]
+      ],
+      "type": "string"
     },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "fn",
-      "description": "Failed Notification",
+      "const": "directory_sync_started",
       "type": "string"
     },
     "user_agent": {
@@ -112,11 +99,11 @@
     }
   },
   "required": [
-    "client_name",
     "description",
     "details",
-    "ip",
     "log_id",
+    "strategy",
+    "strategy_type",
     "tenant_name",
     "type"
   ],

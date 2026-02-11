@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Successful Exchange via On-Behalf-Of Token Exchange",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -16,6 +17,10 @@
           "type": "object"
         }
       ]
+    },
+    "audience": {
+      "description": "The audience in the JWT associated with the request.",
+      "type": "string"
     },
     "auth0_client": {
       "anyOf": [
@@ -72,47 +77,36 @@
     },
     "details": {
       "description": "Log details",
-      "allOf": [
-        {
+      "properties": {
+        "access_token_jti": {
+          "type": "string"
+        },
+        "actor": {
+          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another",
           "properties": {
-            "error": {
-              "properties": {
-                "code": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "code",
-                "message"
-              ],
-              "type": "object"
-            },
-            "execution_id": {
-              "type": "string"
-            },
-            "flow_id": {
-              "type": "string"
-            },
-            "state": {
-              "type": "string"
+            "sub": {
+              "description": "Id of the actor, it is usually a client_id or a user_id",
+              "type": [
+                "string",
+                "null"
+              ]
             }
           },
-          "required": [
-            "error",
-            "execution_id",
-            "flow_id",
-            "state"
-          ],
           "type": "object"
+        },
+        "requested_token_type": {
+          "type": "string"
+        },
+        "subject_token_type": {
+          "type": "string"
         }
-      ]
-    },
-    "hostname": {
-      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-      "type": "string"
+      },
+      "required": [
+        "subject_token_type",
+        "requested_token_type",
+        "actor"
+      ],
+      "type": "object"
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
@@ -143,49 +137,40 @@
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
-    "references": {
-      "description": "Correlation ID to trace related events across services.",
+    "scope": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+    },
+    "security_context": {
       "properties": {
-        "correlation_id": {
-          "maxLength": 128,
+        "ja3": {
+          "description": "JA3 fingerprint. Could be undefined.",
+          "type": "string"
+        },
+        "ja4": {
+          "description": "JA4 fingerprint. Could be undefined.",
           "type": "string"
         }
       },
-      "required": [
-        "correlation_id"
-      ],
       "type": "object"
-    },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
-      "type": "string"
     },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "flows_execution_failed",
-      "description": "Flows Execution Failed",
+      "const": "success_on_behalf_of_token_exchange",
+      "description": "Successful Exchange via On-Behalf-Of Token Exchange",
       "type": "string"
     },
     "user_agent": {
@@ -211,14 +196,12 @@
     }
   },
   "required": [
+    "audience",
     "client_name",
     "description",
     "details",
-    "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
