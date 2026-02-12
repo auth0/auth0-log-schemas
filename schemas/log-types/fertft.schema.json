@@ -105,6 +105,18 @@
             "executions"
           ],
           "type": "object"
+        },
+        "policy_used": {
+          "description": "The refresh token policy type that was matched during the token exchange",
+          "allOf": [
+            {
+              "enum": [
+                "mrrt",
+                "refresh_token_user_grant"
+              ],
+              "type": "string"
+            }
+          ]
         }
       },
       "type": "object"

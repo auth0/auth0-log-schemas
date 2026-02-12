@@ -112,6 +112,18 @@
         "familyId": {
           "type": "string"
         },
+        "policy_used": {
+          "description": "The refresh token policy type that was matched during the token exchange",
+          "allOf": [
+            {
+              "enum": [
+                "mrrt",
+                "refresh_token_user_grant"
+              ],
+              "type": "string"
+            }
+          ]
+        },
         "requested_audience": {
           "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the issued audience",
           "type": "string"
