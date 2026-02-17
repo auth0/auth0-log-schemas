@@ -37,10 +37,6 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "type": "string"
-    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
@@ -179,6 +175,19 @@
     "log_id": {
       "description": "Log id",
       "type": "string"
+    },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 128,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
     },
     "tenant_name": {
       "description": "Tenant name",

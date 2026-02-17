@@ -74,7 +74,18 @@
     "details": {
       "description": "Log details",
       "properties": {
+        "enterprise_connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "enterprise_connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
         "subject_token_type": {
+          "type": "string"
+        },
+        "token_broker": {
           "type": "string"
         }
       },

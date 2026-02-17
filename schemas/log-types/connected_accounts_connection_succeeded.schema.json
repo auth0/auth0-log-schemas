@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "User successfully connected a third-party account",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -54,10 +55,6 @@
         "null"
       ]
     },
-    "client_name": {
-      "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
     "connection": {
       "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
       "type": "string"
@@ -72,43 +69,36 @@
     },
     "details": {
       "description": "Log details",
-      "allOf": [
-        {
+      "properties": {
+        "connected_account": {
           "properties": {
-            "error": {
-              "properties": {
-                "code": {
-                  "type": "string"
-                },
-                "message": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "code",
-                "message"
-              ],
-              "type": "object"
-            },
-            "execution_id": {
+            "id": {
+              "description": "ID of the connected account",
               "type": "string"
             },
-            "flow_id": {
-              "type": "string"
-            },
-            "state": {
+            "idp_user_id": {
+              "description": "User id in the upstream provider associated with the connected account",
               "type": "string"
             }
           },
           "required": [
-            "error",
-            "execution_id",
-            "flow_id",
-            "state"
+            "id"
           ],
           "type": "object"
+        },
+        "request": {
+          "properties": {
+            "method": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "type": "object"
         }
-      ]
+      },
+      "type": "object"
     },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
@@ -135,57 +125,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "organization_id": {
-      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
-      "type": "string"
-    },
-    "organization_name": {
-      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
-      "type": "string"
-    },
-    "references": {
-      "description": "Correlation ID to trace related events across services.",
-      "properties": {
-        "correlation_id": {
-          "maxLength": 128,
-          "type": "string"
-        }
-      },
-      "required": [
-        "correlation_id"
-      ],
-      "type": "object"
-    },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
-      "type": "string"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "flows_execution_failed",
-      "description": "Flows Execution Failed",
+      "const": "connected_accounts_connection_succeeded",
+      "description": "Successful connected account connection",
       "type": "string"
     },
     "user_agent": {
@@ -211,14 +157,11 @@
     }
   },
   "required": [
-    "client_name",
     "description",
     "details",
     "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
