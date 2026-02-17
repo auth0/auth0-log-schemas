@@ -253,6 +253,10 @@
           },
           "type": "array"
         },
+        "requested_client_id": {
+          "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+          "type": "string"
+        },
         "riskAssessment": {
           "properties": {
             "assessments": {
