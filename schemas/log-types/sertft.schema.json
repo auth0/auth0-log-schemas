@@ -128,6 +128,10 @@
           "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the issued audience",
           "type": "string"
         },
+        "requested_client_id": {
+          "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+          "type": "string"
+        },
         "requested_scope": {
           "description": "The scope requested during refresh token exchange, distinct from root-level scope which represents the issued scope",
           "type": "string"

@@ -4440,6 +4440,10 @@
             "qs": {
               "type": "object"
             },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -6969,6 +6973,10 @@
                 "string",
                 "null"
               ]
+            },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -8785,6 +8793,10 @@
                   "$ref": "#/definitions/RefreshTokenPolicyUsed"
                 }
               ]
+            },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -17297,6 +17309,10 @@
               },
               "type": "array"
             },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -19073,6 +19089,10 @@
               "type": "string"
             },
             "code": {
+              "type": "string"
+            },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
               "type": "string"
             }
           },
@@ -21078,6 +21098,10 @@
             },
             "requested_audience": {
               "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the issued audience",
+              "type": "string"
+            },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
               "type": "string"
             },
             "requested_scope": {
