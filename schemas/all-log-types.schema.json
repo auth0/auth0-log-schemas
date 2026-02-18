@@ -4420,6 +4420,14 @@
               "description": "Whether connection is front or back channel",
               "type": "string"
             },
+            "dpop_nonce_used": {
+              "description": "True if a DPoP nonce was used due to an upstream nonce challenge during the DPoP handshake. Only present for DPoP-enabled connections.",
+              "type": "boolean"
+            },
+            "dpop_signing_alg": {
+              "description": "Algorithm used for DPoP proof signing. Only present for DPoP-enabled connections.",
+              "type": "string"
+            },
             "error": {
               "$ref": "#/definitions/OAuthError"
             },
@@ -4435,6 +4443,10 @@
             },
             "id_token_signing_alg": {
               "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
+              "type": "string"
+            },
+            "idp_token_type": {
+              "description": "Token type returned by the identity provider. Only present for DPoP-enabled connections.",
               "type": "string"
             },
             "qs": {
@@ -17290,6 +17302,14 @@
             "completedAt": {
               "type": "number"
             },
+            "dpop_nonce_used": {
+              "description": "True if a DPoP nonce was used due to an upstream nonce challenge during the DPoP handshake. Only present for DPoP-enabled connections.",
+              "type": "boolean"
+            },
+            "dpop_signing_alg": {
+              "description": "Algorithm used for DPoP proof signing. Only present for DPoP-enabled connections.",
+              "type": "string"
+            },
             "elapsedTime": {
               "type": [
                 "number",
@@ -17298,6 +17318,10 @@
             },
             "id_token_signing_alg": {
               "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
+              "type": "string"
+            },
+            "idp_token_type": {
+              "description": "Token type returned by the identity provider. Only present for DPoP-enabled connections.",
               "type": "string"
             },
             "initiatedAt": {
