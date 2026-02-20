@@ -502,6 +502,104 @@
       ],
       "type": "object"
     },
+    "MyOrganizationApiDetailsBase": {
+      "description": "My Organization API base details",
+      "properties": {
+        "operation": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/definitions/MyOrganizationApiRequest"
+        }
+      },
+      "required": [
+        "operation",
+        "org_id"
+      ],
+      "type": "object"
+    },
+    "MyOrganizationApiError": {
+      "description": "My organization API error.",
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "status": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "validation_errors": {
+          "items": {
+            "$ref": "#/definitions/MyOrganizationApiValidationError"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "MyOrganizationApiErrorDetailsBase": {
+      "description": "My Organization API base details with an Error",
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/MyOrganizationApiError"
+        },
+        "operation": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "string"
+        },
+        "request": {
+          "$ref": "#/definitions/MyOrganizationApiRequest"
+        }
+      },
+      "required": [
+        "operation",
+        "org_id"
+      ],
+      "type": "object"
+    },
+    "MyOrganizationApiRequest": {
+      "description": "My organization API request.",
+      "properties": {
+        "method": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MyOrganizationApiValidationError": {
+      "description": "My organization API validation error.",
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "field": {
+          "type": "string"
+        },
+        "pointer": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "detail"
+      ],
+      "type": "object"
+    },
     "OAuthError": {
       "properties": {
         "message": {
@@ -4420,6 +4518,14 @@
               "description": "Whether connection is front or back channel",
               "type": "string"
             },
+            "dpop_nonce_used": {
+              "description": "True if a DPoP nonce was used due to an upstream nonce challenge during the DPoP handshake. Only present for DPoP-enabled connections.",
+              "type": "boolean"
+            },
+            "dpop_signing_alg": {
+              "description": "Algorithm used for DPoP proof signing. Only present for DPoP-enabled connections.",
+              "type": "string"
+            },
             "error": {
               "$ref": "#/definitions/OAuthError"
             },
@@ -4435,6 +4541,10 @@
             },
             "id_token_signing_alg": {
               "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
+              "type": "string"
+            },
+            "idp_token_type": {
+              "description": "Token type returned by the identity provider. Only present for DPoP-enabled connections.",
               "type": "string"
             },
             "qs": {
@@ -17290,6 +17400,14 @@
             "completedAt": {
               "type": "number"
             },
+            "dpop_nonce_used": {
+              "description": "True if a DPoP nonce was used due to an upstream nonce challenge during the DPoP handshake. Only present for DPoP-enabled connections.",
+              "type": "boolean"
+            },
+            "dpop_signing_alg": {
+              "description": "Algorithm used for DPoP proof signing. Only present for DPoP-enabled connections.",
+              "type": "string"
+            },
             "elapsedTime": {
               "type": [
                 "number",
@@ -17298,6 +17416,10 @@
             },
             "id_token_signing_alg": {
               "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
+              "type": "string"
+            },
+            "idp_token_type": {
+              "description": "Token type returned by the identity provider. Only present for DPoP-enabled connections.",
               "type": "string"
             },
             "initiatedAt": {
