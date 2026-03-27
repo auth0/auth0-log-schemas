@@ -31,6 +31,25 @@
         "custom_domain": {
           "type": "string"
         },
+        "enabled_features": {
+          "properties": {
+            "domainVerification": {
+              "type": "boolean"
+            },
+            "provisioning": {
+              "type": "boolean"
+            },
+            "sso": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "sso",
+            "domainVerification",
+            "provisioning"
+          ],
+          "type": "object"
+        },
         "flow_type": {
           "enum": [
             "create",

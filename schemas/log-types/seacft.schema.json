@@ -18,6 +18,10 @@
         }
       ]
     },
+    "audience": {
+      "description": "The audience in the JWT associated with the request.",
+      "type": "string"
+    },
     "auth0_client": {
       "anyOf": [
         {
@@ -200,6 +204,7 @@
     }
   },
   "required": [
+    "audience",
     "client_name",
     "description",
     "details",

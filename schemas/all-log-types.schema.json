@@ -1026,6 +1026,25 @@
       ],
       "type": "object"
     },
+    "SsSsoEnabledFeatures": {
+      "properties": {
+        "domainVerification": {
+          "type": "boolean"
+        },
+        "provisioning": {
+          "type": "boolean"
+        },
+        "sso": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "sso",
+        "domainVerification",
+        "provisioning"
+      ],
+      "type": "object"
+    },
     "SsSsoFlowType": {
       "enum": [
         "create",
@@ -2531,6 +2550,10 @@
             }
           ]
         },
+        "audience": {
+          "description": "The audience in the JWT associated with the request.",
+          "type": "string"
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -2634,6 +2657,7 @@
         }
       },
       "required": [
+        "audience",
         "client_name",
         "description",
         "details",
@@ -19155,6 +19179,10 @@
             }
           ]
         },
+        "audience": {
+          "description": "The audience in the JWT associated with the request.",
+          "type": "string"
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -19318,6 +19346,7 @@
         }
       },
       "required": [
+        "audience",
         "client_name",
         "description",
         "details",
@@ -22168,6 +22197,9 @@
                 "custom_domain": {
                   "type": "string"
                 },
+                "enabled_features": {
+                  "$ref": "#/definitions/SsSsoEnabledFeatures"
+                },
                 "flow_type": {
                   "$ref": "#/definitions/SsSsoFlowType"
                 },
@@ -22192,6 +22224,9 @@
                 "custom_domain": {
                   "type": "string"
                 },
+                "enabled_features": {
+                  "$ref": "#/definitions/SsSsoEnabledFeatures"
+                },
                 "flow_type": {
                   "$ref": "#/definitions/SsSsoFlowType"
                 },
@@ -22203,6 +22238,7 @@
                     "ss_sso_enable_connection",
                     "ss_sso_add_domain",
                     "ss_sso_delete_pending_domain",
+                    "ss_sso_delete_verified_domain",
                     "ss_sso_domain_verification",
                     "ss_sso_associate_verified_domain",
                     "ss_sso_provisioning_token_creation",
@@ -22293,6 +22329,9 @@
             },
             "custom_domain": {
               "type": "string"
+            },
+            "enabled_features": {
+              "$ref": "#/definitions/SsSsoEnabledFeatures"
             },
             "flow_type": {
               "$ref": "#/definitions/SsSsoFlowType"
@@ -22385,6 +22424,9 @@
             "custom_domain": {
               "type": "string"
             },
+            "enabled_features": {
+              "$ref": "#/definitions/SsSsoEnabledFeatures"
+            },
             "flow_type": {
               "$ref": "#/definitions/SsSsoFlowType"
             },
@@ -22397,6 +22439,7 @@
                 "ss_sso_enable_connection",
                 "ss_sso_add_domain",
                 "ss_sso_delete_pending_domain",
+                "ss_sso_delete_verified_domain",
                 "ss_sso_domain_verification_unsuccessful",
                 "ss_sso_domain_verification_successful",
                 "ss_sso_associate_verified_domain",
