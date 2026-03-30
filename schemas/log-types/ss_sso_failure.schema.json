@@ -32,6 +32,25 @@
             "custom_domain": {
               "type": "string"
             },
+            "enabled_features": {
+              "properties": {
+                "domainVerification": {
+                  "type": "boolean"
+                },
+                "provisioning": {
+                  "type": "boolean"
+                },
+                "sso": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "sso",
+                "domainVerification",
+                "provisioning"
+              ],
+              "type": "object"
+            },
             "flow_type": {
               "enum": [
                 "create",
@@ -60,6 +79,25 @@
             "custom_domain": {
               "type": "string"
             },
+            "enabled_features": {
+              "properties": {
+                "domainVerification": {
+                  "type": "boolean"
+                },
+                "provisioning": {
+                  "type": "boolean"
+                },
+                "sso": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "sso",
+                "domainVerification",
+                "provisioning"
+              ],
+              "type": "object"
+            },
             "flow_type": {
               "enum": [
                 "create",
@@ -75,6 +113,7 @@
                 "ss_sso_enable_connection",
                 "ss_sso_add_domain",
                 "ss_sso_delete_pending_domain",
+                "ss_sso_delete_verified_domain",
                 "ss_sso_domain_verification",
                 "ss_sso_associate_verified_domain",
                 "ss_sso_provisioning_token_creation",
