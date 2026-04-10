@@ -4299,6 +4299,37 @@
               "properties": {
                 "message": {
                   "type": "string"
+                },
+                "user_errors": {
+                  "items": {
+                    "properties": {
+                      "identity_user_id": {
+                        "type": "string"
+                      },
+                      "operation": {
+                        "type": "string"
+                      },
+                      "reason": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "identity_user_id",
+                      "operation",
+                      "reason"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "user_errors_summary": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "type": "object"
+                },
+                "user_errors_truncated": {
+                  "type": "boolean"
                 }
               },
               "required": [
@@ -4610,6 +4641,27 @@
             "triggered_by_session_transfer_token": {
               "description": "Whether a Session Transfer Token was used for authentication",
               "type": "boolean"
+            },
+            "upstream_userinfo_fetch": {
+              "description": "Details about the upstream userinfo endpoint fetch. Only populated if the userinfo_endpoint was called for the transaction. Only present for OIDC/Okta connections.",
+              "properties": {
+                "dpop_bound": {
+                  "description": "True if the request to the userinfo endpoint was bound with DPoP. Only present and set to true if the request was successfully DPoP-bound.",
+                  "type": "boolean"
+                },
+                "status": {
+                  "description": "Indicates the outcome of the userinfo endpoint call.",
+                  "enum": [
+                    "SUCCESS",
+                    "FAILURE"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status"
+              ],
+              "type": "object"
             }
           },
           "required": [
@@ -17487,6 +17539,27 @@
             "triggered_by_session_transfer_token": {
               "description": "Whether a Session Transfer Token was used for authentication",
               "type": "boolean"
+            },
+            "upstream_userinfo_fetch": {
+              "description": "Details about the upstream userinfo endpoint fetch. Only populated if the userinfo_endpoint was called for the transaction. Only present for OIDC/Okta connections.",
+              "properties": {
+                "dpop_bound": {
+                  "description": "True if the request to the userinfo endpoint was bound with DPoP. Only present and set to true if the request was successfully DPoP-bound.",
+                  "type": "boolean"
+                },
+                "status": {
+                  "description": "Indicates the outcome of the userinfo endpoint call.",
+                  "enum": [
+                    "SUCCESS",
+                    "FAILURE"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "status"
+              ],
+              "type": "object"
             }
           },
           "type": "object"
@@ -17679,10 +17752,6 @@
           ],
           "type": "object"
         },
-        "identity_user_id": {
-          "description": "ID for the user as reported by the IdP.",
-          "type": "string"
-        },
         "ip": {
           "anyOf": [
             {
@@ -17728,17 +17797,7 @@
           "type": "string"
         },
         "user_id": {
-          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
-          "type": "string"
-        },
-        "user_name": {
-          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
-          "examples": [
-            [
-              "example@example.com",
-              "+14155554321"
-            ]
-          ],
+          "description": "ID of the user executing the action, when available. For machine to machine auth flows, this field may contain an empty string.",
           "type": "string"
         }
       },
