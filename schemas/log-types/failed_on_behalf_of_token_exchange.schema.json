@@ -71,10 +71,81 @@
       "description": "Log details",
       "properties": {
         "actor": {
-          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another",
+          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller).",
           "properties": {
+            "act": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "act": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "act": {
+                              "anyOf": [
+                                {
+                                  "properties": {
+                                    "act": {
+                                      "anyOf": [
+                                        {
+                                          "properties": {
+                                            "sub": {
+                                              "type": [
+                                                "string",
+                                                "null"
+                                              ]
+                                            }
+                                          },
+                                          "type": "object"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "sub": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "sub": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          },
+                          "type": "object"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "sub": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
             "sub": {
-              "description": "Id of the actor, it is usually a client_id or a user_id",
               "type": [
                 "string",
                 "null"

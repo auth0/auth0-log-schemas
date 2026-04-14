@@ -81,6 +81,90 @@
         "access_token_jti": {
           "type": "string"
         },
+        "actor": {
+          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller).",
+          "properties": {
+            "act": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "act": {
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "act": {
+                              "anyOf": [
+                                {
+                                  "properties": {
+                                    "act": {
+                                      "anyOf": [
+                                        {
+                                          "properties": {
+                                            "sub": {
+                                              "type": [
+                                                "string",
+                                                "null"
+                                              ]
+                                            }
+                                          },
+                                          "type": "object"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "sub": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "sub": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          },
+                          "type": "object"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "sub": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sub": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "type": "object"
+        },
         "subject_token_type": {
           "type": "string"
         }
