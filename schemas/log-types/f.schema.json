@@ -334,6 +334,27 @@
         "triggered_by_session_transfer_token": {
           "description": "Whether a Session Transfer Token was used for authentication",
           "type": "boolean"
+        },
+        "upstream_userinfo_fetch": {
+          "description": "Details about the upstream userinfo endpoint fetch. Only populated if the userinfo_endpoint was called for the transaction. Only present for OIDC/Okta connections.",
+          "properties": {
+            "dpop_bound": {
+              "description": "True if the request to the userinfo endpoint was bound with DPoP. Only present and set to true if the request was successfully DPoP-bound.",
+              "type": "boolean"
+            },
+            "status": {
+              "description": "Indicates the outcome of the userinfo endpoint call.",
+              "enum": [
+                "SUCCESS",
+                "FAILURE"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
         }
       },
       "required": [
