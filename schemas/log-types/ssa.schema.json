@@ -240,13 +240,17 @@
         "riskAssessment": {
           "properties": {
             "assessments": {
+              "description": "Risk assessment results keyed by assessor name.",
               "properties": {
                 "ImpossibleTravel": {
+                  "description": "Flags logins from geographically distant locations within a short time window.",
                   "properties": {
                     "code": {
+                      "description": "Assessment result code.",
                       "type": "string"
                     },
                     "confidence": {
+                      "description": "Confidence level of the assessment.",
                       "type": "string"
                     }
                   },
@@ -257,19 +261,24 @@
                   "type": "object"
                 },
                 "NewDevice": {
+                  "description": "Flags logins from a device not previously seen for the user.",
                   "properties": {
                     "code": {
+                      "description": "Assessment result code.",
                       "type": "string"
                     },
                     "confidence": {
+                      "description": "Confidence level of the assessment.",
                       "type": "string"
                     },
                     "details": {
                       "properties": {
                         "device": {
+                          "description": "Device identifier.",
                           "type": "string"
                         },
                         "useragent": {
+                          "description": "User agent string associated with the device.",
                           "type": "string"
                         }
                       },
@@ -286,22 +295,28 @@
                   "type": "object"
                 },
                 "UntrustedIP": {
+                  "description": "Flags logins from IPs listed in threat intelligence sources.",
                   "properties": {
                     "code": {
+                      "description": "Assessment result code.",
                       "type": "string"
                     },
                     "confidence": {
+                      "description": "Confidence level of the assessment.",
                       "type": "string"
                     },
                     "details": {
                       "properties": {
                         "ip": {
+                          "description": "IP address that triggered the assessment.",
                           "type": "string"
                         },
                         "matches": {
+                          "description": "Threat category matched.",
                           "type": "string"
                         },
                         "source": {
+                          "description": "Threat intelligence source.",
                           "type": "string"
                         }
                       },
@@ -326,9 +341,11 @@
               "type": "object"
             },
             "confidence": {
+              "description": "Overall confidence level of the risk assessment.",
               "type": "string"
             },
             "version": {
+              "description": "Risk assessment engine version.",
               "type": "string"
             }
           },
