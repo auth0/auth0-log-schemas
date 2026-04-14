@@ -4299,6 +4299,37 @@
               "properties": {
                 "message": {
                   "type": "string"
+                },
+                "user_errors": {
+                  "items": {
+                    "properties": {
+                      "identity_user_id": {
+                        "type": "string"
+                      },
+                      "operation": {
+                        "type": "string"
+                      },
+                      "reason": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "identity_user_id",
+                      "operation",
+                      "reason"
+                    ],
+                    "type": "object"
+                  },
+                  "type": "array"
+                },
+                "user_errors_summary": {
+                  "additionalProperties": {
+                    "type": "number"
+                  },
+                  "type": "object"
+                },
+                "user_errors_truncated": {
+                  "type": "boolean"
                 }
               },
               "required": [
