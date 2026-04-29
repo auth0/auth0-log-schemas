@@ -738,6 +738,24 @@
       ],
       "type": "string"
     },
+    "RefreshTokenDetails": {
+      "description": "Details about the refresh token involved in a token exchange or revocation event. Present for both Online Refresh Tokens and regular (offline) refresh tokens.",
+      "properties": {
+        "access": {
+          "description": "Token access type: \"online\" for Online Refresh Tokens, \"offline\" for regular refresh tokens.",
+          "enum": [
+            "online",
+            "offline"
+          ],
+          "type": "string"
+        },
+        "session_id": {
+          "description": "The ID of the session this refresh token is bound to. Not present if the token was invalid and could not be read.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "RefreshTokenPolicyUsed": {
       "enum": [
         "mrrt",
@@ -7194,6 +7212,10 @@
             }
           ]
         },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
+        },
         "auth0_client": {
           "anyOf": [
             {
@@ -7366,6 +7388,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -9067,6 +9093,15 @@
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
             },
+            "failure_reason": {
+              "description": "Reason the Online Refresh Token exchange failed.",
+              "enum": [
+                "session_not_found",
+                "grant_revoked",
+                "invalid_token"
+              ],
+              "type": "string"
+            },
             "policy_used": {
               "description": "The refresh token policy type that was matched during the token exchange",
               "allOf": [
@@ -9074,6 +9109,9 @@
                   "$ref": "#/definitions/RefreshTokenPolicyUsed"
                 }
               ]
+            },
+            "refresh_token": {
+              "$ref": "#/definitions/RefreshTokenDetails"
             },
             "requested_client_id": {
               "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
@@ -19341,6 +19379,10 @@
             }
           ]
         },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
+        },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
           "type": "string"
@@ -19402,6 +19444,9 @@
             },
             "code": {
               "type": "string"
+            },
+            "refresh_token": {
+              "$ref": "#/definitions/RefreshTokenDetails"
             },
             "requested_client_id": {
               "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
@@ -19530,6 +19575,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -21412,6 +21461,9 @@
                 }
               ]
             },
+            "refresh_token": {
+              "$ref": "#/definitions/RefreshTokenDetails"
+            },
             "requested_audience": {
               "description": "The audience requested during refresh token exchange, distinct from root-level audience which represents the issued audience",
               "type": "string"
@@ -22076,6 +22128,9 @@
             },
             "originalUrl": {
               "type": "string"
+            },
+            "refresh_token": {
+              "$ref": "#/definitions/RefreshTokenDetails"
             },
             "session_id": {
               "type": "string"
