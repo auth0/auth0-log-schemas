@@ -18,6 +18,10 @@
         }
       ]
     },
+    "agent_id": {
+      "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent initiated the device authorization flow and is acting on behalf of a user.",
+      "type": "string"
+    },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
       "type": [
