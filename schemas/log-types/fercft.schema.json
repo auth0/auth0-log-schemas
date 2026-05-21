@@ -123,8 +123,8 @@
       "type": "string"
     },
     "type": {
-      "const": "fepotpft",
-      "description": "Failed Exchange of Passwordless OTP for Access Token",
+      "const": "fercft",
+      "description": "Failed Exchange of Password and MFA Recovery Code for Access Token",
       "type": "string"
     },
     "user_agent": {

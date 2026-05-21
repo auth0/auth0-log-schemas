@@ -42,6 +42,7 @@
       "type": "string"
     },
     "details": {
+      "description": "Log details",
       "properties": {
         "details": {
           "type": "string"

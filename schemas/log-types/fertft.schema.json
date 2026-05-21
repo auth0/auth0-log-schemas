@@ -106,6 +106,15 @@
           ],
           "type": "object"
         },
+        "failure_reason": {
+          "description": "Reason the Online Refresh Token exchange failed.",
+          "enum": [
+            "session_not_found",
+            "grant_revoked",
+            "invalid_token"
+          ],
+          "type": "string"
+        },
         "policy_used": {
           "description": "The refresh token policy type that was matched during the token exchange",
           "allOf": [
@@ -117,6 +126,24 @@
               "type": "string"
             }
           ]
+        },
+        "refresh_token": {
+          "description": "Details about the refresh token involved in a token exchange or revocation event. Present for both Online Refresh Tokens and regular (offline) refresh tokens.",
+          "properties": {
+            "access": {
+              "description": "Token access type: \"online\" for Online Refresh Tokens, \"offline\" for regular refresh tokens.",
+              "enum": [
+                "online",
+                "offline"
+              ],
+              "type": "string"
+            },
+            "session_id": {
+              "description": "The ID of the session this refresh token is bound to. Not present if the token was invalid and could not be read.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "requested_client_id": {
           "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
