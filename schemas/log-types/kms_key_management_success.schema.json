@@ -18,6 +18,13 @@
         }
       ]
     },
+    "date": {
+      "description": "The date when the event occurred in ISO 8601 format",
+      "examples": [
+        "2024-01-15T10:30:00.000Z"
+      ],
+      "type": "string"
+    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
@@ -36,6 +43,18 @@
         }
       },
       "type": "object"
+    },
+    "environment_name": {
+      "description": "The name of the environment where the event occurred",
+      "examples": [
+        "prod-eu-1",
+        "prod-us-1"
+      ],
+      "type": "string"
+    },
+    "is_mobile": {
+      "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+      "type": "boolean"
     },
     "log_id": {
       "description": "Log id",
@@ -60,6 +79,8 @@
   },
   "required": [
     "description",
+    "environment_name",
+    "is_mobile",
     "log_id",
     "tenant_name",
     "type"
