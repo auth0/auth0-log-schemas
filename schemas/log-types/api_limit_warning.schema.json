@@ -67,6 +67,13 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
+    "date": {
+      "description": "The date when the event occurred in ISO 8601 format",
+      "examples": [
+        "2024-01-15T10:30:00.000Z"
+      ],
+      "type": "string"
+    },
     "description": {
       "description": "Description of the event. This can also contain a description of the issue for failure logs.",
       "type": "string"
@@ -119,6 +126,14 @@
       ],
       "type": "object"
     },
+    "environment_name": {
+      "description": "The name of the environment where the event occurred",
+      "examples": [
+        "prod-eu-1",
+        "prod-us-1"
+      ],
+      "type": "string"
+    },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
@@ -126,6 +141,10 @@
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
       "type": "string"
+    },
+    "is_mobile": {
+      "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+      "type": "boolean"
     },
     "log_id": {
       "description": "Log id",
@@ -166,7 +185,9 @@
     "client_name",
     "description",
     "details",
+    "environment_name",
     "hostname",
+    "is_mobile",
     "log_id",
     "tenant_name",
     "type"
