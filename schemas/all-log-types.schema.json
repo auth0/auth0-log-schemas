@@ -909,6 +909,9 @@
             "mode"
           ],
           "type": "object"
+        },
+        "idp_session_expiry": {
+          "type": "number"
         }
       },
       "required": [
@@ -18599,6 +18602,12 @@
                 "statusCode"
               ],
               "type": "object"
+            },
+            "session_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
             }
           },
           "required": [
@@ -18739,6 +18748,12 @@
               "required": [
                 "statusCode"
               ],
+              "type": "object"
+            },
+            "session_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
               "type": "object"
             }
           },
@@ -24949,6 +24964,12 @@
             },
             "session_id": {
               "type": "string"
+            },
+            "session_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
             }
           },
           "type": "object"
