@@ -76,6 +76,12 @@
             "statusCode"
           ],
           "type": "object"
+        },
+        "session_metadata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
         }
       },
       "required": [
