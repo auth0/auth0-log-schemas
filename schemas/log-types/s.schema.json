@@ -415,6 +415,9 @@
                 "mode"
               ],
               "type": "object"
+            },
+            "idp_session_expiry": {
+              "type": "number"
             }
           },
           "required": [
@@ -435,6 +438,10 @@
         },
         "token_endpoint_auth_signing_kid": {
           "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
+        },
+        "transaction_id": {
+          "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
           "type": "string"
         },
         "triggered_by_session_transfer_token": {

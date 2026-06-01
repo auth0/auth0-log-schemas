@@ -909,226 +909,13 @@
             "mode"
           ],
           "type": "object"
+        },
+        "idp_session_expiry": {
+          "type": "number"
         }
       },
       "required": [
         "cookie"
-      ],
-      "type": "object"
-    },
-    "SignupDetails": {
-      "properties": {
-        "actions": {
-          "$ref": "#/definitions/ActionExecutions"
-        },
-        "body": {
-          "properties": {
-            "app_metadata": {
-              "type": "object"
-            },
-            "blocked": {
-              "type": "boolean"
-            },
-            "client_id": {
-              "type": "string"
-            },
-            "connection": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "email_verified": {
-              "type": "boolean"
-            },
-            "family_name": {
-              "type": "string"
-            },
-            "given_name": {
-              "type": "string"
-            },
-            "ip": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "nickname": {
-              "type": "string"
-            },
-            "organization": {
-              "properties": {
-                "branding": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "display_name": {
-                  "type": "string"
-                },
-                "id": {
-                  "type": "string"
-                },
-                "metadata": {
-                  "anyOf": [
-                    {},
-                    {
-                      "type": "null"
-                    }
-                  ]
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            },
-            "password": {
-              "type": "string"
-            },
-            "phone_number": {
-              "type": "string"
-            },
-            "phone_verified": {
-              "type": "boolean"
-            },
-            "picture": {
-              "type": "string"
-            },
-            "request_language": {
-              "type": "string"
-            },
-            "tenant": {
-              "type": "string"
-            },
-            "transaction": {
-              "properties": {
-                "acr_values": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "items": {
-                        "type": "string"
-                      },
-                      "type": "array"
-                    }
-                  ]
-                },
-                "id": {
-                  "type": "string"
-                },
-                "locale": {
-                  "type": "string"
-                },
-                "login_hint": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "prompt": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "protocol": {
-                  "type": "string"
-                },
-                "redirect_uri": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "requested_scopes": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "response_mode": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "response_type": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                },
-                "state": {
-                  "type": [
-                    "string",
-                    "null"
-                  ]
-                },
-                "ui_locales": {
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              },
-              "type": "object"
-            },
-            "user-agent": {
-              "type": "string"
-            },
-            "user_id": {
-              "type": "string"
-            },
-            "user_metadata": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "object"
-                }
-              ]
-            },
-            "username": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "completedAt": {
-          "type": "number"
-        },
-        "elapsedTime": {
-          "type": [
-            "number",
-            "null"
-          ]
-        },
-        "initiatedAt": {
-          "type": "number"
-        },
-        "prompts": {
-          "items": {
-            "$ref": "#/definitions/AuthPrompt"
-          },
-          "type": "array"
-        },
-        "riskAssessment": {
-          "$ref": "#/definitions/RiskAssessment"
-        },
-        "session": {
-          "$ref": "#/definitions/SessionLogData"
-        },
-        "session_id": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "body"
       ],
       "type": "object"
     },
@@ -3358,11 +3145,15 @@
             },
             "link": {
               "type": "string"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
           },
           "required": [
-            "link",
-            "body"
+            "body",
+            "link"
           ],
           "type": "object"
         },
@@ -3518,6 +3309,11 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -3688,6 +3484,11 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
+          "type": "string"
+        },
         "date": {
           "description": "The date when the event occurred in ISO 8601 format",
           "examples": [
@@ -3850,6 +3651,11 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -4024,6 +3830,11 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -4256,6 +4067,10 @@
                 "username"
               ],
               "type": "object"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
           },
           "required": [
@@ -5200,6 +5015,10 @@
               "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
               "type": "string"
             },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
+            },
             "triggered_by_session_transfer_token": {
               "description": "Whether a Session Transfer Token was used for authentication",
               "type": "boolean"
@@ -6002,12 +5821,16 @@
             },
             "stats": {
               "$ref": "#/definitions/LoginsCountStats"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
           },
           "required": [
-            "error",
+            "body",
             "connection",
-            "body"
+            "error"
           ],
           "type": "object"
         },
@@ -6794,6 +6617,10 @@
                 "tenant"
               ],
               "type": "object"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
           },
           "required": [
@@ -11784,6 +11611,10 @@
                   "type": "object"
                 }
               ]
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
           },
           "required": [
@@ -12691,6 +12522,10 @@
                 "message"
               ],
               "type": "object"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -18228,6 +18063,11 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
+          "type": "string"
+        },
         "date": {
           "description": "The date when the event occurred in ISO 8601 format",
           "examples": [
@@ -18406,6 +18246,11 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -18599,6 +18444,12 @@
                 "statusCode"
               ],
               "type": "object"
+            },
+            "session_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
             }
           },
           "required": [
@@ -18739,6 +18590,12 @@
               "required": [
                 "statusCode"
               ],
+              "type": "object"
+            },
+            "session_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
               "type": "object"
             }
           },
@@ -18998,6 +18855,11 @@
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
         },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
+          "type": "string"
+        },
         "date": {
           "description": "The date when the event occurred in ISO 8601 format",
           "examples": [
@@ -19165,6 +19027,11 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -20095,6 +19962,10 @@
               "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
               "type": "string"
             },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
+            },
             "triggered_by_session_transfer_token": {
               "description": "Whether a Session Transfer Token was used for authentication",
               "type": "boolean"
@@ -20653,11 +20524,43 @@
         },
         "details": {
           "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/AuthDetailsBase"
+          "properties": {
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            },
+            "completedAt": {
+              "type": "number"
+            },
+            "elapsedTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "initiatedAt": {
+              "type": "number"
+            },
+            "prompts": {
+              "items": {
+                "$ref": "#/definitions/AuthPrompt"
+              },
+              "type": "array"
+            },
+            "riskAssessment": {
+              "$ref": "#/definitions/RiskAssessment"
+            },
+            "session": {
+              "$ref": "#/definitions/SessionLogData"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
-          ]
+          },
+          "type": "object"
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -24949,6 +24852,12 @@
             },
             "session_id": {
               "type": "string"
+            },
+            "session_metadata": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
             }
           },
           "type": "object"
@@ -25275,11 +25184,224 @@
         },
         "details": {
           "description": "Log details",
-          "allOf": [
-            {
-              "$ref": "#/definitions/SignupDetails"
+          "properties": {
+            "actions": {
+              "$ref": "#/definitions/ActionExecutions"
+            },
+            "body": {
+              "properties": {
+                "app_metadata": {
+                  "type": "object"
+                },
+                "blocked": {
+                  "type": "boolean"
+                },
+                "client_id": {
+                  "type": "string"
+                },
+                "connection": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "email_verified": {
+                  "type": "boolean"
+                },
+                "family_name": {
+                  "type": "string"
+                },
+                "given_name": {
+                  "type": "string"
+                },
+                "ip": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "nickname": {
+                  "type": "string"
+                },
+                "organization": {
+                  "properties": {
+                    "branding": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "display_name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "metadata": {
+                      "anyOf": [
+                        {},
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": "string"
+                },
+                "phone_verified": {
+                  "type": "boolean"
+                },
+                "picture": {
+                  "type": "string"
+                },
+                "request_language": {
+                  "type": "string"
+                },
+                "tenant": {
+                  "type": "string"
+                },
+                "transaction": {
+                  "properties": {
+                    "acr_values": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      ]
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "locale": {
+                      "type": "string"
+                    },
+                    "login_hint": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "prompt": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "protocol": {
+                      "type": "string"
+                    },
+                    "redirect_uri": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "requested_scopes": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "response_mode": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "response_type": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "state": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "ui_locales": {
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    }
+                  },
+                  "type": "object"
+                },
+                "user-agent": {
+                  "type": "string"
+                },
+                "user_id": {
+                  "type": "string"
+                },
+                "user_metadata": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object"
+                    }
+                  ]
+                },
+                "username": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "completedAt": {
+              "type": "number"
+            },
+            "elapsedTime": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "initiatedAt": {
+              "type": "number"
+            },
+            "prompts": {
+              "items": {
+                "$ref": "#/definitions/AuthPrompt"
+              },
+              "type": "array"
+            },
+            "riskAssessment": {
+              "$ref": "#/definitions/RiskAssessment"
+            },
+            "session": {
+              "$ref": "#/definitions/SessionLogData"
+            },
+            "session_id": {
+              "type": "string"
+            },
+            "transaction_id": {
+              "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+              "type": "string"
             }
-          ]
+          },
+          "required": [
+            "body"
+          ],
+          "type": "object"
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
