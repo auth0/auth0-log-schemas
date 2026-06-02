@@ -67,6 +67,11 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
+    "correlation_id": {
+      "description": "Correlation ID to trace related events across services.",
+      "maxLength": 64,
+      "type": "string"
+    },
     "date": {
       "description": "The date when the event occurred in ISO 8601 format",
       "examples": [
@@ -395,6 +400,9 @@
                 "mode"
               ],
               "type": "object"
+            },
+            "idp_session_expiry": {
+              "type": "number"
             }
           },
           "required": [

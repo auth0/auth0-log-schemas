@@ -80,329 +80,332 @@
     },
     "details": {
       "description": "Log details",
-      "allOf": [
-        {
+      "properties": {
+        "actions": {
           "properties": {
-            "actions": {
-              "properties": {
-                "executions": {
-                  "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
-                  "items": {
-                    "type": "string"
-                  },
-                  "type": "array"
-                }
-              },
-              "required": [
-                "executions"
-              ],
-              "type": "object"
-            },
-            "completedAt": {
-              "type": "number"
-            },
-            "elapsedTime": {
-              "type": [
-                "number",
-                "null"
-              ]
-            },
-            "initiatedAt": {
-              "type": "number"
-            },
-            "prompts": {
+            "executions": {
+              "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
               "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "executions"
+          ],
+          "type": "object"
+        },
+        "completedAt": {
+          "type": "number"
+        },
+        "elapsedTime": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "initiatedAt": {
+          "type": "number"
+        },
+        "prompts": {
+          "items": {
+            "properties": {
+              "coi": {
+                "type": "string"
+              },
+              "completedAt": {
+                "type": "number"
+              },
+              "connection": {
+                "type": "string"
+              },
+              "connection_id": {
+                "type": "string"
+              },
+              "cov": {
+                "type": "string"
+              },
+              "elapsedTime": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flow": {
+                "type": "string"
+              },
+              "grantInfo": {
                 "properties": {
-                  "coi": {
+                  "audience": {
                     "type": "string"
                   },
-                  "completedAt": {
-                    "type": "number"
-                  },
-                  "connection": {
+                  "expiration": {
                     "type": "string"
                   },
-                  "connection_id": {
+                  "id": {
                     "type": "string"
                   },
-                  "cov": {
+                  "scope": {
                     "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "identity": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              },
+              "initiatedAt": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "passwordless_amr": {
+                "type": "string"
+              },
+              "performed_acr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
                   },
-                  "elapsedTime": {
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "performed_amr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "provider": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requiredCaptcha": {
+                "type": "boolean"
+              },
+              "session": {
+                "type": "boolean"
+              },
+              "session_id": {
+                "type": "string"
+              },
+              "stats": {
+                "properties": {
+                  "loginsCount": {
+                    "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
                     "type": [
                       "number",
                       "null"
                     ]
-                  },
-                  "flow": {
-                    "type": "string"
-                  },
-                  "grantInfo": {
-                    "properties": {
-                      "audience": {
-                        "type": "string"
-                      },
-                      "expiration": {
-                        "type": "string"
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "scope": {
-                        "type": "string"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "identity": {
-                    "type": [
-                      "string",
-                      "number"
-                    ]
-                  },
-                  "initiatedAt": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "passwordless_amr": {
-                    "type": "string"
-                  },
-                  "performed_acr": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "performed_amr": {
-                    "anyOf": [
-                      {
-                        "items": {
-                          "type": "string"
-                        },
-                        "type": "array"
-                      },
-                      {
-                        "type": "null"
-                      }
-                    ]
-                  },
-                  "provider": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "requiredCaptcha": {
-                    "type": "boolean"
-                  },
-                  "session": {
-                    "type": "boolean"
-                  },
-                  "session_id": {
-                    "type": "string"
-                  },
-                  "stats": {
-                    "properties": {
-                      "loginsCount": {
-                        "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
-                        "type": [
-                          "number",
-                          "null"
-                        ]
-                      }
-                    },
-                    "required": [
-                      "loginsCount"
-                    ],
-                    "type": "object"
-                  },
-                  "strategy": {
-                    "type": "string"
-                  },
-                  "timers": {
-                    "properties": {
-                      "rules": {
-                        "type": "number"
-                      }
-                    },
-                    "type": "object"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "user_id": {
-                    "type": "string"
-                  },
-                  "user_name": {
-                    "type": "string"
                   }
                 },
                 "required": [
-                  "requiredCaptcha",
-                  "session_id"
+                  "loginsCount"
                 ],
                 "type": "object"
               },
-              "type": "array"
-            },
-            "riskAssessment": {
-              "properties": {
-                "assessments": {
-                  "description": "Risk assessment results keyed by assessor name.",
-                  "properties": {
-                    "ImpossibleTravel": {
-                      "description": "Flags logins from geographically distant locations within a short time window.",
-                      "properties": {
-                        "code": {
-                          "description": "Assessment result code.",
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "description": "Confidence level of the assessment.",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
-                    },
-                    "NewDevice": {
-                      "description": "Flags logins from a device not previously seen for the user.",
-                      "properties": {
-                        "code": {
-                          "description": "Assessment result code.",
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "description": "Confidence level of the assessment.",
-                          "type": "string"
-                        },
-                        "details": {
-                          "properties": {
-                            "device": {
-                              "description": "Device identifier.",
-                              "type": "string"
-                            },
-                            "useragent": {
-                              "description": "User agent string associated with the device.",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "device"
-                          ],
-                          "type": "object"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
-                    },
-                    "UntrustedIP": {
-                      "description": "Flags logins from IPs listed in threat intelligence sources.",
-                      "properties": {
-                        "code": {
-                          "description": "Assessment result code.",
-                          "type": "string"
-                        },
-                        "confidence": {
-                          "description": "Confidence level of the assessment.",
-                          "type": "string"
-                        },
-                        "details": {
-                          "properties": {
-                            "ip": {
-                              "description": "IP address that triggered the assessment.",
-                              "type": "string"
-                            },
-                            "matches": {
-                              "description": "Threat category matched.",
-                              "type": "string"
-                            },
-                            "source": {
-                              "description": "Threat intelligence source.",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "ip",
-                            "matches",
-                            "source"
-                          ],
-                          "type": "object"
-                        }
-                      },
-                      "required": [
-                        "code",
-                        "confidence"
-                      ],
-                      "type": "object"
-                    }
-                  },
-                  "required": [
-                    "UntrustedIP"
-                  ],
-                  "type": "object"
-                },
-                "confidence": {
-                  "description": "Overall confidence level of the risk assessment.",
-                  "type": "string"
-                },
-                "version": {
-                  "description": "Risk assessment engine version.",
-                  "type": "string"
-                }
+              "strategy": {
+                "type": "string"
               },
-              "required": [
-                "assessments",
-                "confidence",
-                "version"
-              ],
-              "type": "object"
+              "timers": {
+                "properties": {
+                  "rules": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "type": "string"
+              },
+              "user_id": {
+                "type": "string"
+              },
+              "user_name": {
+                "type": "string"
+              }
             },
-            "session": {
+            "required": [
+              "requiredCaptcha",
+              "session_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "riskAssessment": {
+          "properties": {
+            "assessments": {
+              "description": "Risk assessment results keyed by assessor name.",
               "properties": {
-                "cookie": {
+                "ImpossibleTravel": {
+                  "description": "Flags logins from geographically distant locations within a short time window.",
                   "properties": {
-                    "mode": {
-                      "enum": [
-                        "persistent",
-                        "non-persistent"
-                      ],
+                    "code": {
+                      "description": "Assessment result code.",
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "description": "Confidence level of the assessment.",
                       "type": "string"
                     }
                   },
                   "required": [
-                    "mode"
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "NewDevice": {
+                  "description": "Flags logins from a device not previously seen for the user.",
+                  "properties": {
+                    "code": {
+                      "description": "Assessment result code.",
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "description": "Confidence level of the assessment.",
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "device": {
+                          "description": "Device identifier.",
+                          "type": "string"
+                        },
+                        "useragent": {
+                          "description": "User agent string associated with the device.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "device"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "UntrustedIP": {
+                  "description": "Flags logins from IPs listed in threat intelligence sources.",
+                  "properties": {
+                    "code": {
+                      "description": "Assessment result code.",
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "description": "Confidence level of the assessment.",
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "ip": {
+                          "description": "IP address that triggered the assessment.",
+                          "type": "string"
+                        },
+                        "matches": {
+                          "description": "Threat category matched.",
+                          "type": "string"
+                        },
+                        "source": {
+                          "description": "Threat intelligence source.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ip",
+                        "matches",
+                        "source"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
                   ],
                   "type": "object"
                 }
               },
               "required": [
-                "cookie"
+                "UntrustedIP"
               ],
               "type": "object"
             },
-            "session_id": {
+            "confidence": {
+              "description": "Overall confidence level of the risk assessment.",
+              "type": "string"
+            },
+            "version": {
+              "description": "Risk assessment engine version.",
               "type": "string"
             }
           },
+          "required": [
+            "assessments",
+            "confidence",
+            "version"
+          ],
           "type": "object"
+        },
+        "session": {
+          "properties": {
+            "cookie": {
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "persistent",
+                    "non-persistent"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "type": "object"
+            },
+            "idp_session_expiry": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "cookie"
+          ],
+          "type": "object"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "transaction_id": {
+          "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+          "type": "string"
         }
-      ]
+      },
+      "type": "object"
     },
     "environment_name": {
       "description": "The name of the environment where the event occurred",

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed authentication method operation in My Account API",
+  "description": "Successful SCIM Operation",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,36 +18,6 @@
         }
       ]
     },
-    "auth0_client": {
-      "anyOf": [
-        {
-          "properties": {
-            "env": {
-              "type": "object"
-            },
-            "name": {
-              "type": "string"
-            },
-            "version": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "version"
-          ],
-          "type": "object"
-        },
-        {
-          "type": "object"
-        },
-        {
-          "items": {},
-          "type": "array"
-        }
-      ],
-      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
-    },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
       "type": [
@@ -55,17 +25,8 @@
         "null"
       ]
     },
-    "connection": {
-      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-      "type": "string"
-    },
-    "connection_id": {
-      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-      "type": "string"
-    },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "maxLength": 64,
+    "client_name": {
+      "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
     },
     "date": {
@@ -82,49 +43,67 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "authentication_method": {
+        "action": {
           "type": "string"
         },
-        "authentication_method_id": {
-          "type": "string"
-        },
-        "error": {
-          "properties": {
-            "detail": {
-              "type": "string"
-            },
-            "status": {
-              "type": "number"
-            },
-            "title": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "operation": {
+        "connection_id": {
           "type": "string"
         },
         "request": {
           "properties": {
+            "body": {
+              "anyOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "ip": {
+              "type": "string"
+            },
             "method": {
               "type": "string"
             },
             "path": {
               "type": "string"
+            },
+            "query": {
+              "type": "object"
+            },
+            "userAgent": {
+              "type": "string"
             }
           },
+          "required": [
+            "method",
+            "path",
+            "query",
+            "userAgent",
+            "ip",
+            "body"
+          ],
           "type": "object"
         },
-        "session_id": {
-          "type": "string"
+        "response": {
+          "properties": {
+            "statusCode": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "statusCode"
+          ],
+          "type": "object"
         }
       },
       "required": [
-        "operation"
+        "action",
+        "connection_id",
+        "request",
+        "response"
       ],
       "type": "object"
     },
@@ -134,14 +113,6 @@
         "prod-eu-1",
         "prod-us-1"
       ],
-      "type": "string"
-    },
-    "hostname": {
-      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
-      "type": "string"
-    },
-    "identity_user_id": {
-      "description": "ID for the user as reported by the IdP.",
       "type": "string"
     },
     "ip": {
@@ -170,8 +141,8 @@
       "type": "string"
     },
     "type": {
-      "const": "my_account_authentication_method_failed",
-      "description": "Failed authentication method operation in My Account API",
+      "const": "sscim",
+      "description": "Successful SCIM Operation",
       "type": "string"
     },
     "user_agent": {
@@ -180,27 +151,13 @@
         "Chrome 120.0.0 / Mac OS X 10.15.7"
       ],
       "type": "string"
-    },
-    "user_id": {
-      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
-      "type": "string"
-    },
-    "user_name": {
-      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
-      "examples": [
-        [
-          "example@example.com",
-          "+14155554321"
-        ]
-      ],
-      "type": "string"
     }
   },
   "required": [
+    "client_name",
     "description",
     "details",
     "environment_name",
-    "hostname",
     "ip",
     "is_mobile",
     "log_id",
