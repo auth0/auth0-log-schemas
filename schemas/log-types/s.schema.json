@@ -415,6 +415,9 @@
                 "mode"
               ],
               "type": "object"
+            },
+            "idp_session_expiry": {
+              "type": "number"
             }
           },
           "required": [
