@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Failed authentication method operation in My Account API",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,56 +17,6 @@
         }
       ]
     },
-    "auth0_client": {
-      "anyOf": [
-        {
-          "properties": {
-            "env": {
-              "type": "object"
-            },
-            "name": {
-              "type": "string"
-            },
-            "version": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "name",
-            "version"
-          ],
-          "type": "object"
-        },
-        {
-          "type": "object"
-        },
-        {
-          "items": {},
-          "type": "array"
-        }
-      ],
-      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
-    },
-    "client_id": {
-      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "connection": {
-      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-      "type": "string"
-    },
-    "connection_id": {
-      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-      "type": "string"
-    },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "maxLength": 64,
-      "type": "string"
-    },
     "date": {
       "description": "The date when the event occurred in ISO 8601 format",
       "examples": [
@@ -81,52 +30,117 @@
     },
     "details": {
       "description": "Log details",
-      "properties": {
-        "authentication_method": {
-          "type": "string"
-        },
-        "authentication_method_id": {
-          "type": "string"
-        },
-        "error": {
+      "allOf": [
+        {
           "properties": {
-            "detail": {
+            "authenticator": {
+              "properties": {
+                "id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "phone_number": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "type": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "type"
+              ],
+              "type": "object"
+            },
+            "device_id": {
               "type": "string"
             },
-            "status": {
-              "type": "number"
+            "enrollment": {
+              "properties": {
+                "_id": {
+                  "type": "string"
+                },
+                "identifier": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "phone_number": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "tenant": {
+                  "type": "string"
+                },
+                "user_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "_id",
+                "tenant",
+                "user_id"
+              ],
+              "type": "object"
             },
-            "title": {
-              "type": "string"
+            "failure_details": {
+              "properties": {
+                "errorCode": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "errorCode",
+                "message"
+              ],
+              "type": "object"
             },
-            "type": {
+            "first_factor": {
+              "type": "boolean"
+            },
+            "provider_error": {
+              "properties": {
+                "errorCode": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "errorCode",
+                "message"
+              ],
+              "type": "object"
+            },
+            "remember_browser": {
+              "description": "This is a boolean value indicating whether the browser/device is remembered to bypass MFA challenges within the configured duration.",
+              "type": "boolean"
+            },
+            "request": {
+              "type": "object"
+            },
+            "response": {
+              "type": "object"
+            },
+            "session_id": {
               "type": "string"
             }
           },
           "type": "object"
-        },
-        "operation": {
-          "type": "string"
-        },
-        "request": {
-          "properties": {
-            "method": {
-              "type": "string"
-            },
-            "path": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "session_id": {
-          "type": "string"
         }
-      },
-      "required": [
-        "operation"
-      ],
-      "type": "object"
+      ]
     },
     "environment_name": {
       "description": "The name of the environment where the event occurred",
@@ -134,10 +148,6 @@
         "prod-eu-1",
         "prod-us-1"
       ],
-      "type": "string"
-    },
-    "hostname": {
-      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
     "identity_user_id": {
@@ -165,13 +175,25 @@
       "description": "Log id",
       "type": "string"
     },
+    "references": {
+      "description": "Correlation ID to trace related events across services.",
+      "properties": {
+        "correlation_id": {
+          "maxLength": 128,
+          "type": "string"
+        }
+      },
+      "required": [
+        "correlation_id"
+      ],
+      "type": "object"
+    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "my_account_authentication_method_failed",
-      "description": "Failed authentication method operation in My Account API",
+      "const": "gd_send_email_verification",
       "type": "string"
     },
     "user_agent": {
@@ -200,7 +222,6 @@
     "description",
     "details",
     "environment_name",
-    "hostname",
     "ip",
     "is_mobile",
     "log_id",

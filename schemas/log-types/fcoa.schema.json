@@ -217,12 +217,16 @@
             "loginsCount"
           ],
           "type": "object"
+        },
+        "transaction_id": {
+          "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+          "type": "string"
         }
       },
       "required": [
-        "error",
+        "body",
         "connection",
-        "body"
+        "error"
       ],
       "type": "object"
     },
