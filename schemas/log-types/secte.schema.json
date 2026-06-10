@@ -291,7 +291,6 @@
     "details",
     "environment_name",
     "ip",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"
