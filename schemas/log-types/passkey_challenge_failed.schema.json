@@ -67,11 +67,6 @@
       "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
-    "correlation_id": {
-      "description": "Correlation ID to trace related events across services.",
-      "maxLength": 64,
-      "type": "string"
-    },
     "date": {
       "description": "The date when the event occurred in ISO 8601 format",
       "examples": [
@@ -152,6 +147,22 @@
     "organization_name": {
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
+    },
+    "references": {
+      "description": "References for correlating related events across services and stitching them into distributed traces.",
+      "properties": {
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "trace_id": {
+          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+          "pattern": "^[a-f0-9]{32}$",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "tenant_name": {
       "description": "Tenant name",

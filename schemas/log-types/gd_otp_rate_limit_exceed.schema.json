@@ -196,16 +196,19 @@
       "type": "string"
     },
     "references": {
-      "description": "Correlation ID to trace related events across services.",
+      "description": "References for correlating related events across services and stitching them into distributed traces.",
       "properties": {
         "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "maxLength": 128,
+          "type": "string"
+        },
+        "trace_id": {
+          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+          "pattern": "^[a-f0-9]{32}$",
           "type": "string"
         }
       },
-      "required": [
-        "correlation_id"
-      ],
       "type": "object"
     },
     "tenant_name": {
