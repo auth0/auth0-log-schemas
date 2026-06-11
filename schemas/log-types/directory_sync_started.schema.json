@@ -121,7 +121,6 @@
     "description",
     "details",
     "environment_name",
-    "is_mobile",
     "log_id",
     "strategy",
     "strategy_type",

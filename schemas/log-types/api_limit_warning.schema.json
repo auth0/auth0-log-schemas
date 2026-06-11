@@ -187,7 +187,6 @@
     "details",
     "environment_name",
     "hostname",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"
