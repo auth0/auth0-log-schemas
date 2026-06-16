@@ -119,6 +119,10 @@
       ],
       "type": "string"
     },
+    "external_agent_id": {
+      "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+      "type": "string"
+    },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
@@ -149,16 +153,19 @@
       "type": "string"
     },
     "references": {
-      "description": "Correlation ID to trace related events across services.",
+      "description": "References for correlating related events across services and stitching them into distributed traces.",
       "properties": {
         "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
           "maxLength": 128,
+          "type": "string"
+        },
+        "trace_id": {
+          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+          "pattern": "^[a-f0-9]{32}$",
           "type": "string"
         }
       },
-      "required": [
-        "correlation_id"
-      ],
       "type": "object"
     },
     "security_context": {
@@ -217,7 +224,6 @@
     "environment_name",
     "hostname",
     "ip",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"

@@ -81,6 +81,10 @@
     "details": {
       "description": "Log details",
       "properties": {
+        "audit_context": {
+          "description": "Value of the `audit_context` claim echoed from the subject token JWT.",
+          "type": "string"
+        },
         "enterprise_connection": {
           "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
           "type": "string"
@@ -88,6 +92,14 @@
         "enterprise_connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
           "type": "string"
+        },
+        "failure_reason": {
+          "description": "Reason the token exchange failed. Emits `unknown` for unclassified failure modes.",
+          "type": "string"
+        },
+        "is_privileged_worker": {
+          "description": "True when the token exchange is performed via the Privileged Worker flow.",
+          "type": "boolean"
         },
         "subject_token_type": {
           "type": "string"
@@ -97,7 +109,9 @@
         }
       },
       "required": [
-        "subject_token_type"
+        "subject_token_type",
+        "failure_reason",
+        "is_privileged_worker"
       ],
       "type": "object"
     },
@@ -132,6 +146,14 @@
     },
     "log_id": {
       "description": "Log id",
+      "type": "string"
+    },
+    "organization_id": {
+      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+      "type": "string"
+    },
+    "organization_name": {
+      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
     "strategy": {
@@ -194,10 +216,7 @@
     "details",
     "environment_name",
     "ip",
-    "is_mobile",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
