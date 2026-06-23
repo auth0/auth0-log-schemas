@@ -198,6 +198,10 @@
       ],
       "type": "string"
     },
+    "external_agent_id": {
+      "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+      "type": "string"
+    },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
       "type": "string"
@@ -296,7 +300,6 @@
     "details",
     "environment_name",
     "ip",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"
