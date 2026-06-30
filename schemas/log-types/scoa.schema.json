@@ -348,9 +348,6 @@
                     "confidence"
                   ],
                   "type": "object"
-                },
-                "idp_session_expiry": {
-                  "type": "number"
                 }
               },
               "required": [
@@ -508,7 +505,6 @@
     "environment_name",
     "hostname",
     "ip",
-    "is_mobile",
     "log_id",
     "strategy",
     "strategy_type",
