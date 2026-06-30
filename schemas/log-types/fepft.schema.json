@@ -18,6 +18,10 @@
         }
       ]
     },
+    "agent_id": {
+      "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+      "type": "string"
+    },
     "audience": {
       "description": "The audience in the JWT associated with the request.",
       "type": "string"
@@ -101,6 +105,10 @@
         "prod-eu-1",
         "prod-us-1"
       ],
+      "type": "string"
+    },
+    "external_agent_id": {
+      "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
       "type": "string"
     },
     "hostname": {
@@ -197,7 +205,6 @@
     "environment_name",
     "hostname",
     "ip",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"

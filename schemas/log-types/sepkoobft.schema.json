@@ -208,7 +208,6 @@
     "environment_name",
     "hostname",
     "ip",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"

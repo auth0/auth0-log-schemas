@@ -86,6 +86,10 @@
       ],
       "type": "string"
     },
+    "external_agent_id": {
+      "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+      "type": "string"
+    },
     "hostname": {
       "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
@@ -184,7 +188,6 @@
     "environment_name",
     "hostname",
     "ip",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"
