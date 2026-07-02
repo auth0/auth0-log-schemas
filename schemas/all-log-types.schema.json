@@ -1230,6 +1230,9 @@
           "$ref": "#/definitions/limit_mu"
         },
         {
+          "$ref": "#/definitions/limit_phone"
+        },
+        {
           "$ref": "#/definitions/limit_sul"
         },
         {
@@ -1551,7 +1554,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -1773,7 +1775,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -1928,7 +1929,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -2094,7 +2094,6 @@
         "details",
         "environment_name",
         "hostname",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -2266,7 +2265,6 @@
         "details",
         "environment_name",
         "hostname",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -2423,7 +2421,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -2513,6 +2510,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -2582,7 +2583,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -2667,6 +2667,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -2737,7 +2741,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -2907,7 +2910,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -3070,7 +3072,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -3195,16 +3196,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -3267,7 +3271,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -3315,11 +3318,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -3405,6 +3403,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -3442,7 +3456,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -3488,11 +3501,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -3574,6 +3582,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -3611,7 +3635,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -3657,11 +3680,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -3753,6 +3771,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -3790,7 +3824,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -3836,11 +3869,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -3915,6 +3943,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -3952,7 +3996,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -4116,16 +4159,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -4188,7 +4234,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -4288,7 +4333,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -4460,7 +4504,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -4591,7 +4634,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -4761,7 +4803,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -4884,7 +4925,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -4903,6 +4943,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "auth0_client": {
           "anyOf": [
@@ -5064,6 +5108,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -5100,16 +5148,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "scope": {
@@ -5200,7 +5251,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -5288,6 +5338,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -5363,7 +5417,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -5538,7 +5591,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -5729,7 +5781,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -5946,7 +5997,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -6112,16 +6162,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -6184,7 +6237,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -6336,7 +6388,6 @@
         "description",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -6525,7 +6576,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -6666,16 +6716,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -6738,7 +6791,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -6873,7 +6925,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -7056,7 +7107,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -7218,7 +7268,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -7406,7 +7455,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -7544,7 +7592,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -7664,7 +7711,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -7811,7 +7857,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -7915,6 +7960,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -7943,16 +7992,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -8011,7 +8063,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -8100,6 +8151,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "hostname": {
@@ -8202,7 +8257,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -8288,6 +8342,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -8363,7 +8421,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -8435,6 +8492,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "hostname": {
@@ -8514,7 +8575,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -8632,7 +8692,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -8812,7 +8871,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -8983,7 +9041,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -9169,7 +9226,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -9186,6 +9242,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -9253,6 +9313,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "hostname": {
@@ -9347,7 +9411,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -9525,7 +9588,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -9696,7 +9758,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -9895,7 +9956,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -10094,7 +10154,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -10111,6 +10170,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "auth0_client": {
           "anyOf": [
@@ -10160,6 +10223,10 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "audit_context": {
+              "description": "Value of the `audit_context` claim echoed from the subject token JWT.",
+              "type": "string"
+            },
             "enterprise_connection": {
               "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
               "type": "string"
@@ -10167,6 +10234,14 @@
             "enterprise_connection_id": {
               "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
               "type": "string"
+            },
+            "failure_reason": {
+              "description": "Reason the token exchange failed. Emits `unknown` for unclassified failure modes.",
+              "type": "string"
+            },
+            "is_privileged_worker": {
+              "description": "True when the token exchange is performed via the Privileged Worker flow.",
+              "type": "boolean"
             },
             "subject_token_type": {
               "type": "string"
@@ -10176,7 +10251,9 @@
             }
           },
           "required": [
-            "subject_token_type"
+            "subject_token_type",
+            "failure_reason",
+            "is_privileged_worker"
           ],
           "type": "object"
         },
@@ -10186,6 +10263,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "identity_user_id": {
@@ -10209,6 +10290,14 @@
         },
         "log_id": {
           "description": "Log id",
+          "type": "string"
+        },
+        "organization_id": {
+          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+          "type": "string"
+        },
+        "organization_name": {
+          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
         "strategy": {
@@ -10271,10 +10360,7 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
-        "strategy",
-        "strategy_type",
         "tenant_name",
         "type"
       ],
@@ -10473,7 +10559,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -10600,16 +10685,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -10650,7 +10738,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -10764,16 +10851,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -10837,7 +10927,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -10953,16 +11042,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -11026,7 +11118,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -11127,16 +11218,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -11162,7 +11256,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -11276,16 +11369,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -11349,7 +11445,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -11465,16 +11560,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -11538,7 +11636,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -11668,16 +11765,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -11753,7 +11853,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -11922,7 +12021,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -12005,16 +12103,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -12076,7 +12177,6 @@
         "description",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -12209,16 +12309,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -12293,7 +12396,6 @@
         "description",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -12467,7 +12569,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -12576,16 +12677,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -12661,7 +12765,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -12826,7 +12929,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -12986,16 +13088,19 @@
           "type": "object"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -13063,7 +13168,6 @@
         "email",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "query",
         "strategy",
@@ -13214,16 +13318,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -13286,7 +13393,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -13356,16 +13462,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -13403,7 +13512,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -13597,16 +13705,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -13644,7 +13755,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -13713,16 +13823,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -13760,7 +13873,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -13828,16 +13940,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -13875,7 +13990,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -13944,16 +14058,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -13991,7 +14108,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14079,16 +14195,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14126,7 +14245,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14195,16 +14313,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14242,7 +14363,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14310,16 +14430,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14357,7 +14480,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14444,16 +14566,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14491,7 +14616,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14559,16 +14683,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14606,7 +14733,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14675,16 +14801,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14722,7 +14851,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14791,16 +14919,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14838,7 +14969,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -14925,16 +15055,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -14972,7 +15105,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15059,16 +15191,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15106,7 +15241,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15174,16 +15308,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15221,7 +15358,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15289,16 +15425,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15336,7 +15475,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15412,16 +15550,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15459,7 +15600,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15527,16 +15667,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15574,7 +15717,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15642,16 +15784,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15689,7 +15834,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15757,16 +15901,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15804,7 +15951,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15872,16 +16018,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -15919,7 +16068,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -15987,16 +16135,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -16034,7 +16185,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -16110,16 +16260,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -16157,7 +16310,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -16233,16 +16385,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -16280,7 +16435,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -16359,7 +16513,14 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "properties": {
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -16469,7 +16630,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -16555,6 +16715,10 @@
             },
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
+            },
+            "requested_client_id": {
+              "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -16671,7 +16835,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -16860,7 +17023,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -16928,7 +17090,6 @@
       "required": [
         "description",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -17008,7 +17169,6 @@
       "required": [
         "description",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -17094,7 +17254,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -17205,7 +17364,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -17347,7 +17505,141 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "limit_phone": {
+      "description": "A user is temporarily prevented from sending more SMS messages or voice calls because they reached the maximum allowed in a given time period",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date when the event occurred in ISO 8601 format",
+          "examples": [
+            "2024-01-15T10:30:00.000Z"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "properties": {
+            "body": {
+              "type": "object"
+            },
+            "delivery_method": {
+              "type": "string"
+            },
+            "reset_time": {
+              "type": "string"
+            },
+            "trigger_time": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "environment_name": {
+          "description": "The name of the environment where the event occurred",
+          "examples": [
+            "prod-eu-1",
+            "prod-us-1"
+          ],
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "is_mobile": {
+          "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+          "type": "boolean"
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "limit_phone",
+          "description": "Blocked Phone Delivery - Too many phone delivery attempts",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_name",
+        "description",
+        "environment_name",
+        "ip",
         "log_id",
         "tenant_name",
         "type"
@@ -17483,7 +17775,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -17619,7 +17910,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -17870,7 +18160,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -18087,16 +18376,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -18136,7 +18428,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -18182,11 +18473,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -18284,6 +18570,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -18321,7 +18623,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -18367,11 +18668,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -18452,6 +18748,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -18489,7 +18801,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -18636,7 +18947,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -18783,7 +19093,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -18924,7 +19233,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -18974,11 +19282,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -19060,6 +19363,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -19098,7 +19417,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19148,11 +19466,6 @@
         },
         "connection_id": {
           "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-          "type": "string"
-        },
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 64,
           "type": "string"
         },
         "date": {
@@ -19253,6 +19566,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "tenant_name": {
           "description": "Tenant name",
           "type": "string"
@@ -19291,7 +19620,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19450,7 +19778,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19586,7 +19913,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19722,7 +20048,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19841,7 +20166,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19947,7 +20271,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -19964,6 +20287,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "auth0_client": {
           "anyOf": [
@@ -20123,6 +20450,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -20159,16 +20490,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -20245,7 +20579,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -20352,16 +20685,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "tenant_name": {
@@ -20391,7 +20727,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -20578,7 +20913,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -20779,7 +21113,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -20882,16 +21215,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -20954,7 +21290,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -21133,7 +21468,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -21274,16 +21608,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -21346,7 +21683,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -21526,7 +21862,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -21643,16 +21978,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -21716,7 +22054,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -21878,7 +22215,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -22025,7 +22361,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -22136,6 +22471,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -22176,16 +22515,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -22245,7 +22587,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -22348,6 +22689,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "hostname": {
@@ -22454,7 +22799,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -22549,6 +22893,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "identity_user_id": {
@@ -22647,7 +22995,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -22729,6 +23076,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "hostname": {
@@ -22827,7 +23178,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -23002,7 +23352,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -23192,7 +23541,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -23373,7 +23721,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -23390,6 +23737,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -23469,6 +23820,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "identity_user_id": {
@@ -23563,7 +23918,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -23752,7 +24106,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -23941,7 +24294,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -24130,7 +24482,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -24296,7 +24647,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -24510,7 +24860,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -24527,6 +24876,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "auth0_client": {
           "anyOf": [
@@ -24576,6 +24929,10 @@
         "details": {
           "description": "Log details",
           "properties": {
+            "audit_context": {
+              "description": "Value of the `audit_context` claim echoed from the subject token JWT.",
+              "type": "string"
+            },
             "enterprise_connection": {
               "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
               "type": "string"
@@ -24587,19 +24944,24 @@
             "expires_at": {
               "type": "string"
             },
+            "is_privileged_worker": {
+              "description": "True when the token exchange is performed via the Privileged Worker flow.",
+              "type": "boolean"
+            },
             "issued_token_type": {
               "type": "string"
             },
             "scope": {
-              "items": {
-                "type": "string"
-              },
-              "type": "array"
+              "type": "string"
             },
             "subject_token_type": {
               "type": "string"
             },
             "token_broker": {
+              "type": "string"
+            },
+            "token_thumbprint": {
+              "description": "SHA256 hash of the 3rd party access token that was returned.",
               "type": "string"
             }
           },
@@ -24607,7 +24969,9 @@
             "subject_token_type",
             "issued_token_type",
             "scope",
-            "expires_at"
+            "expires_at",
+            "is_privileged_worker",
+            "token_thumbprint"
           ],
           "type": "object"
         },
@@ -24617,6 +24981,10 @@
             "prod-eu-1",
             "prod-us-1"
           ],
+          "type": "string"
+        },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
           "type": "string"
         },
         "identity_user_id": {
@@ -24640,6 +25008,14 @@
         },
         "log_id": {
           "description": "Log id",
+          "type": "string"
+        },
+        "organization_id": {
+          "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+          "type": "string"
+        },
+        "organization_name": {
+          "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
         "strategy": {
@@ -24701,8 +25077,8 @@
         "description",
         "details",
         "environment_name",
+        "identity_user_id",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -24890,7 +25266,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -25056,7 +25431,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -25240,7 +25614,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -25568,16 +25941,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "security_context": {
@@ -25654,7 +26030,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -25743,6 +26118,7 @@
                     "ss_sso_provisioning_token_deletion",
                     "ss_sso_provisioning_attribute_update",
                     "ss_sso_google_workspace_provisioning_consent_failed",
+                    "ss_sso_google_workspace_provisioning_groups_failed",
                     "ss_sso_missing_configuration"
                   ],
                   "type": "string"
@@ -25811,7 +26187,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -25926,7 +26301,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -26052,7 +26426,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -26231,7 +26604,6 @@
         "environment_name",
         "hostname",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -26388,7 +26760,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -26490,6 +26861,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "identity_user_id": {
           "description": "ID for the user as reported by the IdP.",
           "type": "string"
@@ -26586,7 +26961,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -26672,7 +27046,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -26818,16 +27191,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -26890,7 +27266,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -27039,16 +27414,19 @@
           "type": "string"
         },
         "references": {
-          "description": "Correlation ID to trace related events across services.",
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
           "properties": {
             "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
               "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
               "type": "string"
             }
           },
-          "required": [
-            "correlation_id"
-          ],
           "type": "object"
         },
         "strategy": {
@@ -27111,7 +27489,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -27273,7 +27650,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -27402,7 +27778,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -27507,7 +27882,6 @@
         "description",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -27713,7 +28087,6 @@
         "details",
         "environment_name",
         "ip",
-        "is_mobile",
         "log_id",
         "strategy",
         "strategy_type",
@@ -27841,7 +28214,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
@@ -27937,7 +28309,6 @@
         "description",
         "details",
         "environment_name",
-        "is_mobile",
         "log_id",
         "tenant_name",
         "type"
