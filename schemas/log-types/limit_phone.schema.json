@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "User block setup by anomaly detection has been released",
+  "description": "A user is temporarily prevented from sending more SMS messages or voice calls because they reached the maximum allowed in a given time period",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -51,19 +51,19 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "email": {
+        "body": {
+          "type": "object"
+        },
+        "delivery_method": {
           "type": "string"
         },
-        "query": {
-          "type": "object"
+        "reset_time": {
+          "type": "string"
         },
-        "request": {
-          "type": "object"
+        "trigger_time": {
+          "type": "string"
         },
-        "response": {
-          "type": "object"
-        },
-        "title": {
+        "type": {
           "type": "string"
         }
       },
@@ -102,36 +102,13 @@
       "description": "Log id",
       "type": "string"
     },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
-      "type": "string"
-    },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "ublkdu",
-      "description": "User login block released",
+      "const": "limit_phone",
+      "description": "Blocked Phone Delivery - Too many phone delivery attempts",
       "type": "string"
     },
     "user_agent": {
@@ -159,12 +136,9 @@
   "required": [
     "client_name",
     "description",
-    "details",
     "environment_name",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],

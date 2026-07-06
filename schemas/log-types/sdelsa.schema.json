@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Login",
+  "description": "Successful Delegated Silent Authentication",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -17,10 +17,6 @@
           "type": "object"
         }
       ]
-    },
-    "agent_id": {
-      "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
-      "type": "string"
     },
     "auth0_client": {
       "anyOf": [
@@ -63,14 +59,6 @@
       "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
     },
-    "connection": {
-      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-      "type": "string"
-    },
-    "connection_id": {
-      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
-      "type": "string"
-    },
     "date": {
       "description": "The date when the event occurred in ISO 8601 format",
       "examples": [
@@ -100,34 +88,26 @@
           ],
           "type": "object"
         },
-        "channel": {
-          "description": "Whether connection is front or back channel",
-          "type": "string"
+        "actor": {
+          "properties": {
+            "sub": {
+              "description": "The subject (user ID) of the actor performing the delegation",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sub"
+          ],
+          "type": "object"
         },
         "completedAt": {
           "type": "number"
-        },
-        "dpop_nonce_used": {
-          "description": "True if a DPoP nonce was used due to an upstream nonce challenge during the DPoP handshake. Only present for DPoP-enabled connections.",
-          "type": "boolean"
-        },
-        "dpop_signing_alg": {
-          "description": "Algorithm used for DPoP proof signing. Only present for DPoP-enabled connections.",
-          "type": "string"
         },
         "elapsedTime": {
           "type": [
             "number",
             "null"
           ]
-        },
-        "id_token_signing_alg": {
-          "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
-          "type": "string"
-        },
-        "idp_token_type": {
-          "description": "Token type returned by the identity provider. Only present for DPoP-enabled connections.",
-          "type": "string"
         },
         "initiatedAt": {
           "type": "number"
@@ -276,10 +256,6 @@
           },
           "type": "array"
         },
-        "requested_client_id": {
-          "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
-          "type": "string"
-        },
         "riskAssessment": {
           "properties": {
             "assessments": {
@@ -399,10 +375,6 @@
           ],
           "type": "object"
         },
-        "saml_certificate_thumbprint": {
-          "description": "SHA-1 thumbprint of the certificate used to validate the SAML assertion signature from the upstream identity provider. Only present for SAML/SAMLp connections.",
-          "type": "string"
-        },
         "session": {
           "properties": {
             "cookie": {
@@ -432,48 +404,14 @@
         "session_id": {
           "type": "string"
         },
-        "token_endpoint_auth_method": {
-          "description": "Token endpoint authentication method",
-          "type": "string"
-        },
-        "token_endpoint_auth_signing_alg": {
-          "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
-          "type": "string"
-        },
-        "token_endpoint_auth_signing_kid": {
-          "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
-          "type": "string"
-        },
-        "transaction_id": {
-          "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
-          "type": "string"
-        },
         "triggered_by_session_transfer_token": {
           "description": "Whether a Session Transfer Token was used for authentication",
           "type": "boolean"
-        },
-        "upstream_userinfo_fetch": {
-          "description": "Details about the upstream userinfo endpoint fetch. Only populated if the userinfo_endpoint was called for the transaction. Only present for OIDC/Okta connections.",
-          "properties": {
-            "dpop_bound": {
-              "description": "True if the request to the userinfo endpoint was bound with DPoP. Only present and set to true if the request was successfully DPoP-bound.",
-              "type": "boolean"
-            },
-            "status": {
-              "description": "Indicates the outcome of the userinfo endpoint call.",
-              "enum": [
-                "SUCCESS",
-                "FAILURE"
-              ],
-              "type": "string"
-            }
-          },
-          "required": [
-            "status"
-          ],
-          "type": "object"
         }
       },
+      "required": [
+        "actor"
+      ],
       "type": "object"
     },
     "environment_name": {
@@ -482,10 +420,6 @@
         "prod-eu-1",
         "prod-us-1"
       ],
-      "type": "string"
-    },
-    "external_agent_id": {
-      "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
       "type": "string"
     },
     "hostname": {
@@ -525,56 +459,7 @@
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
-    "references": {
-      "description": "References for correlating related events across services and stitching them into distributed traces.",
-      "properties": {
-        "correlation_id": {
-          "description": "Correlation ID to trace related events across services.",
-          "maxLength": 128,
-          "type": "string"
-        },
-        "trace_id": {
-          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
-          "pattern": "^[a-f0-9]{32}$",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "security_context": {
-      "properties": {
-        "ja3": {
-          "description": "JA3 fingerprint. Could be undefined.",
-          "type": "string"
-        },
-        "ja4": {
-          "description": "JA4 fingerprint. Could be undefined.",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
-      "type": "string"
-    },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
+    "session_connection": {
       "type": "string"
     },
     "tenant_name": {
@@ -582,8 +467,8 @@
       "type": "string"
     },
     "type": {
-      "const": "s",
-      "description": "Successful Login",
+      "const": "sdelsa",
+      "description": "Successful Delegated Silent Authentication",
       "type": "string"
     },
     "user_agent": {
@@ -616,8 +501,6 @@
     "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],

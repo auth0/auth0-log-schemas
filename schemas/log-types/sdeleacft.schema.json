@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Exchange via On-Behalf-Of Token Exchange",
+  "description": "Successful Exchange of Delegated Authorization Code for Access Token",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -63,6 +63,19 @@
         "null"
       ]
     },
+    "client_ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+    },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
@@ -93,99 +106,44 @@
           "type": "string"
         },
         "actor": {
-          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller).",
           "properties": {
-            "act": {
-              "anyOf": [
-                {
-                  "properties": {
-                    "act": {
-                      "anyOf": [
-                        {
-                          "properties": {
-                            "act": {
-                              "anyOf": [
-                                {
-                                  "properties": {
-                                    "act": {
-                                      "anyOf": [
-                                        {
-                                          "properties": {
-                                            "sub": {
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ]
-                                            }
-                                          },
-                                          "type": "object"
-                                        },
-                                        {
-                                          "type": "null"
-                                        }
-                                      ]
-                                    },
-                                    "sub": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
-                                    }
-                                  },
-                                  "type": "object"
-                                },
-                                {
-                                  "type": "null"
-                                }
-                              ]
-                            },
-                            "sub": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
-                            }
-                          },
-                          "type": "object"
-                        },
-                        {
-                          "type": "null"
-                        }
-                      ]
-                    },
-                    "sub": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    }
-                  },
-                  "type": "object"
-                },
-                {
-                  "type": "null"
-                }
-              ]
-            },
             "sub": {
-              "type": [
-                "string",
-                "null"
-              ]
+              "description": "The subject (user ID) of the actor performing the delegation",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sub"
+          ],
+          "type": "object"
+        },
+        "code": {
+          "type": "string"
+        },
+        "refresh_token": {
+          "description": "Details about the refresh token involved in a token exchange or revocation event. Present for both Online Refresh Tokens and regular (offline) refresh tokens.",
+          "properties": {
+            "access": {
+              "description": "Token access type: \"online\" for Online Refresh Tokens, \"offline\" for regular refresh tokens.",
+              "enum": [
+                "online",
+                "offline"
+              ],
+              "type": "string"
+            },
+            "session_id": {
+              "description": "The ID of the session this refresh token is bound to. Not present if the token was invalid and could not be read.",
+              "type": "string"
             }
           },
           "type": "object"
         },
-        "requested_token_type": {
-          "type": "string"
-        },
-        "subject_token_type": {
+        "requested_client_id": {
+          "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
           "type": "string"
         }
       },
       "required": [
-        "subject_token_type",
-        "requested_token_type",
         "actor"
       ],
       "type": "object"
@@ -200,6 +158,10 @@
     },
     "external_agent_id": {
       "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+      "type": "string"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
     "identity_user_id": {
@@ -227,6 +189,10 @@
       "description": "Log id",
       "type": "string"
     },
+    "mtls_thumbprint_sha256": {
+      "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
+      "type": "string"
+    },
     "organization_id": {
       "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
       "type": "string"
@@ -235,19 +201,21 @@
       "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
     },
-    "scope": {
-      "anyOf": [
-        {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
+    "references": {
+      "description": "References for correlating related events across services and stitching them into distributed traces.",
+      "properties": {
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 128,
+          "type": "string"
         },
-        {
+        "trace_id": {
+          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+          "pattern": "^[a-f0-9]{32}$",
           "type": "string"
         }
-      ],
-      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
+      },
+      "type": "object"
     },
     "security_context": {
       "properties": {
@@ -266,9 +234,14 @@
       "description": "Tenant name",
       "type": "string"
     },
+    "transaction_linking_id": {
+      "description": "Reflects the transaction linking ID provided at the start of the auth flow, if any. Only available when using decoupled authorization flows.",
+      "pattern": "^[A-Za-z0-9-_]{27}$",
+      "type": "string"
+    },
     "type": {
-      "const": "success_on_behalf_of_token_exchange",
-      "description": "Successful Exchange via On-Behalf-Of Token Exchange",
+      "const": "sdeleacft",
+      "description": "Successful Exchange of Delegated Authorization Code for Access Token",
       "type": "string"
     },
     "user_agent": {
@@ -299,6 +272,7 @@
     "description",
     "details",
     "environment_name",
+    "hostname",
     "ip",
     "log_id",
     "tenant_name",

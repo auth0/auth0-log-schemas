@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "Successful Login",
+  "description": "Successful Delegated Login",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -97,6 +97,18 @@
           },
           "required": [
             "executions"
+          ],
+          "type": "object"
+        },
+        "actor": {
+          "properties": {
+            "sub": {
+              "description": "The subject (user ID) of the actor performing the delegation",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sub"
           ],
           "type": "object"
         },
@@ -474,6 +486,9 @@
           "type": "object"
         }
       },
+      "required": [
+        "actor"
+      ],
       "type": "object"
     },
     "environment_name": {
@@ -582,8 +597,8 @@
       "type": "string"
     },
     "type": {
-      "const": "s",
-      "description": "Successful Login",
+      "const": "sdel",
+      "description": "Successful Delegated Login",
       "type": "string"
     },
     "user_agent": {

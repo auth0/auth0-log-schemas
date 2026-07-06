@@ -98,7 +98,6 @@
     "description",
     "details",
     "environment_name",
-    "is_mobile",
     "log_id",
     "tenant_name",
     "type"

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "description": "User block setup by anomaly detection has been released",
+  "description": "Failed Delegated Silent Authentication",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
@@ -18,6 +18,40 @@
         }
       ]
     },
+    "audience": {
+      "description": "The audience in the JWT associated with the request.",
+      "type": "string"
+    },
+    "auth0_client": {
+      "anyOf": [
+        {
+          "properties": {
+            "env": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        }
+      ],
+      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+    },
     "client_id": {
       "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
       "type": [
@@ -27,14 +61,6 @@
     },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
-      "type": "string"
-    },
-    "connection": {
-      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
-      "type": "string"
-    },
-    "connection_id": {
-      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
       "type": "string"
     },
     "date": {
@@ -51,22 +77,57 @@
     "details": {
       "description": "Log details",
       "properties": {
-        "email": {
-          "type": "string"
-        },
-        "query": {
+        "actor": {
+          "properties": {
+            "sub": {
+              "description": "The subject (user ID) of the actor performing the delegation",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sub"
+          ],
           "type": "object"
         },
-        "request": {
-          "type": "object"
+        "session": {
+          "description": "Details about the session associated with the login",
+          "allOf": [
+            {
+              "properties": {
+                "cookie": {
+                  "properties": {
+                    "mode": {
+                      "enum": [
+                        "persistent",
+                        "non-persistent"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "mode"
+                  ],
+                  "type": "object"
+                },
+                "idp_session_expiry": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "cookie"
+              ],
+              "type": "object"
+            }
+          ]
         },
-        "response": {
-          "type": "object"
-        },
-        "title": {
-          "type": "string"
+        "triggered_by_session_transfer_token": {
+          "description": "Whether a Session Transfer Token was used for authentication",
+          "type": "boolean"
         }
       },
+      "required": [
+        "actor"
+      ],
       "type": "object"
     },
     "environment_name": {
@@ -75,6 +136,10 @@
         "prod-eu-1",
         "prod-us-1"
       ],
+      "type": "string"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
       "type": "string"
     },
     "identity_user_id": {
@@ -102,36 +167,35 @@
       "description": "Log id",
       "type": "string"
     },
-    "strategy": {
-      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
-      "examples": [
-        [
-          "auth0",
-          "waad",
-          "oktawic",
-          "google-oauth2"
-        ]
-      ],
+    "organization_id": {
+      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
       "type": "string"
     },
-    "strategy_type": {
-      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
-      "examples": [
-        [
-          "database",
-          "social",
-          "enterprise"
-        ]
-      ],
+    "organization_name": {
+      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
       "type": "string"
+    },
+    "scope": {
+      "anyOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "description": "List of scopes in the JWT, either as an array like `[\"read:logs\",\"read:users\"]` or a space-separated list of scopes like `read:logs read:users delete:clients`"
     },
     "tenant_name": {
       "description": "Tenant name",
       "type": "string"
     },
     "type": {
-      "const": "ublkdu",
-      "description": "User login block released",
+      "const": "fdelsa",
+      "description": "Failed Delegated Silent Authentication",
       "type": "string"
     },
     "user_agent": {
@@ -157,14 +221,14 @@
     }
   },
   "required": [
+    "audience",
     "client_name",
     "description",
     "details",
     "environment_name",
+    "hostname",
     "ip",
     "log_id",
-    "strategy",
-    "strategy_type",
     "tenant_name",
     "type"
   ],
