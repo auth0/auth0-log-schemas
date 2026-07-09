@@ -1,0 +1,640 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Successful Delegated Login",
+  "properties": {
+    "$event_schema": {
+      "description": "Event schema meta",
+      "allOf": [
+        {
+          "properties": {
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "version"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "agent_id": {
+      "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+      "type": "string"
+    },
+    "auth0_client": {
+      "anyOf": [
+        {
+          "properties": {
+            "env": {
+              "type": "object"
+            },
+            "name": {
+              "type": "string"
+            },
+            "version": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "type": "object"
+        },
+        {
+          "type": "object"
+        },
+        {
+          "items": {},
+          "type": "array"
+        }
+      ],
+      "description": "The client or SDK used to do this request, if any. This is based on the `Auth0-Client` HTTP header."
+    },
+    "client_id": {
+      "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "client_name": {
+      "description": "Client name associated with the client_id, when available. May be empty string.",
+      "type": "string"
+    },
+    "connection": {
+      "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+      "type": "string"
+    },
+    "connection_id": {
+      "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+      "type": "string"
+    },
+    "date": {
+      "description": "The date when the event occurred in ISO 8601 format",
+      "examples": [
+        "2024-01-15T10:30:00.000Z"
+      ],
+      "type": "string"
+    },
+    "description": {
+      "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+      "type": "string"
+    },
+    "details": {
+      "description": "Log details",
+      "properties": {
+        "actions": {
+          "properties": {
+            "executions": {
+              "description": "List of executions triggered by this auth flow. Executions can be retrieved with https://auth0.com/docs/api/management/v2/actions/get-execution",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          },
+          "required": [
+            "executions"
+          ],
+          "type": "object"
+        },
+        "actor": {
+          "properties": {
+            "sub": {
+              "description": "The subject (user ID) of the actor performing the delegation",
+              "type": "string"
+            }
+          },
+          "required": [
+            "sub"
+          ],
+          "type": "object"
+        },
+        "channel": {
+          "description": "Whether connection is front or back channel",
+          "type": "string"
+        },
+        "completedAt": {
+          "type": "number"
+        },
+        "dpop_nonce_used": {
+          "description": "True if a DPoP nonce was used due to an upstream nonce challenge during the DPoP handshake. Only present for DPoP-enabled connections.",
+          "type": "boolean"
+        },
+        "dpop_signing_alg": {
+          "description": "Algorithm used for DPoP proof signing. Only present for DPoP-enabled connections.",
+          "type": "string"
+        },
+        "elapsedTime": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "id_token_signing_alg": {
+          "description": "The verification algorithm used to validate the ID token from the upstream OIDC connection. Indicates the signing algorithm (e.g., RS256, ES256) that was used by the Identity Provider to sign the ID token. Only present for OIDC connections.",
+          "type": "string"
+        },
+        "idp_token_type": {
+          "description": "Token type returned by the identity provider. Only present for DPoP-enabled connections.",
+          "type": "string"
+        },
+        "initiatedAt": {
+          "type": "number"
+        },
+        "prompts": {
+          "items": {
+            "properties": {
+              "coi": {
+                "type": "string"
+              },
+              "completedAt": {
+                "type": "number"
+              },
+              "connection": {
+                "type": "string"
+              },
+              "connection_id": {
+                "type": "string"
+              },
+              "cov": {
+                "type": "string"
+              },
+              "elapsedTime": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "flow": {
+                "type": "string"
+              },
+              "grantInfo": {
+                "properties": {
+                  "audience": {
+                    "type": "string"
+                  },
+                  "expiration": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "scope": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "identity": {
+                "type": [
+                  "string",
+                  "number"
+                ]
+              },
+              "initiatedAt": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "passwordless_amr": {
+                "type": "string"
+              },
+              "performed_acr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "performed_amr": {
+                "anyOf": [
+                  {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "provider": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "requiredCaptcha": {
+                "type": "boolean"
+              },
+              "session": {
+                "type": "boolean"
+              },
+              "session_id": {
+                "type": "string"
+              },
+              "stats": {
+                "properties": {
+                  "loginsCount": {
+                    "description": "The number of logins this user has done, if available. Logins done with a valid username and password always increment this count, even if further steps in the process cause the login to fail (MFA, extensibility, etc.) Null values should be treated as missing data and not as 0.",
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "loginsCount"
+                ],
+                "type": "object"
+              },
+              "strategy": {
+                "type": "string"
+              },
+              "timers": {
+                "properties": {
+                  "rules": {
+                    "type": "number"
+                  }
+                },
+                "type": "object"
+              },
+              "url": {
+                "type": "string"
+              },
+              "user_id": {
+                "type": "string"
+              },
+              "user_name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "requiredCaptcha",
+              "session_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "requested_client_id": {
+          "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+          "type": "string"
+        },
+        "riskAssessment": {
+          "properties": {
+            "assessments": {
+              "description": "Risk assessment results keyed by assessor name.",
+              "properties": {
+                "ImpossibleTravel": {
+                  "description": "Flags logins from geographically distant locations within a short time window.",
+                  "properties": {
+                    "code": {
+                      "description": "Assessment result code.",
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "description": "Confidence level of the assessment.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "NewDevice": {
+                  "description": "Flags logins from a device not previously seen for the user.",
+                  "properties": {
+                    "code": {
+                      "description": "Assessment result code.",
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "description": "Confidence level of the assessment.",
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "device": {
+                          "description": "Device identifier.",
+                          "type": "string"
+                        },
+                        "useragent": {
+                          "description": "User agent string associated with the device.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "device"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                },
+                "UntrustedIP": {
+                  "description": "Flags logins from IPs listed in threat intelligence sources.",
+                  "properties": {
+                    "code": {
+                      "description": "Assessment result code.",
+                      "type": "string"
+                    },
+                    "confidence": {
+                      "description": "Confidence level of the assessment.",
+                      "type": "string"
+                    },
+                    "details": {
+                      "properties": {
+                        "ip": {
+                          "description": "IP address that triggered the assessment.",
+                          "type": "string"
+                        },
+                        "matches": {
+                          "description": "Threat category matched.",
+                          "type": "string"
+                        },
+                        "source": {
+                          "description": "Threat intelligence source.",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "ip",
+                        "matches",
+                        "source"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "confidence"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "UntrustedIP"
+              ],
+              "type": "object"
+            },
+            "confidence": {
+              "description": "Overall confidence level of the risk assessment.",
+              "type": "string"
+            },
+            "version": {
+              "description": "Risk assessment engine version.",
+              "type": "string"
+            }
+          },
+          "required": [
+            "assessments",
+            "confidence",
+            "version"
+          ],
+          "type": "object"
+        },
+        "saml_certificate_thumbprint": {
+          "description": "SHA-1 thumbprint of the certificate used to validate the SAML assertion signature from the upstream identity provider. Only present for SAML/SAMLp connections.",
+          "type": "string"
+        },
+        "session": {
+          "properties": {
+            "cookie": {
+              "properties": {
+                "mode": {
+                  "enum": [
+                    "persistent",
+                    "non-persistent"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "type": "object"
+            },
+            "idp_session_expiry": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "cookie"
+          ],
+          "type": "object"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "token_endpoint_auth_method": {
+          "description": "Token endpoint authentication method",
+          "type": "string"
+        },
+        "token_endpoint_auth_signing_alg": {
+          "description": "Token endpoint authentication signing algorithm. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
+        },
+        "token_endpoint_auth_signing_kid": {
+          "description": "Key ID used to sign client_assertions sent to upstream IdP. Only available when token_endpoint_auth_method is private_key_jwt.",
+          "type": "string"
+        },
+        "transaction_id": {
+          "description": "Transaction ID to correlate log events that belong to the same authentication transaction.",
+          "type": "string"
+        },
+        "triggered_by_session_transfer_token": {
+          "description": "Whether a Session Transfer Token was used for authentication",
+          "type": "boolean"
+        },
+        "upstream_userinfo_fetch": {
+          "description": "Details about the upstream userinfo endpoint fetch. Only populated if the userinfo_endpoint was called for the transaction. Only present for OIDC/Okta connections.",
+          "properties": {
+            "dpop_bound": {
+              "description": "True if the request to the userinfo endpoint was bound with DPoP. Only present and set to true if the request was successfully DPoP-bound.",
+              "type": "boolean"
+            },
+            "status": {
+              "description": "Indicates the outcome of the userinfo endpoint call.",
+              "enum": [
+                "SUCCESS",
+                "FAILURE"
+              ],
+              "type": "string"
+            }
+          },
+          "required": [
+            "status"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "actor"
+      ],
+      "type": "object"
+    },
+    "environment_name": {
+      "description": "The name of the environment where the event occurred",
+      "examples": [
+        "prod-eu-1",
+        "prod-us-1"
+      ],
+      "type": "string"
+    },
+    "external_agent_id": {
+      "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+      "type": "string"
+    },
+    "hostname": {
+      "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+      "type": "string"
+    },
+    "identity_user_id": {
+      "description": "ID for the user as reported by the IdP.",
+      "type": "string"
+    },
+    "ip": {
+      "anyOf": [
+        {
+          "format": "ipv4",
+          "type": "string"
+        },
+        {
+          "format": "ipv6",
+          "type": "string"
+        }
+      ],
+      "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+    },
+    "is_mobile": {
+      "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+      "type": "boolean"
+    },
+    "log_id": {
+      "description": "Log id",
+      "type": "string"
+    },
+    "organization_id": {
+      "description": "ID of the organization related to this auth flow or action, when applicable. For failure logs, the value may be a valid ID, and invalid ID, or any other string.",
+      "type": "string"
+    },
+    "organization_name": {
+      "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
+      "type": "string"
+    },
+    "references": {
+      "description": "References for correlating related events across services and stitching them into distributed traces.",
+      "properties": {
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "trace_id": {
+          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+          "pattern": "^[a-f0-9]{32}$",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "security_context": {
+      "properties": {
+        "ja3": {
+          "description": "JA3 fingerprint. Could be undefined.",
+          "type": "string"
+        },
+        "ja4": {
+          "description": "JA4 fingerprint. Could be undefined.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "strategy": {
+      "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
+      "examples": [
+        [
+          "auth0",
+          "waad",
+          "oktawic",
+          "google-oauth2"
+        ]
+      ],
+      "type": "string"
+    },
+    "strategy_type": {
+      "description": "Category of the strategy in `strategy`, when applicable. This may be empty string.",
+      "examples": [
+        [
+          "database",
+          "social",
+          "enterprise"
+        ]
+      ],
+      "type": "string"
+    },
+    "tenant_name": {
+      "description": "Tenant name",
+      "type": "string"
+    },
+    "type": {
+      "const": "sdel",
+      "description": "Successful Delegated Login",
+      "type": "string"
+    },
+    "user_agent": {
+      "description": "The user_agent behind this log, when available",
+      "examples": [
+        "Chrome 120.0.0 / Mac OS X 10.15.7"
+      ],
+      "type": "string"
+    },
+    "user_id": {
+      "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+      "type": "string"
+    },
+    "user_name": {
+      "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+      "examples": [
+        [
+          "example@example.com",
+          "+14155554321"
+        ]
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_name",
+    "description",
+    "details",
+    "environment_name",
+    "hostname",
+    "ip",
+    "log_id",
+    "strategy",
+    "strategy_type",
+    "tenant_name",
+    "type"
+  ],
+  "type": "object"
+}
