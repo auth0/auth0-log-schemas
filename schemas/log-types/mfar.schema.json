@@ -270,7 +270,6 @@
     "environment_name",
     "hostname",
     "ip",
-    "is_mobile",
     "log_id",
     "strategy",
     "strategy_type",
