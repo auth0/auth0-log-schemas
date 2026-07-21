@@ -5550,6 +5550,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -5939,6 +5955,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -8616,6 +8648,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -8793,6 +8841,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -8948,6 +9012,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "security_context": {
           "properties": {
@@ -9400,6 +9480,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -9585,6 +9681,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -9769,6 +9881,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -10117,6 +10245,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -10198,6 +10342,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -10287,6 +10435,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -10313,6 +10465,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -10396,6 +10564,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -10498,6 +10670,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "hostname": {
           "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
           "type": "string"
@@ -10524,6 +10700,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -21433,6 +21625,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
           "examples": [
@@ -21631,6 +21839,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "strategy": {
           "description": "Strategy of the connection in `connection_id`, when applicable and valid. This may be empty string.",
@@ -24071,6 +24295,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -24267,6 +24507,22 @@
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -24449,6 +24705,22 @@
         "mtls_thumbprint_sha256": {
           "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -24813,6 +25085,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -24992,6 +25280,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -25189,6 +25493,22 @@
         "mtls_thumbprint_sha256": {
           "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -25919,6 +26239,22 @@
           "description": "Log id",
           "type": "string"
         },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
         "scope": {
           "anyOf": [
             {
@@ -26000,6 +26336,10 @@
               "$ref": "#/definitions/SchemaMeta"
             }
           ]
+        },
+        "agent_id": {
+          "description": "Stable identifier for the agent acting as principal in this flow. Present when an Auth0 Agent has been granted authority via token exchange and is acting on behalf of a user or itself.",
+          "type": "string"
         },
         "audience": {
           "description": "The audience in the JWT associated with the request.",
@@ -26110,6 +26450,10 @@
           ],
           "type": "string"
         },
+        "external_agent_id": {
+          "description": "Customer-supplied external identifier for the agent, allowing correlation with an identifier from the customer's own agent registry.",
+          "type": "string"
+        },
         "identity_user_id": {
           "description": "ID for the user as reported by the IdP.",
           "type": "string"
@@ -26144,6 +26488,22 @@
         "organization_name": {
           "description": "Name of the organization in `organization_id`, when applicable and valid. May be an empty string.",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "scope": {
           "anyOf": [
@@ -26912,6 +27272,22 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
