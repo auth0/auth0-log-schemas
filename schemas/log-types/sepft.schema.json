@@ -164,6 +164,22 @@
       "description": "Representation of the client certificate used to authenticate the client as per RFC 8705 section 3.1. Only included in authorization and token exchanges using mtls as a client authentication method.",
       "type": "string"
     },
+    "references": {
+      "description": "References for correlating related events across services and stitching them into distributed traces.",
+      "properties": {
+        "correlation_id": {
+          "description": "Correlation ID to trace related events across services.",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "trace_id": {
+          "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+          "pattern": "^[a-f0-9]{32}$",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "scope": {
       "anyOf": [
         {
