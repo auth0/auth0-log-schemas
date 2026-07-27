@@ -1515,6 +1515,12 @@
                       "successes"
                     ],
                     "type": "object"
+                  },
+                  "valid_signature_key_ids": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
                   }
                 },
                 "required": [
