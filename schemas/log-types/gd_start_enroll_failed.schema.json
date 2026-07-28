@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Multi-factor authentication enroll has failed",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",

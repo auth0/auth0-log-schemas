@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Device used for second factor authentication has been unenrolled",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",

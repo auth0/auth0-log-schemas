@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Failed to logout of the upstream Identity Provider",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",

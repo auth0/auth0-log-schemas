@@ -1448,6 +1448,7 @@
       ]
     },
     "acls_summary": {
+      "description": "Shows the summary of the network ACLs matches for a period of time",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -4267,6 +4268,7 @@
       "type": "object"
     },
     "custom_domain_verification_failed": {
+      "description": "Failed to Verify the Custom Domain",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -4535,6 +4537,7 @@
       "type": "object"
     },
     "directory_sync_completed": {
+      "description": "Directory synchronization has completed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -4667,6 +4670,7 @@
       "type": "object"
     },
     "directory_sync_failed": {
+      "description": "Directory synchronization has failed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -4836,6 +4840,7 @@
       "type": "object"
     },
     "directory_sync_started": {
+      "description": "Directory synchronization has started",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -9092,6 +9097,7 @@
       "type": "object"
     },
     "federated_logout_failed": {
+      "description": "Failed to logout of the upstream Identity Provider",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -11367,6 +11373,7 @@
       "type": "object"
     },
     "flows_execution_completed": {
+      "description": "Flows Execution Completed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -11558,6 +11565,7 @@
       "type": "object"
     },
     "flows_execution_failed": {
+      "description": "Flows Execution Failed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -11885,6 +11893,7 @@
       "type": "object"
     },
     "forms_submission_failed": {
+      "description": "Forms Submission Failed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -12076,6 +12085,7 @@
       "type": "object"
     },
     "forms_submission_succeeded": {
+      "description": "Forms Submission Succeeded",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -14180,6 +14190,7 @@
       "type": "object"
     },
     "gd_auth_email_verification": {
+      "description": "Email verification completed successfully",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -14658,6 +14669,7 @@
       "type": "object"
     },
     "gd_auth_succeed": {
+      "description": "Multi-factor authentication success.",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -15148,6 +15160,7 @@
       "type": "object"
     },
     "gd_recovery_succeed": {
+      "description": "Multi-factor recovery code succeeded authorization",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -15265,6 +15278,7 @@
       "type": "object"
     },
     "gd_send_email": {
+      "description": "MFA email sent successfully",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -15401,6 +15415,7 @@
       "type": "object"
     },
     "gd_send_email_verification": {
+      "description": "Verification email sent successfully",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -15754,6 +15769,7 @@
       "type": "object"
     },
     "gd_send_sms": {
+      "description": "SMS for MFA successfully sent.",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -15890,6 +15906,7 @@
       "type": "object"
     },
     "gd_send_sms_failure": {
+      "description": "SMS for MFA failed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16026,6 +16043,7 @@
       "type": "object"
     },
     "gd_send_voice": {
+      "description": "Voice call for MFA succeeded",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16143,6 +16161,7 @@
       "type": "object"
     },
     "gd_send_voice_failure": {
+      "description": "Voice call for MFA failed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16260,6 +16279,7 @@
       "type": "object"
     },
     "gd_start_auth": {
+      "description": "Second factor authentication event started for MFA.",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16385,6 +16405,7 @@
       "type": "object"
     },
     "gd_start_enroll": {
+      "description": "Multi-factor authentication enroll has started.",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16502,6 +16523,7 @@
       "type": "object"
     },
     "gd_start_enroll_failed": {
+      "description": "Multi-factor authentication enroll has failed",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16619,6 +16641,7 @@
       "type": "object"
     },
     "gd_tenant_update": {
+      "description": "Multi-factor tenant settings updated",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16736,6 +16759,7 @@
       "type": "object"
     },
     "gd_unenroll": {
+      "description": "Device used for second factor authentication has been unenrolled",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16853,6 +16877,7 @@
       "type": "object"
     },
     "gd_update_device_account": {
+      "description": "Device used for second factor authentication has been updated.",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -16970,6 +16995,7 @@
       "type": "object"
     },
     "gd_webauthn_challenge_failed": {
+      "description": "WebAuthn browser failure",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -17095,6 +17121,7 @@
       "type": "object"
     },
     "gd_webauthn_enrollment_failed": {
+      "description": "WebAuthn browser Enrollement Failure",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -19586,6 +19613,7 @@
       "type": "object"
     },
     "oidc_backchannel_logout_failed": {
+      "description": "Failed OIDC Back-Channel Logout request",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -19732,6 +19760,7 @@
       "type": "object"
     },
     "oidc_backchannel_logout_succeeded": {
+      "description": "Successful OIDC Back-Channel Logout request",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -20951,6 +20980,7 @@
       "type": "object"
     },
     "rich_consents_access_error": {
+      "description": "Error fetching a Rich Consent record",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -29378,6 +29408,7 @@
       "type": "object"
     },
     "universal_logout_failed": {
+      "description": "Failed Universal Logout request",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",
@@ -29504,6 +29535,7 @@
       "type": "object"
     },
     "universal_logout_succeeded": {
+      "description": "Successful Universal Logout request",
       "properties": {
         "$event_schema": {
           "description": "Event schema meta",

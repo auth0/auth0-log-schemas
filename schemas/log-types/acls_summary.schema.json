@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "Shows the summary of the network ACLs matches for a period of time",
   "properties": {
     "$event_schema": {
       "description": "Event schema meta",
