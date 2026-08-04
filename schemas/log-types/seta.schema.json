@@ -145,7 +145,10 @@
     },
     "identity_user_id": {
       "description": "ID for the user as reported by the IdP.",
-      "type": "string"
+      "type": [
+        "string",
+        "null"
+      ]
     },
     "ip": {
       "anyOf": [
