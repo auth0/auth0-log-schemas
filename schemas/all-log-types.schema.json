@@ -1395,6 +1395,9 @@
           "$ref": "#/definitions/si"
         },
         {
+          "$ref": "#/definitions/signup_pwd_leak"
+        },
+        {
           "$ref": "#/definitions/slo"
         },
         {
@@ -3228,6 +3231,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -3436,6 +3444,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -3612,6 +3625,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -3804,6 +3822,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -3973,6 +3996,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -4188,6 +4216,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -5184,6 +5217,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -5566,6 +5604,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -5975,6 +6018,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -6227,6 +6275,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -6781,6 +6834,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -7927,6 +7985,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -8466,6 +8529,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -8667,6 +8735,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -8860,6 +8933,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -9029,6 +9107,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -9500,6 +9583,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -9701,6 +9789,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -9899,6 +9992,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -10265,6 +10363,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -10483,6 +10586,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -10718,6 +10826,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -11323,6 +11436,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -11487,6 +11605,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -11682,6 +11805,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -11858,6 +11986,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -12007,6 +12140,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -12199,6 +12337,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -12404,6 +12547,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -12745,6 +12893,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -12948,6 +13101,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -13475,6 +13633,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -13886,6 +14049,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14116,6 +14284,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14258,6 +14431,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -14504,6 +14682,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14619,6 +14802,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -14740,6 +14928,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14855,6 +15048,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -14995,6 +15193,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15113,6 +15316,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15228,6 +15436,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15368,6 +15581,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15483,6 +15701,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15604,6 +15827,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15719,6 +15947,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15859,6 +16092,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15996,6 +16234,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16114,6 +16357,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16229,6 +16477,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -16358,6 +16611,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16473,6 +16731,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -16594,6 +16857,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16709,6 +16977,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -16830,6 +17103,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16945,6 +17223,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -17074,6 +17357,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -17197,6 +17485,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -19191,6 +19484,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -19386,6 +19684,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -19561,6 +19864,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -20181,6 +20489,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -20381,6 +20694,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -21308,6 +21626,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -21503,6 +21826,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -21669,6 +21997,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -21887,6 +22220,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -22062,6 +22400,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -22458,6 +22801,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -22825,6 +23173,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -23299,6 +23652,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -23554,6 +23912,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -24122,6 +24485,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -24342,6 +24710,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -24554,6 +24927,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -24750,6 +25128,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -25132,6 +25515,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -25325,6 +25713,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -25538,6 +25931,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -26286,6 +26684,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -26533,6 +26936,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -27011,6 +27419,141 @@
       ],
       "type": "object"
     },
+    "signup_pwd_leak": {
+      "description": "Someone behind the IP address ip attempted to signup with a leaked password",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date when the event occurred in ISO 8601 format",
+          "examples": [
+            "2024-01-15T10:30:00.000Z"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details"
+        },
+        "environment_name": {
+          "description": "The name of the environment where the event occurred",
+          "examples": [
+            "prod-eu-1",
+            "prod-us-1"
+          ],
+          "type": "string"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "is_mobile": {
+          "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+          "type": "boolean"
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "signup_pwd_leak",
+          "description": "Breached Password - Signup",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_name",
+        "description",
+        "environment_name",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
     "slo": {
       "description": "Successful Logout",
       "properties": {
@@ -27320,6 +27863,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -27700,6 +28248,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -28953,6 +29506,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -29173,6 +29731,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
