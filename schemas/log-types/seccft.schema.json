@@ -76,6 +76,10 @@
       ],
       "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
     },
+    "client_is_first_party": {
+      "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+      "type": "boolean"
+    },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
@@ -184,6 +188,11 @@
       "properties": {
         "correlation_id": {
           "description": "Correlation ID to trace related events across services.",
+          "maxLength": 128,
+          "type": "string"
+        },
+        "request_id": {
+          "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
           "maxLength": 128,
           "type": "string"
         },

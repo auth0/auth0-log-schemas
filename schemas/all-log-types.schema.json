@@ -283,6 +283,61 @@
       ],
       "type": "object"
     },
+    "FactorSettingsSnapshot": {
+      "description": "The MFA factor's OTP settings (code length and expiration time).",
+      "properties": {
+        "otp_expiration_time": {
+          "description": "The OTP expiration time in seconds.",
+          "maximum": 3600,
+          "minimum": 30,
+          "type": "number"
+        },
+        "otp_length": {
+          "description": "The length of the OTP code.",
+          "maximum": 10,
+          "minimum": 4,
+          "type": "number"
+        }
+      },
+      "required": [
+        "otp_length",
+        "otp_expiration_time"
+      ],
+      "type": "object"
+    },
+    "FactorSettingsUpdateDetails": {
+      "properties": {
+        "factor_update": {
+          "properties": {
+            "after": {
+              "description": "The factor settings after the update.",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FactorSettingsSnapshot"
+                }
+              ]
+            },
+            "before": {
+              "description": "The factor settings prior to the update.",
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FactorSettingsSnapshot"
+                }
+              ]
+            }
+          },
+          "required": [
+            "before",
+            "after"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "factor_update"
+      ],
+      "type": "object"
+    },
     "FlowsExecutionCompletedDetails": {
       "properties": {
         "execution_id": {
@@ -738,6 +793,55 @@
       ],
       "type": "string"
     },
+    "PublicJwk": {
+      "description": "Public members of a JSON Web Key, mirroring the public JWK contract stored and returned by the consents API (EC or RSA). Only public key material is ever logged — private components (`d`, `p`, `q`, `dp`, `dq`, `qi`, `k`) are deliberately absent so they cannot leak into tenant logs.",
+      "properties": {
+        "alg": {
+          "description": "Algorithm the key is used with, e.g. `ES256`, `RS256`, `PS256`",
+          "type": "string"
+        },
+        "crv": {
+          "description": "Curve for EC keys, e.g. `P-256`",
+          "type": "string"
+        },
+        "e": {
+          "description": "base64url public exponent (RSA)",
+          "type": "string"
+        },
+        "key_ops": {
+          "description": "Permitted key operations",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "kid": {
+          "description": "Key identifier",
+          "type": "string"
+        },
+        "kty": {
+          "description": "Key type, e.g. `EC` or `RSA`",
+          "type": "string"
+        },
+        "n": {
+          "description": "base64url modulus (RSA)",
+          "type": "string"
+        },
+        "use": {
+          "description": "Intended use of the key, e.g. `sig`",
+          "type": "string"
+        },
+        "x": {
+          "description": "base64url x coordinate (EC)",
+          "type": "string"
+        },
+        "y": {
+          "description": "base64url y coordinate (EC)",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "RefreshTokenDetails": {
       "description": "Details about the refresh token involved in a token exchange or revocation event. Present for both Online Refresh Tokens and regular (offline) refresh tokens.",
       "properties": {
@@ -1161,10 +1265,16 @@
           "$ref": "#/definitions/gd_auth_succeed"
         },
         {
+          "$ref": "#/definitions/gd_email_settings_update"
+        },
+        {
           "$ref": "#/definitions/gd_enrollment_complete"
         },
         {
           "$ref": "#/definitions/gd_otp_rate_limit_exceed"
+        },
+        {
+          "$ref": "#/definitions/gd_phone_settings_update"
         },
         {
           "$ref": "#/definitions/gd_recovery_failed"
@@ -1393,6 +1503,9 @@
         },
         {
           "$ref": "#/definitions/si"
+        },
+        {
+          "$ref": "#/definitions/signup_pwd_leak"
         },
         {
           "$ref": "#/definitions/slo"
@@ -2489,6 +2602,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -2654,6 +2771,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -3228,6 +3349,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -3436,6 +3562,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -3612,6 +3743,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -3804,6 +3940,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -3973,6 +4114,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -4188,6 +4334,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -4999,6 +5150,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -5184,6 +5339,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -5328,6 +5488,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -5566,6 +5730,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -5869,6 +6038,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -5972,6 +6145,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -6227,6 +6405,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -6781,6 +6964,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -7826,6 +8014,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -7924,6 +8116,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -8033,6 +8230,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -8380,6 +8581,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -8463,6 +8668,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -8588,6 +8798,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -8664,6 +8878,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -8787,6 +9006,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -8857,6 +9080,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -8959,6 +9187,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -9029,6 +9261,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -9251,6 +9488,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -9426,6 +9667,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -9497,6 +9742,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -9627,6 +9877,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -9698,6 +9952,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -9832,6 +10091,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -9899,6 +10162,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -10028,6 +10296,10 @@
             }
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -10191,6 +10463,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -10262,6 +10538,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -10396,6 +10677,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -10483,6 +10768,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -10618,6 +10908,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -10718,6 +11012,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -10824,6 +11123,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -11229,6 +11532,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -11320,6 +11627,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -11487,6 +11799,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -11682,6 +11999,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -11858,6 +12180,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -12007,6 +12334,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -12202,6 +12534,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -12296,6 +12633,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -12404,6 +12745,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -12745,6 +13091,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -12837,6 +13188,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -12948,6 +13303,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -13075,6 +13435,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -13384,6 +13748,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -13472,6 +13840,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -13886,6 +14259,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14116,6 +14494,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14258,6 +14641,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -14504,6 +14892,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14619,6 +15012,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -14740,6 +15138,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -14754,6 +15157,129 @@
         },
         "type": {
           "const": "gd_auth_succeed",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "environment_name",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "gd_email_settings_update": {
+      "description": "Email factor settings were updated",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "date": {
+          "description": "The date when the event occurred in ISO 8601 format",
+          "examples": [
+            "2024-01-15T10:30:00.000Z"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/FactorSettingsUpdateDetails"
+            }
+          ]
+        },
+        "environment_name": {
+          "description": "The name of the environment where the event occurred",
+          "examples": [
+            "prod-eu-1",
+            "prod-us-1"
+          ],
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "is_mobile": {
+          "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+          "type": "boolean"
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "gd_email_settings_update",
           "type": "string"
         },
         "user_agent": {
@@ -14855,6 +15381,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -14995,6 +15526,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15009,6 +15545,129 @@
         },
         "type": {
           "const": "gd_otp_rate_limit_exceed",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "details",
+        "environment_name",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
+    "gd_phone_settings_update": {
+      "description": "Phone (SMS) factor settings were updated",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "date": {
+          "description": "The date when the event occurred in ISO 8601 format",
+          "examples": [
+            "2024-01-15T10:30:00.000Z"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/FactorSettingsUpdateDetails"
+            }
+          ]
+        },
+        "environment_name": {
+          "description": "The name of the environment where the event occurred",
+          "examples": [
+            "prod-eu-1",
+            "prod-us-1"
+          ],
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "is_mobile": {
+          "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+          "type": "boolean"
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "gd_phone_settings_update",
           "type": "string"
         },
         "user_agent": {
@@ -15110,6 +15769,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15228,6 +15892,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15368,6 +16037,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15483,6 +16157,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15604,6 +16283,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15719,6 +16403,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -15859,6 +16548,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -15996,6 +16690,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16114,6 +16813,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16229,6 +16933,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -16358,6 +17067,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16473,6 +17187,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -16594,6 +17313,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16709,6 +17433,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -16830,6 +17559,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -16945,6 +17679,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -17074,6 +17813,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -17200,6 +17944,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -17296,6 +18045,10 @@
             }
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -17491,6 +18244,10 @@
             }
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -17696,6 +18453,10 @@
             }
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -19191,6 +19952,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -19386,6 +20152,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -19561,6 +20332,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -20181,6 +20957,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -20384,6 +21165,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -20549,6 +21335,27 @@
         "log_id": {
           "description": "Log id",
           "type": "string"
+        },
+        "references": {
+          "description": "References for correlating related events across services and stitching them into distributed traces.",
+          "properties": {
+            "correlation_id": {
+              "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "trace_id": {
+              "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
+              "pattern": "^[a-f0-9]{32}$",
+              "type": "string"
+            }
+          },
+          "type": "object"
         },
         "tenant_name": {
           "description": "Tenant name",
@@ -21125,6 +21932,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -21305,6 +22116,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -21503,6 +22319,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -21672,6 +22493,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -21781,6 +22607,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -21884,6 +22714,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -22062,6 +22897,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -22458,6 +23298,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -22828,6 +23673,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -23101,6 +23951,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -23299,6 +24153,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -23441,6 +24300,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -23557,6 +24420,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -23660,6 +24528,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -24021,6 +24893,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -24119,6 +24995,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -24245,6 +25126,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -24339,6 +25224,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -24462,6 +25352,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -24551,6 +25445,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -24670,6 +25569,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -24750,6 +25653,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -24868,6 +25776,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -25054,6 +25966,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -25129,6 +26045,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -25259,6 +26180,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -25325,6 +26250,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -25459,6 +26389,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -25538,6 +26472,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -25667,6 +26606,10 @@
             }
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -25856,6 +26799,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -26044,6 +26991,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -26217,6 +27168,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -26283,6 +27238,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -26417,6 +27377,10 @@
           ],
           "description": "The IP from which we got the request. Note that this does not follow forwarded-for headers unlike the `ip` field which aims at describing the IP of the end user."
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -26536,6 +27500,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -26638,6 +27607,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -27011,6 +27984,141 @@
       ],
       "type": "object"
     },
+    "signup_pwd_leak": {
+      "description": "Someone behind the IP address ip attempted to signup with a leaked password",
+      "properties": {
+        "$event_schema": {
+          "description": "Event schema meta",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SchemaMeta"
+            }
+          ]
+        },
+        "client_id": {
+          "description": "Client related to the API call. Clients are also called applications. The underlying application may not be owned by your tenant and may not be accessible. For failure logs, this may be a valid ID, an invalid one, or any ID.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "client_name": {
+          "description": "Client name associated with the client_id, when available. May be empty string.",
+          "type": "string"
+        },
+        "connection": {
+          "description": "Name of the connection, when available. The connection here matches the `connection_id` field.",
+          "type": "string"
+        },
+        "connection_id": {
+          "description": "ID of the connection on which the auth flow is happening or connection of the user doing the action, when applicable. For failure logs this field may contain an invalid ID.",
+          "type": "string"
+        },
+        "date": {
+          "description": "The date when the event occurred in ISO 8601 format",
+          "examples": [
+            "2024-01-15T10:30:00.000Z"
+          ],
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the event. This can also contain a description of the issue for failure logs.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Log details"
+        },
+        "environment_name": {
+          "description": "The name of the environment where the event occurred",
+          "examples": [
+            "prod-eu-1",
+            "prod-us-1"
+          ],
+          "type": "string"
+        },
+        "hostname": {
+          "description": "The hostname associated with the request. For forwarded requests, this should resolve to the original hostname. For failure logs, this may include invalid hostnames.",
+          "type": "string"
+        },
+        "identity_user_id": {
+          "description": "ID for the user as reported by the IdP.",
+          "type": "string"
+        },
+        "ip": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/IPV4"
+            },
+            {
+              "$ref": "#/definitions/IPV6"
+            }
+          ],
+          "description": "The IP address associated with the request. For an auth related log this should be the end user IP. For a machine-to-machine auth flow this should be the IP of the computer doing the authentication. For management logs like `sapi` and `mgmt_api_read` this should be the IP of the admin using the manage dashboard."
+        },
+        "is_mobile": {
+          "description": "Whether the request originated from a mobile device. Only present when user_agent is available.",
+          "type": "boolean"
+        },
+        "log_id": {
+          "description": "Log id",
+          "type": "string"
+        },
+        "security_context": {
+          "properties": {
+            "ja3": {
+              "description": "JA3 fingerprint. Could be undefined.",
+              "type": "string"
+            },
+            "ja4": {
+              "description": "JA4 fingerprint. Could be undefined.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        },
+        "tenant_name": {
+          "description": "Tenant name",
+          "type": "string"
+        },
+        "type": {
+          "const": "signup_pwd_leak",
+          "description": "Breached Password - Signup",
+          "type": "string"
+        },
+        "user_agent": {
+          "description": "The user_agent behind this log, when available",
+          "examples": [
+            "Chrome 120.0.0 / Mac OS X 10.15.7"
+          ],
+          "type": "string"
+        },
+        "user_id": {
+          "description": "ID of the user behind the auth flow, or of the user executing the action, whichever applies. For machine to machine auth flows, this field may contain an empty string. For failure logs, the value may be a valid ID, an invalid ID, or empty string",
+          "type": "string"
+        },
+        "user_name": {
+          "description": "Username of the user related to the ID is shown in `user_id`, when available. For failure logs, the value may be a valid username, an invalid username, or empty string.",
+          "examples": [
+            [
+              "example@example.com",
+              "+14155554321"
+            ]
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "client_name",
+        "description",
+        "environment_name",
+        "hostname",
+        "ip",
+        "log_id",
+        "tenant_name",
+        "type"
+      ],
+      "type": "object"
+    },
     "slo": {
       "description": "Successful Logout",
       "properties": {
@@ -27043,6 +28151,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -27323,6 +28435,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -27407,6 +28524,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -27700,6 +28821,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
@@ -28220,6 +29346,10 @@
             "null"
           ]
         },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
+        },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
           "type": "string"
@@ -28561,6 +29691,10 @@
             "string",
             "null"
           ]
+        },
+        "client_is_first_party": {
+          "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+          "type": "boolean"
         },
         "client_name": {
           "description": "Client name associated with the client_id, when available. May be empty string.",
@@ -28953,6 +30087,11 @@
               "maxLength": 128,
               "type": "string"
             },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
+              "maxLength": 128,
+              "type": "string"
+            },
             "trace_id": {
               "description": "W3C trace ID (hex) to correlate this event with a distributed trace.",
               "pattern": "^[a-f0-9]{32}$",
@@ -29173,6 +30312,11 @@
           "properties": {
             "correlation_id": {
               "description": "Correlation ID to trace related events across services.",
+              "maxLength": 128,
+              "type": "string"
+            },
+            "request_id": {
+              "description": "Per-request identifier assigned by the originating service, used to tie this event back to a single inbound request.",
               "maxLength": 128,
               "type": "string"
             },
