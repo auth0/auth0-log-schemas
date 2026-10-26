@@ -59,6 +59,10 @@
         "null"
       ]
     },
+    "client_is_first_party": {
+      "description": "Whether the client in `client_id` is a first-party application (controlled by the tenant owner), as configured when the event was logged. Present when the client can be resolved in this tenant. For failure logs, the client may not have authenticated.",
+      "type": "boolean"
+    },
     "client_name": {
       "description": "Client name associated with the client_id, when available. May be empty string.",
       "type": "string"
