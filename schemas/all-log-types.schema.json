@@ -283,6 +283,10 @@
       ],
       "type": "object"
     },
+    "Date": {
+      "description": "Represents a date in string format. ISO 8601: The standard format for representing date and time, with the order of elements being year, month, day, hour, minutes, seconds, and milliseconds. For example, September 27, 2022 at 6 PM is represented as 2022-09-27 18:00:00.000",
+      "type": "string"
+    },
     "FactorSettingsSnapshot": {
       "description": "The MFA factor's OTP settings (code length and expiration time).",
       "properties": {
