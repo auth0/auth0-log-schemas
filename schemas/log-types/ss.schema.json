@@ -434,6 +434,11 @@
           },
           "type": "array"
         },
+        "resource_server_type": {
+          "const": "universal_commerce_protocol_server",
+          "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+          "type": "string"
+        },
         "riskAssessment": {
           "properties": {
             "assessments": {
