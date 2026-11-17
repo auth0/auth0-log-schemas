@@ -97,7 +97,7 @@
           "type": "string"
         },
         "actor": {
-          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller).",
+          "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller). Each level may carry `iss`, the issuer of that level's `sub`, to distinguish tenant-issued actors from those of other issuers.",
           "properties": {
             "act": {
               "anyOf": [
@@ -115,6 +115,13 @@
                                       "anyOf": [
                                         {
                                           "properties": {
+                                            "iss": {
+                                              "description": "Issuer of this actor's `sub`.",
+                                              "type": [
+                                                "string",
+                                                "null"
+                                              ]
+                                            },
                                             "sub": {
                                               "type": [
                                                 "string",
@@ -127,6 +134,13 @@
                                         {
                                           "type": "null"
                                         }
+                                      ]
+                                    },
+                                    "iss": {
+                                      "description": "Issuer of this actor's `sub`.",
+                                      "type": [
+                                        "string",
+                                        "null"
                                       ]
                                     },
                                     "sub": {
@@ -143,6 +157,13 @@
                                 }
                               ]
                             },
+                            "iss": {
+                              "description": "Issuer of this actor's `sub`.",
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
                             "sub": {
                               "type": [
                                 "string",
@@ -155,6 +176,13 @@
                         {
                           "type": "null"
                         }
+                      ]
+                    },
+                    "iss": {
+                      "description": "Issuer of this actor's `sub`.",
+                      "type": [
+                        "string",
+                        "null"
                       ]
                     },
                     "sub": {
@@ -171,6 +199,13 @@
                 }
               ]
             },
+            "iss": {
+              "description": "Issuer of this actor's `sub`.",
+              "type": [
+                "string",
+                "null"
+              ]
+            },
             "sub": {
               "type": [
                 "string",
@@ -183,14 +218,19 @@
         "requested_token_type": {
           "type": "string"
         },
+        "resource_server_type": {
+          "const": "universal_commerce_protocol_server",
+          "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+          "type": "string"
+        },
         "subject_token_type": {
           "type": "string"
         }
       },
       "required": [
-        "subject_token_type",
+        "actor",
         "requested_token_type",
-        "actor"
+        "subject_token_type"
       ],
       "type": "object"
     },
