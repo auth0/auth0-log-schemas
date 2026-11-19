@@ -871,6 +871,16 @@
       ],
       "type": "string"
     },
+    "ResourceServerTypeDetails": {
+      "properties": {
+        "resource_server_type": {
+          "const": "universal_commerce_protocol_server",
+          "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
     "RiskAssessment": {
       "properties": {
         "assessments": {
@@ -2805,6 +2815,11 @@
           "description": "Log details",
           "properties": {
             "notification_channel": {
+              "type": "string"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
               "type": "string"
             },
             "transaction_linking_id": {
@@ -22293,6 +22308,11 @@
               "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
               "type": "string"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -22943,6 +22963,11 @@
                 "$ref": "#/definitions/AuthPrompt"
               },
               "type": "array"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
             },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
@@ -24324,6 +24349,11 @@
               "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
               "type": "string"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -24870,6 +24900,11 @@
               },
               "type": "array"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -25220,6 +25255,11 @@
             },
             "requested_client_id": {
               "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
+              "type": "string"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
               "type": "string"
             }
           },
@@ -25674,6 +25714,11 @@
             "actor": {
               "$ref": "#/definitions/Actor"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "subject_token_type": {
               "type": "string"
             }
@@ -25887,6 +25932,11 @@
           "properties": {
             "access_token_jti": {
               "type": "string"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -26096,6 +26146,11 @@
             "access_token_jti": {
               "type": "string"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "subject_token_type": {
               "type": "string"
             }
@@ -26284,6 +26339,11 @@
           "properties": {
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
             }
           },
           "required": [
@@ -26494,7 +26554,12 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceServerTypeDetails"
+            }
+          ]
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -26710,6 +26775,11 @@
             },
             "actions": {
               "$ref": "#/definitions/ActionExecutions"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
             }
           },
           "type": "object"
@@ -26921,7 +26991,12 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceServerTypeDetails"
+            }
+          ]
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -27113,7 +27188,12 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceServerTypeDetails"
+            }
+          ]
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -27305,7 +27385,12 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceServerTypeDetails"
+            }
+          ]
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -27482,7 +27567,12 @@
           "type": "string"
         },
         "details": {
-          "description": "Log details"
+          "description": "Log details",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceServerTypeDetails"
+            }
+          ]
         },
         "environment_name": {
           "description": "The name of the environment where the event occurred",
@@ -27723,6 +27813,11 @@
             },
             "requested_scope": {
               "description": "The scope requested during refresh token exchange, distinct from root-level scope which represents the issued scope",
+              "type": "string"
+            },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
               "type": "string"
             },
             "tokenCounter": {
@@ -29040,6 +29135,11 @@
               },
               "type": "array"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -29675,6 +29775,11 @@
               },
               "type": "array"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "riskAssessment": {
               "$ref": "#/definitions/RiskAssessment"
             },
@@ -30017,14 +30122,19 @@
             "requested_token_type": {
               "type": "string"
             },
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            },
             "subject_token_type": {
               "type": "string"
             }
           },
           "required": [
-            "subject_token_type",
+            "actor",
             "requested_token_type",
-            "actor"
+            "subject_token_type"
           ],
           "type": "object"
         },

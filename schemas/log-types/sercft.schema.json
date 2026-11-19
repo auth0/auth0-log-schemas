@@ -70,7 +70,19 @@
       "type": "string"
     },
     "details": {
-      "description": "Log details"
+      "description": "Log details",
+      "allOf": [
+        {
+          "properties": {
+            "resource_server_type": {
+              "const": "universal_commerce_protocol_server",
+              "description": "Type of the resource server (API) targeted by the login, signup, or token request in this event. Present only when the resource server is a Universal Commerce Protocol (UCP) server.",
+              "type": "string"
+            }
+          },
+          "type": "object"
+        }
+      ]
     },
     "environment_name": {
       "description": "The name of the environment where the event occurred",
