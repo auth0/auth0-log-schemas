@@ -18,7 +18,7 @@
       "type": "object"
     },
     "Actor": {
-      "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller).",
+      "description": "Identifies and provides information about the acting party to whom authority has been delegated when an entity is acting on behalf of another. Nested `act` claim represents delegation chains (deepest = original caller). Each level may carry `iss`, the issuer of that level's `sub`, to distinguish tenant-issued actors from those of other issuers.",
       "properties": {
         "act": {
           "anyOf": [
@@ -36,6 +36,13 @@
                                   "anyOf": [
                                     {
                                       "properties": {
+                                        "iss": {
+                                          "description": "Issuer of this actor's `sub`.",
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
                                         "sub": {
                                           "type": [
                                             "string",
@@ -48,6 +55,13 @@
                                     {
                                       "type": "null"
                                     }
+                                  ]
+                                },
+                                "iss": {
+                                  "description": "Issuer of this actor's `sub`.",
+                                  "type": [
+                                    "string",
+                                    "null"
                                   ]
                                 },
                                 "sub": {
@@ -64,6 +78,13 @@
                             }
                           ]
                         },
+                        "iss": {
+                          "description": "Issuer of this actor's `sub`.",
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
                         "sub": {
                           "type": [
                             "string",
@@ -78,6 +99,13 @@
                     }
                   ]
                 },
+                "iss": {
+                  "description": "Issuer of this actor's `sub`.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
                 "sub": {
                   "type": [
                     "string",
@@ -90,6 +118,13 @@
             {
               "type": "null"
             }
+          ]
+        },
+        "iss": {
+          "description": "Issuer of this actor's `sub`.",
+          "type": [
+            "string",
+            "null"
           ]
         },
         "sub": {
