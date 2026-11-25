@@ -130,6 +130,10 @@
           ],
           "type": "string"
         },
+        "familyId": {
+          "description": "The rotating refresh token family ID. Only set when the token signature is valid.",
+          "type": "string"
+        },
         "policy_used": {
           "description": "The refresh token policy type that was matched during the token exchange",
           "allOf": [
@@ -163,6 +167,10 @@
         "requested_client_id": {
           "description": "The client_id from the request. The actual client_id will appear in the top level client_id property.",
           "type": "string"
+        },
+        "tokenCounter": {
+          "description": "The counter of the rotating refresh token that was sent. Only set when the token signature is valid.",
+          "type": "number"
         }
       },
       "type": "object"
